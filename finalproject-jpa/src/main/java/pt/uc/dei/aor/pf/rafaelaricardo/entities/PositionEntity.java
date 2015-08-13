@@ -49,7 +49,7 @@ public class PositionEntity implements Serializable {
 	private String title;
 
 	@Enumerated(EnumType.STRING)
-	private List<Location> locations = new ArrayList<>();
+	private Location location;
 
 	@Enumerated(EnumType.STRING)
 	private PositionStatus positionStatus;
@@ -120,12 +120,12 @@ public class PositionEntity implements Serializable {
 		this.title = title;
 	}
 
-	public List<Location> getLocations() {
-		return locations;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setLocations(List<Location> locations) {
-		this.locations = locations;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	public PositionStatus getPositionStatus() {
