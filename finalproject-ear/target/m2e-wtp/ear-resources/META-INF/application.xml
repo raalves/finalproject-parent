@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC
+	"-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+	"http://java.sun.com/dtd/application_1_3.dtd">
+<application>
+  <display-name>finalproject-ear</display-name>
+  <module id="WAR_pt.uc.dei.aor.pf.rafaelaricardo.finalproject-web">
+    <web>
+      <web-uri>finalproject-web-1.war</web-uri>
+      <context-root>/finalproject-web</context-root>
+    </web>
+  </module>
+  <module id="EJB_pt.uc.dei.aor.pf.rafaelaricardo.finalproject-ejb">
+    <ejb>finalproject-ejb-1.jar</ejb>
+  </module>
+</application>

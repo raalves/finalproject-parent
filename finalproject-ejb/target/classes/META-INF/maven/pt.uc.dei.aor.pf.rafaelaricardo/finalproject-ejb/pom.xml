@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>pt.uc.dei.aor.pf.rafaelaricardo</groupId>
+		<artifactId>finalproject-parent</artifactId>
+		<version>1</version>
+	</parent>
+	<artifactId>finalproject-ejb</artifactId>
+	<packaging>ejb</packaging>
+	
+	<name>finalproject-ejb</name>
+	<description>EJB service layer</description>
+	
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>pt.uc.dei.aor.pf.rafaelaricardo</groupId>
+			<artifactId>finalproject-jpa</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+	</dependencies>
+</project>
