@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+
+
+	<ui:composition>
+
+		<div class="image" style="position: relative; top: 0px; left: 0px">
+<h:graphicImage library="images" name="Bar_Critical.png" style="width:100%;height:100%;"/>
+
+
+			<div style="position: absolute; top: 25px; left: 20px;">
+				<h:link outcome="/login">
+					<h:graphicImage library="images" name="CriticalSoftware.png" />
+				</h:link>
+			</div>
+		</div>
+		<p:separator />
+	</ui:composition>
+
+</h:body>
+</html>

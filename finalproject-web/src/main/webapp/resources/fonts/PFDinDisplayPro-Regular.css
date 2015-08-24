@@ -1,0 +1,12 @@
+/* Webfont: PFDinDisplayPro-Regular */@font-face {
+    font-family: 'PFDinDisplayPro';
+    src: url('PFDinDisplayPro-Regular.eot'); /* IE9 Compat Modes */
+    src: url('PFDinDisplayPro-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('PFDinDisplayPro-Regular.woff') format('woff'), /* Modern Browsers */
+         url('PFDinDisplayPro-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+         url('PFDinDisplayPro-Regular.svg#PFDinDisplayPro-Regular') format('svg'), /* Legacy iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+

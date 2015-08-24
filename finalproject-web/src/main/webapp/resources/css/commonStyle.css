@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+@import "../resources/fonts/styles.css";
+
+@import "../resources/fonts/PFDinDisplayPro-Thin.css";
+
+@import "../resources/fonts/PFDinDisplayPro-Light.css";
+
+@import "../resources/fonts/PFDinDisplayPro-Regular.css";
+
+@import "../resources/fonts/PFDinDisplayPro-Medium.css";
+
+body {
+	font-family: "PFDinDisplayProLight", Georgia;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #766a62;
+	background-color: #fff;
+	text-align: center;
+	display: block;
+}
+
+.container {
+	max-width: 1080px;
+	min-width: 1020px;
+	border: 2px solid;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.header {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 10px;
+}
+
+.top {
+	padding:10px;
+	height: 50px;
+	
+	border: solid 2px;
+	margin-bottom: 20px;
+}
+
+.content {
+	padding:10px;
+	height: 400px;
+	margin-bottom: 20px;
+	border: solid 2px;
+}
+
+.footer {
+	font-family: "PFDinDisplayProThin", Georgia;
+	width: inherit;
+	height: 10px;
+	position: relative;
+	font-size: 100%;
+	text-align: center;
+	vertical-align: middle;
+	margin-bottom:10px;
+}
+/* header { */
+/* 	/*background-image: url("../resources/images/Bar_Critical.png"); */
+/* 	*/
+*
+/
+/* 	width:100%; */
+/* 	height: auto; */
+/* 	margin-top: 15px; */
+/* 	border: solid 2px; */
+/* 	display: block; */
+/* } */
+/*header>div {
+	display: block;
+	margin-left: 8px;
+}*/
+
+/* body { */
+/* 	position: relative; */
+/* 	background-image: url("../resources/images/image2.jpg"); */
+/* 	background-repeat: no-repeat; */
+/* 	background-size: 100% 100%; */
+/* 	background-attachment: fixed; */
+/* 	text-align: center;	 */
+/* 	min-width: 1350px; */
+/* 	font-family: cursive; */
+/* 	margin: 0px; */
+/* } */
+
+/* .header { */
+/* 	text-align: center; */
+
+/* 	  padding-bottom: 10px; */
+/*   padding-top: 15px; */
+/* 	color: white; */
+/* 	font-family: cursive; */
+/* 	font-weight: bolder; */
+/* 	font-size: 30px; */
+/* 		display: -webkit-inline-box; */
+/*   display: -moz-inline-box; */
+/*   display:inline-block; */
+/* } */
+
+/* /* .header { */
+/* 	  text-align: center; */
+/*   padding-bottom: 5px; */
+/*   color: white; */
+/*   font-family: cursive; */
+/*   font-weight: bolder; */
+/*   font-size: 30px; */
+/* 	display: -webkit-inline-box; */
+/*   display: -moz-inline-box; */
+/*   display:inline-block; */
+/* } */
+
+
+
+
+*
+/
+
+/* .entry{ */
+/* 	 text-align:center; */
+/* } */
+/* .header2 { */
+/* 	  text-align: center; */
+/*   color: white; */
+/*   font-family: cursive; */
+/*   font-weight: bolder; */
+/*   font-size: 25px; */
+/*   	display: -webkit-inline-box; */
+/*   display: -moz-inline-box; */
+/*   display:inline-block; */
+/* } */
+
+/* .bartext{ */
+/* 	display: -webkit-inline-box; */
+/*   display: -moz-inline-box; */
+/*   display:inline-block; */
+/*   font-size: 20px; */
+
+/* } */
+
+/* .buttonLogin {	 */
+/*   -webkit-border-radius: 11; */
+/*   -moz-border-radius: 11; */
+/*   border-radius: 11px; */
+/*   font-family: Arial; */
+/*   color: #ffffff; */
+/*   font-size: 20px; */
+/*   background: gray; */
+/*   padding: 5px 10px 5px 10px; */
+/*   text-decoration: none; */
+/* } */
+
+/* .button{ */
+/* 	  -webkit-border-radius: 11; */
+/*   -moz-border-radius: 11; */
+/*   border-radius: 11px; */
+/*   font-family: Arial; */
+/*   color: #ffffff; */
+/*   font-size: 20px; */
+/*   background: #4b4b4b; */
+
+/*   padding: 3px 8px 3px 8px; */
+/*   text-decoration: none; */
+/* } */
