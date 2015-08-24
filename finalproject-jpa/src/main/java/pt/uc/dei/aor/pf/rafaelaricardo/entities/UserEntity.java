@@ -10,15 +10,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,26 +33,33 @@ public class UserEntity implements Serializable {
 
 	private UserEntity creator;
 
-	@NotNull @NotBlank
-	@Column(nullable = false, length = 50)
+	@NotNull
+	@NotBlank
+	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
-	@NotNull @NotBlank
-	@Column(nullable = false, length = 50)
+	@NotNull
+	@NotBlank
+	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
-	@NotNull @NotBlank @Email
+	@NotNull
+	@NotBlank
+	@Email
 	@Column(nullable = false, unique = true, length = 255)
 	private String email;
 
-	@NotNull @NotBlank
+	@NotNull
+	@NotBlank
 	@Column(nullable = false, length = 50)
 	private String password;
 
 	@ManyToMany
+	@JoinTable(name = "user_realizes_interview", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "interview_id"))
 	private List<InterviewEntity> interviews = new ArrayList<>();
 
 	@ManyToMany
+	@JoinTable(name = "user_acts_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles = new ArrayList<>();
 
 	@OneToMany(mappedBy = "adminCreator", cascade = CascadeType.ALL)
@@ -61,7 +71,23 @@ public class UserEntity implements Serializable {
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	private List<GuideEntity> guidesCreated = new ArrayList<>();
 
+	// ************************ CONSTRUCTORS *************************
+
+	public UserEntity() {
+		super();
+	}
+
+	public UserEntity(String firstName, String lastName, String email,
+			String password) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+	}
+
 	// *************************** METHODS ***************************
+
 	public Long getId() {
 		return id;
 	}

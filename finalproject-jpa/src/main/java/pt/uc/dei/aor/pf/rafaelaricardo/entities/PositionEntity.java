@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,9 +15,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
@@ -46,40 +51,96 @@ public class PositionEntity implements Serializable {
 	@JoinColumn(name = "guide_id", nullable = false)
 	private GuideEntity guide;
 
+	@NotNull
+	@NotBlank
+	@Column(nullable = false)
 	private String title;
 
+	@NotNull
+	@NotBlank
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Location location;
 
+	@NotNull
+	@NotBlank
+	@Column(name = "position_status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PositionStatus positionStatus;
 
+	@NotNull
+	@NotBlank
+	@Column(nullable = false)
 	private int quantity;
 
+	@NotNull
+	@NotBlank
+	@Column(nullable = false)
 	private String company;
 
-	@Enumerated(EnumType.STRING)
+	@NotNull
+	@NotBlank
 	@Column(name = "technical_area", nullable = false)
+	@Enumerated(EnumType.STRING)
 	private TechnicalArea technicalArea;
 
+	@NotNull
+	@NotBlank
+	@Column(nullable = false)
 	private String description;
 
+	@NotNull
+	@NotBlank
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Source source;
 
+	@NotNull
+	@NotBlank
 	@Temporal(TemporalType.DATE)
 	@Column(name = "openning_date", nullable = false)
 	private Date openningDate;
 
+	@NotNull
+	@NotBlank
 	@Temporal(TemporalType.DATE)
 	@Column(name = "closing_date", nullable = false)
 	private Date closingDate;
 
+	@NotNull
+	@NotBlank
+	@Column(nullable = false)
 	private int sla;
 
+	@OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
 	private List<CandidatureEntity> candidatures = new ArrayList<>();
 
+	// ************************ CONSTRUCTORS *************************
+
+	public PositionEntity() {
+		super();
+	}
+
+	public PositionEntity(String title, Location location,
+			PositionStatus positionStatus, int quantity, String company,
+			TechnicalArea technicalArea, String description, Source source,
+			Date openningDate, Date closingDate, int sla) {
+		super();
+		this.title = title;
+		this.location = location;
+		this.positionStatus = positionStatus;
+		this.quantity = quantity;
+		this.company = company;
+		this.technicalArea = technicalArea;
+		this.description = description;
+		this.source = source;
+		this.openningDate = openningDate;
+		this.closingDate = closingDate;
+		this.sla = sla;
+	}
+
 	// *************************** METHODS ***************************
+
 	public Long getId() {
 		return id;
 	}
