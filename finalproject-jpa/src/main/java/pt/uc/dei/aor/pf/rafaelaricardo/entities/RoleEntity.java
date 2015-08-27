@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,9 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 
 @Entity
 @Table(name = "role")
+@NamedQueries({
+		@NamedQuery(name = "RoleEntity.findRoleById", query = "SELECT r FROM RoleEntity r WHERE r.id = :id"),
+		@NamedQuery(name = "RoleEntity.findRoleByName", query = "SELECT r FROM RoleEntity r WHERE r.role = :role") })
 public class RoleEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;;
@@ -111,6 +116,11 @@ public class RoleEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "RoleEntity [id=" + id + ", role=" + role + "]";
 	}
 
 }

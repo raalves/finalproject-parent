@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,6 +32,22 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
 @Entity
 @Table(name = "position")
+@NamedQueries({
+	@NamedQuery(name = "PositionEntity.findPositionById", query = "SELECT p FROM PositionEntity p WHERE p.id = :id"),
+	@NamedQuery(name = "PositionEntity.findPositionByTitle", query = "SELECT p FROM PositionEntity p WHERE p.title = :title"),
+	@NamedQuery(name = "PositionEntity.findPositionByAdminCreator", query = "SELECT p FROM PositionEntity p WHERE p.adminCreator = :adminCreator"),
+	@NamedQuery(name = "PositionEntity.findPositionByManager", query = "SELECT p FROM PositionEntity p WHERE p.manager = :manager"),
+	@NamedQuery(name = "PositionEntity.findPositionByGuide", query = "SELECT p FROM PositionEntity p WHERE p.guide = :guide"),
+	@NamedQuery(name = "PositionEntity.findPositionByLocation", query = "SELECT p FROM PositionEntity p WHERE p.location = :location"),
+	@NamedQuery(name = "PositionEntity.findPositionByPositionStatus", query = "SELECT p FROM PositionEntity p WHERE p.positionStatus = :positionStatus"),
+	@NamedQuery(name = "PositionEntity.findPositionByQuantity", query = "SELECT p FROM PositionEntity p WHERE p.quantity = :quantity"),
+	@NamedQuery(name = "PositionEntity.findPositionByCompany", query = "SELECT p FROM PositionEntity p WHERE p.company = :company"),
+	@NamedQuery(name = "PositionEntity.findPositionByTechnicalArea", query = "SELECT p FROM PositionEntity p WHERE p.technicalArea = :technicalArea"),
+	@NamedQuery(name = "PositionEntity.findPositionBySource", query = "SELECT p FROM PositionEntity p WHERE p.source = :source"),
+	@NamedQuery(name = "PositionEntity.findPositionByOpenningDate", query = "SELECT p FROM PositionEntity p WHERE p.openningDate = :openningDate"),
+	@NamedQuery(name = "PositionEntity.findPositionByClosingDate", query = "SELECT p FROM PositionEntity p WHERE p.closingDate = :closingDate"),
+	@NamedQuery(name = "PositionEntity.findPositionBySLA", query = "SELECT p FROM PositionEntity p WHERE p.sla = :sla"),
+	@NamedQuery(name = "PositionEntity.findAllByIdOrder", query = "SELECT u FROM PositionEntity u ORDER BY u.id") })
 public class PositionEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -292,6 +310,18 @@ public class PositionEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "PositionEntity [id=" + id + ", adminCreator=" + adminCreator
+				+ ", manager=" + manager + ", guide=" + guide + ", title="
+				+ title + ", location=" + location + ", positionStatus="
+				+ positionStatus + ", quantity=" + quantity + ", company="
+				+ company + ", technicalArea=" + technicalArea
+				+ ", description=" + description + ", source=" + source
+				+ ", openningDate=" + openningDate + ", closingDate="
+				+ closingDate + ", sla=" + sla + "]";
 	}
 
 }

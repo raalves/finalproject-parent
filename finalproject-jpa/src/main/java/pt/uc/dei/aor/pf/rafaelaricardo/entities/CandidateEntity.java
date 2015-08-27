@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,6 +27,20 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "candidate")
+@NamedQueries({
+		@NamedQuery(name = "CandidateEntity.findCandidateById", query = "SELECT c FROM CandidateEntity c WHERE c.id = :id"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByRole", query = "SELECT c FROM CandidateEntity c WHERE c.role = :role"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByFirstName", query = "SELECT c FROM CandidateEntity c WHERE c.firstName = :firstName"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByLastName", query = "SELECT c FROM CandidateEntity c WHERE c.lastName = :lastName"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByEmail", query = "SELECT c FROM CandidateEntity c WHERE c.email = :email"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByBirthDate", query = "SELECT c FROM CandidateEntity c WHERE c.birthDate = :birthDate"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByAddress", query = "SELECT c FROM CandidateEntity c WHERE c.address = :address"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByCity", query = "SELECT c FROM CandidateEntity c WHERE c.city = :city"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByMobilePhone", query = "SELECT c FROM CandidateEntity c WHERE c.mobilePhone = :mobilePhone"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByCountry", query = "SELECT c FROM CandidateEntity c WHERE c.country = :country"),
+		@NamedQuery(name = "CandidateEntity.findCandidateByCourse", query = "SELECT c FROM CandidateEntity c WHERE c.course = :course"),
+		@NamedQuery(name = "CandidateEntity.findCandidateBySchool", query = "SELECT c FROM CandidateEntity c WHERE c.school = :school"),
+		@NamedQuery(name = "CandidateEntity.findAllByIdOrder", query = "SELECT c FROM CandidateEntity c ORDER BY c.id") })
 public class CandidateEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +49,7 @@ public class CandidateEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
 	private Long id;
-  
+
 	@ManyToOne
 	@JoinColumn(name = "role_id", nullable = false)
 	private RoleEntity role;
@@ -283,6 +299,16 @@ public class CandidateEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "CandidateEntity [id=" + id + ", role=" + role + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", birthDate=" + birthDate + ", address=" + address
+				+ ", city=" + city + ", mobilePhone=" + mobilePhone
+				+ ", country=" + country + ", course=" + course + ", school="
+				+ school + "]";
 	}
 
 }

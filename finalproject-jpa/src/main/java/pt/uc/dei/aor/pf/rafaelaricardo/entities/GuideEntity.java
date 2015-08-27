@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,6 +25,12 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "guide")
+@NamedQueries({
+		@NamedQuery(name = "GuideEntity.findGuideById", query = "SELECT g FROM GuideEntity g WHERE g.id = :id"),
+		@NamedQuery(name = "GuideEntity.findGuideByAuthor", query = "SELECT g FROM GuideEntity g WHERE g.author = :author"),
+		@NamedQuery(name = "GuideEntity.findGuideByTitle", query = "SELECT g FROM GuideEntity g WHERE g.guideTitle = :guideTitle"),
+		@NamedQuery(name = "GuideEntity.findGuideByDate", query = "SELECT g FROM GuideEntity g WHERE g.guideDate = :guideDate"),
+		@NamedQuery(name = "GuideEntity.findAllByIdOrder", query = "SELECT g FROM GuideEntity g ORDER BY g.id") })
 public class GuideEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -141,6 +149,12 @@ public class GuideEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "GuideEntity [id=" + id + ", author=" + author + ", guideTitle="
+				+ guideTitle + ", guideDate=" + guideDate + "]";
 	}
 
 }

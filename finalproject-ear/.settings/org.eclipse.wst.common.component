@@ -11,5 +11,8 @@
         <dependent-module archiveName="finalproject-jpa-1.jar" deploy-path="/" handle="module:/resource/finalproject-jpa/finalproject-jpa">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="org.apache.servicemix.bundles.rome-1.0_3.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/apache/servicemix/bundles/org.apache.servicemix.bundles.rome/1.0_3/org.apache.servicemix.bundles.rome-1.0_3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

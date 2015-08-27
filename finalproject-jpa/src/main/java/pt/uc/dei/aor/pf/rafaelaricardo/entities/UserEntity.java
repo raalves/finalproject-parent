@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,14 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "\"user\"")
+@NamedQueries({
+		@NamedQuery(name = "UserEntity.findUserById", query = "SELECT u FROM UserEntity u WHERE u.id = :id"),
+		@NamedQuery(name = "UserEntity.findUserByCreator", query = "SELECT u FROM UserEntity u WHERE u.creator = :creator"),
+		@NamedQuery(name = "UserEntity.findUserByFirstName", query = "SELECT u FROM UserEntity u WHERE u.firstName = :firstName"),
+		@NamedQuery(name = "UserEntity.findUserByLastName", query = "SELECT u FROM UserEntity u WHERE u.lastName = :lastName"),
+		@NamedQuery(name = "UserEntity.findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.email = :email"),
+		@NamedQuery(name = "UserEntity.findUserStartingBy", query = "SELECT u FROM UserEntity u WHERE u.firstName like :exp ORDER BY u.firstName"),
+		@NamedQuery(name = "UserEntity.findAllByIdOrder", query = "SELECT u FROM UserEntity u ORDER BY u.id") })
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -199,6 +209,12 @@ public class UserEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "UserEntity [id=" + id + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + "]";
 	}
 
 }

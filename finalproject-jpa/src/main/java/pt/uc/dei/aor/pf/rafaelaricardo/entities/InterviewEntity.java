@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +28,12 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 
 @Entity
 @Table(name = "interview")
+@NamedQueries({
+		@NamedQuery(name = "InterviewEntity.findInterviewById", query = "SELECT i FROM InterviewEntity i WHERE i.id = :id"),
+		@NamedQuery(name = "InterviewEntity.findInterviewByCandidature", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
+		@NamedQuery(name = "InterviewEntity.findInterviewByDate", query = "SELECT i FROM InterviewEntity i WHERE i.interviewDate = :interviewDate"),
+		@NamedQuery(name = "InterviewEntity.findInterviewByStatus", query = "SELECT i FROM InterviewEntity i WHERE i.interviewStatus = :interviewStatus"),
+		@NamedQuery(name = "InterviewEntity.findAllByIdOrder", query = "SELECT i FROM InterviewEntity i ORDER BY i.id") })
 public class InterviewEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -140,6 +148,13 @@ public class InterviewEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "InterviewEntity [id=" + id + ", candidature=" + candidature
+				+ ", interviewDate=" + interviewDate + ", interviewStatus="
+				+ interviewStatus + ", feedback=" + feedback + "]";
 	}
 
 }

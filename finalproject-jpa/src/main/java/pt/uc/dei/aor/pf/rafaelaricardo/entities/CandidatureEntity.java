@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,6 +30,14 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 
 @Entity
 @Table(name = "candidature")
+@NamedQueries({
+		@NamedQuery(name = "CandidatureEntity.findCandidatureById", query = "SELECT c FROM CandidatureEntity c WHERE c.id = :id"),
+		@NamedQuery(name = "CandidatureEntity.findCandidatureByPosition", query = "SELECT c FROM CandidatureEntity c WHERE c.position = :position"),
+		@NamedQuery(name = "CandidatureEntity.findCandidatureByCandidate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidate = :candidate"),
+		@NamedQuery(name = "CandidatureEntity.findCandidatureBySource", query = "SELECT c FROM CandidatureEntity c WHERE c.publicSource = :publicSource"),
+		@NamedQuery(name = "CandidatureEntity.findCandidatureByDate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureDate = :candidatureDate"),
+		@NamedQuery(name = "CandidatureEntity.findCandidatureByStatus", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureStatus = :candidatureStatus"),
+		@NamedQuery(name = "CandidatureEntity.findAllByIdOrder", query = "SELECT c FROM CandidatureEntity c ORDER BY c.id") })
 public class CandidatureEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -186,6 +196,14 @@ public class CandidatureEntity implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "CandidatureEntity [id=" + id + ", position=" + position
+				+ ", candidate=" + candidate + ", candidatureDate="
+				+ candidatureDate + ", candidatureStatus=" + candidatureStatus
+				+ "]";
 	}
 
 }
