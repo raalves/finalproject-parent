@@ -45,23 +45,23 @@ public class UserEntity implements Serializable {
 
 	@NotNull
 	@NotBlank
-	@Column(name = "first_name", nullable = false, length = 50)
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
 
 	@NotNull
 	@NotBlank
-	@Column(name = "last_name", nullable = false, length = 50)
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
 
 	@NotNull
 	@NotBlank
 	@Email
-	@Column(nullable = false, unique = true, length = 255)
+	@Column(nullable = false, unique = true)
 	private String email;
 
 	@NotNull
 	@NotBlank
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false)
 	private String password;
 
 	@ManyToMany

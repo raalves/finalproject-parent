@@ -67,12 +67,12 @@ public class CandidateEntity implements Serializable {
 	@NotNull
 	@NotBlank
 	@Email
-	@Column(nullable = false, unique = true, length = 255)
+	@Column(nullable = false, unique = true)
 	private String email;
 
 	@NotNull
 	@NotBlank
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false)
 	private String password;
 
 	@Temporal(TemporalType.DATE)
