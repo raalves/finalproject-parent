@@ -10,20 +10,47 @@
 
 @import "../resources/fonts/PFDinDisplayPro-Medium.css";
 
+@font-face {
+	font-family: 'PFDinDisplayProLight';
+	src: url("PFDinDisplayProLight.TTF");
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
-	font-family: "PFDinDisplayProLight", Georgia;
+	font-family: "PFDinDisplayProLight", Georgia !important;
 	font-size: 14px;
 	line-height: 1.42857143;
 	color: #766a62;
 	background-color: #fff;
-	text-align: center;
+	/* 	text-align: center; */
 	display: block;
+}
+
+p {
+	margin: 0 0 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	color: #a50d12;
+}
+
+strong {
+	font-family: "PFDinDisplayProLight", Georgia;
+	font-weight: 600;
+}
+
+.container, .header, .top, .content, .footer {
+	display: block;
+	/*border: 2px solid;*/
 }
 
 .container {
 	max-width: 1080px;
 	min-width: 1020px;
-	border: 2px solid;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -31,34 +58,80 @@ body {
 .header {
 	width: 100%;
 	height: 100%;
+}
+
+/*.top {
+	padding: 10px;
+	height: 50px;
+}*/
+.ui-widget {
+	font-family: "PFDinDisplayProLight", Georgia !important;
+}
+
+/*.content {
+	padding: 10px;
+	height: 400px;
+}*/
+.footer {
+	font-family: "PFDinDisplayProThin", Georgia;
+	/* 	width: inherit; */
+	/* 	height: 10px; */
+	/* 	position: relative; */
+	/* 	font-size: 100%; */
+	text-align: center;
+	/* 	vertical-align: middle; */
+	/* 	margin-bottom: 10px; */
+	margin-top: 10px;
+}
+
+#tabAdmin, #tabMan, #tabInterv, #tabPublic, #tabCand, .ui-tabs {
+	background-color: transparent;
+	position: inherit;
+}
+
+/* Menu sistema inicio */
+.menu-sistema {
+	border: 0px !important;
+	padding: 0px !important;
+	/*background-color: #a50d12 !important;
+	/*background: none !important;*/
 	margin-bottom: 10px;
 }
 
-.top {
-	padding:10px;
-	height: 50px;
-	
-	border: solid 2px;
-	margin-bottom: 20px;
+.menu-sistema .ui-menu-parent>a .ui-menuitem-text, .menu-sistema>.ui-menu-list>.ui-menuitem>a>.ui-menuitem-text
+	{
+	padding-left: 5px !important;
+	padding-right: 5px !important;
 }
 
-.content {
-	padding:10px;
-	height: 400px;
-	margin-bottom: 20px;
-	border: solid 2px;
+.ui-menu .ui-menuitem-text {
+	float: left;
+	color: #ffffff !important;
 }
 
-.footer {
-	font-family: "PFDinDisplayProThin", Georgia;
-	width: inherit;
-	height: 10px;
-	position: relative;
-	font-size: 100%;
-	text-align: center;
-	vertical-align: middle;
-	margin-bottom:10px;
+.ui-menuitem {
+	background-color: #a50d12 !important;
+	background: #c4c4c4
+		-webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255,
+		0.8)), to(rgba(255, 255, 255, 0)));
 }
+
+.menu-sistema .ui-icon-triangle-1-s {
+	background: url(#{ resource [ 'images:seta-para-baixo.png' ]
+}
+)
+no-repeat
+
+
+
+
+
+
+
+;
+}
+/* Menu sistema fim */
+
 /* header { */
 /* 	/*background-image: url("../resources/images/Bar_Critical.png"); */
 /* 	*/
@@ -112,6 +185,36 @@ body {
 /*   display: -moz-inline-box; */
 /*   display:inline-block; */
 /* } */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

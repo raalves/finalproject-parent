@@ -20,13 +20,12 @@
 				<ui:include src="commonHeader.xhtml" />
 			</ui:insert>
 		</div>
-
-		<div class="top">
-			<ui:insert name="top">
-				<ui:include src="commonTop.xhtml" />
+		<div class="buttons">
+			<ui:insert name="buttons">
+				<ui:include src="/template/commonElements/commonButtons.xhtml" />
 			</ui:insert>
 		</div>
-
+		
 		<div class="content">
 			<ui:insert name="content">
 				<ui:include src="commonContent.xhtml" />
@@ -38,7 +37,7 @@
 				<ui:include src="commonFooter.xhtml" />
 			</ui:insert>
 		</div>
-		
+
 	</div>
 </h:body>
 </html>

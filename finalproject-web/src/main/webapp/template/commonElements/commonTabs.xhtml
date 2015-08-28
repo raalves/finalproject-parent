@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div
+		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
+		<p:outputLabel >
+			<h3>Hello Ze das couves</h3>	
+		</p:outputLabel>		
+	</div>
+	<p:tabView id="tabPublic" rendered="false">
+		<p:tab title="Careers">
+			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
+		</p:tab>
+		<p:tab title="Vacancies" />
+	</p:tabView>
+
+	<p:tabView id="tabAdmin" rendered="false">
+		<p:tab id="careersAdmin" title="Careers" />
+		<p:tab id="vacAdmin" title="Vacancies" />
+		<p:tab id="intervAdmin" title="Interviews" />
+		<p:tab id="guidesAdmin" title="Guides" />
+		<p:tab id="candAdmin" title="Candidatures" />
+		<p:tab id="reportsAdmin" title="Reports" />
+	</p:tabView>
+
+	<p:tabView id="tabMan" rendered="true">
+		<p:tab id="careersMan" title="Careers">
+			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
+		</p:tab>
+		<p:tab id="myVacMan" title="Vacancies" />
+		<p:tab id="vacMan" title="My Vacancies" />
+		<p:tab id="candMan" title="Candidatures" />
+	</p:tabView>
+
+
+	<p:tabView id="tabInterv" rendered="false">
+		<p:tab id="careersInterv" title="Careers">
+			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
+		</p:tab>
+		<p:tab id="vacInterv" title="Vacancies" />
+		<p:tab id="myIntervInterv" title="Interviews" />
+	</p:tabView>
+
+	<p:tabView id="tabCand" rendered="false">
+		<p:tab id="careersCand" title="Careers">
+			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
+		</p:tab>
+		<p:tab id="myVacMan" title="Vacancies" />
+		<p:tab id="candCand" title="My Candidatures" />
+		<p:tab id="myIntervCand" title="My Interviews" />
+		<p:tab id="profCand" title="My Profile">
+			<ui:include src="/pages/candidate/MyProfile.xhtml" />
+		</p:tab>
+	</p:tabView>
+
+
+</ui:composition>

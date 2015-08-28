@@ -21,7 +21,7 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 	<welcome-file-list>
-		<welcome-file>/login.xhtml</welcome-file>
+		<welcome-file>/Home.xhtml</welcome-file>
 	</welcome-file-list>
 	
 	<!-- Web components Security -->
