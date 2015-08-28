@@ -44,7 +44,7 @@ strong {
 }
 
 .container, .header, .top, .content, .footer {
-	display: block;
+	display: grid;
 	/*border: 2px solid;*/
 }
 
@@ -60,10 +60,9 @@ strong {
 	height: 100%;
 }
 
-/*.top {
-	padding: 10px;
+.buttons {
 	height: 50px;
-}*/
+}
 .ui-widget {
 	font-family: "PFDinDisplayProLight", Georgia !important;
 }
