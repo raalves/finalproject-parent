@@ -5,23 +5,29 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
 
-		<p:dataTable id="candMyCand"
-			value="#{candidateCandidaturesBean.candidaturesCandidate}"
-			var="myCand" style="margin-top:5px" emptyMessage="No records found"
-			rows="15" paginator="true" paginatorAlwaysVisible="false"
+		<p:dataTable id="mangerVac"
+			value="#{managerVacanciesBean.vacanciesManager}" var="myVac"
+			style="margin-top:5px" emptyMessage="No records found" rows="15"
+			paginator="true" paginatorAlwaysVisible="false"
 			paginatorPosition="bottom" sortOrder="Id">
 
 			<p:column headerText="Id" sortBy="Id">
 				<p:outputLabel value="12345" />
 			</p:column>
-			<p:column headerText="Vacancie Title ?" >
+			<p:column headerText="Vacancie Title ?">
 				<p:outputLabel value="Java developer JR" />
 			</p:column>
 			<p:column headerText="Location" style="text-align:center">
 				<p:outputLabel value="Porto" />
 			</p:column>
 			<p:column headerText="Status">
-				<p:outputLabel value="Schedlud?" />
+				<p:outputLabel value="Open" />
+			</p:column>
+			<p:column headerText="Interviewer">
+				<p:outputLabel value="Zé" />
+			</p:column>
+			<p:column headerText="Candidates">
+				<p:button value="Consult" />
 			</p:column>
 			<p:column headerText="Details" style="text-align:center">
 				<p:button icon="ui-icon-help" title="See details" />

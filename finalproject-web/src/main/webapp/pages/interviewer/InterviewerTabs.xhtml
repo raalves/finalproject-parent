@@ -4,20 +4,20 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-<div
+	<div
 		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
 		<p:outputLabel>
 			<h3>Welcome #{nameBean.userName}</h3>
 		</p:outputLabel>
 	</div>
-
-
 	<p:tabView id="tabInterv">
 		<p:tab id="careersInterv" title="Careers">
 			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
 		</p:tab>
 		<p:tab id="vacInterv" title="Vacancies" />
-		<p:tab id="myIntervInterv" title="Interviews" />
+		<p:tab id="myIntervInterv" title="Interviews">
+			<ui:include src="/pages/interviewer/MyInterviews.xhtml" />
+		</p:tab>
 	</p:tabView>
 
 </ui:composition>
