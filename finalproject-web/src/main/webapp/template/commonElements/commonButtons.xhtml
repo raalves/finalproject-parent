@@ -3,28 +3,38 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-
-	<div style="padding: 5px">
-		<div style="float: left; padding-left: 10px">
-			<p:outputLabel rendered="true">
-				<h2>Name of area</h2>
-			</p:outputLabel>
-		</div>
-		<div style="float: right">
-			<h:form>
+	<h:form>
+		<div style="padding: 5px">
+			<div style="float: left; padding-left: 10px" id="areaName">
+				<p:outputLabel rendered="true">
+					<h2 >#{beanView.areaName} area</h2>
+				</p:outputLabel>
+			</div>
+			<div style="float: right">
 				<p:menubar styleClass="menu-sistema">
 					<p:submenu label="Select area" rendered="true">
-						<p:menuitem value="Admin area" url="/pages/public/AdminPage.xhtml"	rendered="true" />
-						<p:menuitem value=" Manager	area" url="/pages/public/ManagerPage.xhtml" rendered="true" />
-						<p:menuitem value="Interviewer area" url="/pages/public/InterviewerPage.xhtml" rendered="true" />
-						<p:menuitem value="Candidate area" url="/pages/public/CandidatePage.xhtml" rendered="true" />
+						<p:menuitem value="Admin area" url="/pages/public/AdminPage.xhtml"
+							rendered="true" actionListener="#{beanView.setAreaName(Administrador)}"
+							update="areaName" />
+						<p:menuitem value=" Manager	area"
+							url="/pages/public/ManagerPage.xhtml" rendered="true"
+							action="#{beanView.setAreaName(Manager)}" update="areaName" />
+						<p:menuitem value="Interviewer area"
+							url="/pages/public/InterviewerPage.xhtml" rendered="true"
+							action="#{beanView.setAreaName(Interviewer)}" update="areaName" />
+						<p:menuitem value="Candidate area"
+							url="/pages/public/CandidatePage.xhtml" rendered="true"
+							action="#{beanView.setAreaName(Candidate)}" update="areaName" />
+							
 					</p:submenu>
 					<p:menuitem value="Logout" url="/Home.xhtml" rendered="true" />
-					<p:menuitem value="Login employees" url="/login.xhtml" rendered="false" />
-					<p:menuitem value="Login candidates" url="/login.xhtml" rendered="false" />
+					<p:menuitem value="Login employees" url="/login.xhtml"
+						rendered="false" />
+					<p:menuitem value="Login candidates" url="/login.xhtml"
+						rendered="false" />
 				</p:menubar>
-			</h:form>
-		</div>
-	</div>
 
+			</div>
+		</div>
+	</h:form>
 </ui:composition>

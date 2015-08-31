@@ -3,68 +3,61 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+	<h:form>
 
-	<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
-		columnClasses="label,field">
-		<p:outputLabel value="First Name" for="firstName" />
-		<p:inputText id="firstName" size="25" required="true" />
+		<p:panelGrid columns="2"
+			style="width: 100%; margin-top: 20px;border:0px"
+			columnClasses="label,field">
+			<p:outputLabel value="First Name" for="firstName" />
+			<p:inputText id="firstName" size="25" required="true" />
 
-		<p:outputLabel value="Last Name" for="lastName" />
-		<p:inputText id="lastName" size="25" required="true" />
+			<p:outputLabel value="Last Name" for="lastName" />
+			<p:inputText id="lastName" size="25" required="true" />
 
-		<p:outputLabel value="Email" for="email" />
-		<p:inputText id="email" size="100" required="true" />
+			<p:outputLabel value="Email" for="email" />
+			<p:inputText id="email" size="100" required="true" />
 
-		<p:outputLabel value="Birthdate" for="birthdate" />
-		<p:calendar id="birthdate" size="10" pattern="dd/MM/yyyy" mask="true"
-			maxdate="31/12/1997"  readonly="true" required="true" />
+			<p:outputLabel value="Birthdate" for="birthdate" />
+			<p:calendar id="birthdate" size="10" pattern="dd/MM/yyyy" mask="true"
+				maxdate="31/12/1997" readonly="true" required="true" />
 
-		<p:outputLabel value="Adress" for="address" />
-		<p:inputText id="address" size="250" required="true"
-			style="width:250px;" />
+			<p:outputLabel value="Adress" for="address" />
+			<p:inputText id="address" size="250" required="true"
+				style="width:250px;" />
 
-		<p:outputLabel value="City" for="city" />
-		<p:inputText id="city" size="25" required="true" />
+			<p:outputLabel value="City" for="city" />
+			<p:inputText id="city" size="25" required="true" />
 
-		<p:outputLabel value="Country" for="country" />
-		<p:inputText id="country" size="25" required="true" />
+			<p:outputLabel value="Country" for="country" />
+			<p:inputText id="country" size="25" required="true" />
 
-		<p:outputLabel value="Phone" for="phone" />
-		<p:inputText id="phone" size="13" required="true" />
+			<p:outputLabel value="Phone" for="phone" />
+			<p:inputText id="phone" size="13" required="true" />
 
-		<p:outputLabel value="Mobile phone" for="mobilePhone" />
-		<p:inputText id="mobilePhone" size="13" required="true" />
+			<p:outputLabel value="Mobile phone" for="mobilePhone" />
+			<p:inputText id="mobilePhone" size="13" required="true" />
 
-		<!-- 		<p:outputLabel value="Vendedor" for="vendedor" /> -->
-		<!-- 		<p:selectOneMenu id="vendedor"> -->
-		<!-- 			<f:selectItem itemLabel="Selecione" /> -->
-		<!-- 			<f:selectItem itemLabel="Joao das Couves" /> -->
-		<!-- 		</p:selectOneMenu> -->
+			<p:outputLabel value="Main Course" for="mainCourse" />
+			<p:inputText id="mainCourse" size="250" required="true"
+				style="width:250px;" />
 
-		<!-- 		<h:outputLabel value="Cliente" for="cliente" /> -->
-		<!-- 		<p:autoComplete id="cliente" size="40" dropdown="true" /> -->
+			<p:outputLabel value="School" for="school" />
+			<p:inputText id="school" size="250" required="true"
+				style="width:250px;" />
 
-		<!-- 		<p:outputLabel value="Forma de pagamento" for="formaPagamento" /> -->
-		<!-- 		<p:selectOneMenu id="formaPagamento"> -->
-		<!-- 			<f:selectItem itemLabel="Selecione" /> -->
-		<!-- 			<f:selectItem itemLabel="Cartão de crédito" /> -->
-		<!-- 		</p:selectOneMenu> -->
-
-		<!-- 		<p:outputLabel value="Valor de frete" for="valorFrete" /> -->
-		<!-- 		<h:inputText id="valorFrete" size="10" maxlength="10" /> -->
-
-		<!-- 		<p:outputLabel value="Subtotal" style="font-weight:bold" /> -->
-		<!-- 		<h:outputText value="R$ 0,00" style="font-weight:bold" id="subtotal" /> -->
-
-		<!-- 		<p:outputLabel value="Valor do desconto" for="valorDesconto" /> -->
-		<!-- 		<h:inputText id="valorDesconto" size="10" maxlength="10" /> -->
-
-		<!-- 		<p:outputLabel value="Total do pedido" -->
-		<!-- 			style="font-weight:bold; font-size:1.1em" /> -->
-		<!-- 		<h:outputText value="R$ 0,00" style="font-weight:bold;font-size:1.1em" -->
-		<!-- 			id="totalPedido" /> -->
-
-	</p:panelGrid>
+			<p:outputLabel value="Upload CV/Resume" />
+			<p:fileUpload required="true" skinSimple="true" update="messages"
+				sizeLimit="100000" allowTypes="/(\.|\/)(pdf|doc|docx)$/"
+				invalidFileMessage="The format of the file must be pdf, doc or docx" />
+			<p:spacer />
+			<p:columnGroup>
+				<p:commandButton value="Cancel" ajax="false" />
+				<p:commandButton value="Clear" ajax="false" />
+				<p:commandButton value="Submit" ajax="false" />
+			</p:columnGroup>
 
 
+		</p:panelGrid>
+		<p:growl id="messages" showDetail="true" />
+	</h:form>
 </ui:composition>

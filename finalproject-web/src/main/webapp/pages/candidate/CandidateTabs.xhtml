@@ -5,20 +5,26 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<div
+	<div
 		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
 		<p:outputLabel>
-			<h3>Hello Ze das couves</h3>
+			<h3>Welcome #{nameBean.userName}</h3>
 		</p:outputLabel>
 	</div>
 
-	<p:tabView id="tabCand" >
+	<p:tabView id="tabCand">
 		<p:tab id="careersCand" title="Careers">
 			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
 		</p:tab>
-		<p:tab id="myVacMan" title="Vacancies" />
-		<p:tab id="candCand" title="My Candidatures" />
-		<p:tab id="myIntervCand" title="My Interviews" />
+		<p:tab id="myVacMan" title="Vacancies">
+			<ui:include src="/pages/public/VacanciesPublic.xhtml" />
+		</p:tab>
+		<p:tab id="candCand" title="My Candidatures">
+			<ui:include src="/pages/candidate/MyCandidatures.xhtml" />
+		</p:tab>
+		<p:tab id="myIntervCand" title="My Interviews">
+			<ui:include src="/pages/candidate/MyInterviews.xhtml" />
+		</p:tab>
 		<p:tab id="profCand" title="My Profile">
 			<ui:include src="/pages/candidate/MyProfile.xhtml" />
 		</p:tab>
