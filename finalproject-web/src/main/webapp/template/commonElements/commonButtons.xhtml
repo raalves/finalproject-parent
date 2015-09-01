@@ -6,13 +6,13 @@
 	<h:form>
 		<div style="padding: 5px">
 			<div style="float: left; padding-left: 10px" id="areaName">
-				<p:outputLabel rendered="true">
+				<p:outputLabel rendered="false">
 					<h2 >#{beanView.areaName} area</h2>
 				</p:outputLabel>
 			</div>
 			<div style="float: right">
-				<p:menubar styleClass="menu-sistema">
-					<p:submenu label="Select area" rendered="true">
+				<p:menubar styleClass="menuButtons">
+					<p:submenu label="Select area" rendered="false">
 						<p:menuitem value="Admin area" url="/pages/public/AdminPage.xhtml"
 							rendered="true" actionListener="#{beanView.setAreaName(Administrador)}"
 							update="areaName" />
@@ -27,11 +27,11 @@
 							action="#{beanView.setAreaName(Candidate)}" update="areaName" />
 							
 					</p:submenu>
-					<p:menuitem value="Logout" url="/Home.xhtml" rendered="true" />
-					<p:menuitem value="Login employees" url="/login.xhtml"
-						rendered="false" />
-					<p:menuitem value="Login candidates" url="/login.xhtml"
-						rendered="false" />
+					<p:menuitem value="Logout" url="/Home.xhtml" rendered="false" />
+					<p:menuitem id="loginEmployees" value="Login employees" url="/LoginEmployees.xhtml"
+						rendered="true" />
+					<p:menuitem id="loginCandidates" value="Login candidates" url="/LoginCandidates.xhtml"
+						rendered="true" />
 				</p:menubar>
 
 			</div>

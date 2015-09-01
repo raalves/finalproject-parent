@@ -4,32 +4,34 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
+		<p:messages id="messages" showDetail="true" />
+		<p:button value="Change password"
+			onclick="PF('changePass').show();return false;" style="float:right" />
 
-		<p:panelGrid columns="2"
-			style="width: 100%; margin-top: 20px"
-			columnClasses="label,field">
+		<p:panelGrid columns="2" style="margin-top: 20px"
+			columnClasses="label,field" styleClass="ui-noborder" id="myProfile">
+
 			<p:outputLabel value="First Name" for="firstName" />
-			<p:inputText id="firstName" size="25" required="true" />
+			<p:inputText id="firstName" size="80" required="true" />
 
 			<p:outputLabel value="Last Name" for="lastName" />
-			<p:inputText id="lastName" size="25" required="true" />
+			<p:inputText id="lastName" size="80" required="true" />
 
 			<p:outputLabel value="Email" for="email" />
-			<p:inputText id="email" size="100" required="true" />
+			<p:inputText id="email" size="80" required="true" />
 
 			<p:outputLabel value="Birthdate" for="birthdate" />
 			<p:calendar id="birthdate" size="10" pattern="dd/MM/yyyy" mask="true"
 				maxdate="31/12/1997" readonly="true" required="true" />
 
 			<p:outputLabel value="Adress" for="address" />
-			<p:inputText id="address" size="250" required="true"
-				style="width:250px;" />
+			<p:inputText id="address" size="80" required="true" />
 
 			<p:outputLabel value="City" for="city" />
-			<p:inputText id="city" size="25" required="true" />
+			<p:inputText id="city" size="80" required="true" />
 
 			<p:outputLabel value="Country" for="country" />
-			<p:inputText id="country" size="25" required="true" />
+			<p:inputText id="country" size="80" required="true" />
 
 			<p:outputLabel value="Phone" for="phone" />
 			<p:inputText id="phone" size="13" required="true" />
@@ -38,26 +40,52 @@
 			<p:inputText id="mobilePhone" size="13" required="true" />
 
 			<p:outputLabel value="Main Course" for="mainCourse" />
-			<p:inputText id="mainCourse" size="250" required="true"
-				style="width:250px;" />
+			<p:inputText id="mainCourse" size="80" required="true" />
 
 			<p:outputLabel value="School" for="school" />
-			<p:inputText id="school" size="250" required="true"
-				style="width:250px;" />
+			<p:inputText id="school" size="80" required="true" />
 
 			<p:outputLabel value="Upload CV/Resume" />
 			<p:fileUpload required="true" skinSimple="true" update="messages"
 				sizeLimit="100000" allowTypes="/(\.|\/)(pdf|doc|docx)$/"
-				invalidFileMessage="The format of the file must be pdf, doc or docx" />
+				invalidFileMessage="The format of the file must be pdf, doc or docx"
+				style="width:400px" />
 			<p:spacer />
 			<p:columnGroup>
 				<p:commandButton value="Cancel" ajax="false" />
-				<p:commandButton value="Clear" ajax="false" />
-				<p:commandButton value="Submit" ajax="false" />
+				<p:commandButton value="Clear" update="myProfile" process="@this">
+					<p:resetInput target="myProfile" />
+				</p:commandButton>
+				<p:commandButton value="Submit changes" ajax="false" />
 			</p:columnGroup>
 
 
 		</p:panelGrid>
-		<p:growl id="messages" showDetail="true" />
 	</h:form>
+	<p:dialog id="dialogChange" header="Change password"
+		widgetVar="changePass" draggable="false" resizable="false"
+		modal="false" style="padding:10px; ">
+		<h:form>
+			<p:messages autoUpdate="true" id="messagesDialog" />
+			<p:panelGrid columns="2" style="margin:10px" id="passChange">
+				<p:outputLabel for="password1" value="New Password" />
+				<p:password id="password1" match="password2" feedback="true"
+					required="true" />
+
+				<p:outputLabel for="password2" value="Repeat new password" />
+				<p:password id="password2" required="true" />
+			</p:panelGrid>
+			<div style="text-align: center">
+				<p:button type="reset" value="Reset"></p:button>
+				<p:commandButton value="Clear" update="passChange" process="@this">
+					<p:resetInput target="passChange" />
+				</p:commandButton>
+				<p:button value="Cancel"
+					onclick="PF('changePass').hide();return false;" />
+				<p:button value="Save changes"
+					onclick="PF('changePass').hide();return false;" />
+			</div>
+		</h:form>
+	</p:dialog>
+
 </ui:composition>
