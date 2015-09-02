@@ -7,7 +7,7 @@
 	<ui:define name="content">
 
 		<h:form>
-			<p:messages id="messages" showDetail="true" autoUpdate="true"
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"
 				style="text-align:left" />
 			<p:panel>
 				<p:outputLabel>
@@ -17,34 +17,34 @@
 				<p:panelGrid id="newCandForm" columns="2" styleClass="ui-noborder"
 					style="width: 100%; margin-top: 20px" columnClasses="label,field">
 					<p:outputLabel value="First Name" for="firstName" />
-					<p:inputText id="firstName" size="25" required="true" />
+					<p:inputText id="firstName" size="80" required="true" />
 
 					<p:outputLabel value="Last Name" for="lastName" />
-					<p:inputText id="lastName" size="25" required="true" />
+					<p:inputText id="lastName" size="80" required="true" />
 
 					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" size="100" required="true" />
+					<p:inputText id="email" size="80" required="true" />
 
 					<p:outputLabel for="password1" value="Password" />
-					<p:password id="password1" match="password2" feedback="true"
+					<p:password id="password1" match="password2" feedback="true" size="80"
 						required="true" />
 
 					<p:outputLabel for="password2" value="Repeat password" />
-					<p:password id="password2" required="true" />
+					<p:password id="password2" size="80" required="true" />
 
 					<p:outputLabel value="Birthdate" for="birthdate" />
 					<p:calendar id="birthdate" size="10" pattern="dd/MM/yyyy"
 						mask="true" maxdate="31/12/1997" readonly="true" required="true" />
 
 					<p:outputLabel value="Adress" for="address" />
-					<p:inputText id="address" size="250" required="true"
-						style="width:250px;" />
+					<p:inputText id="address" size="80"  required="true"
+						 />
 
 					<p:outputLabel value="City" for="city" />
-					<p:inputText id="city" size="25" required="true" />
+					<p:inputText id="city" size="80" required="true" />
 
 					<p:outputLabel value="Country" for="country" />
-					<p:inputText id="country" size="25" required="true" />
+					<p:inputText id="country" size="80" required="true" />
 
 					<p:outputLabel value="Phone" for="phone" />
 					<p:inputText id="phone" size="13" required="true" />
@@ -53,18 +53,18 @@
 					<p:inputText id="mobilePhone" size="13" required="true" />
 
 					<p:outputLabel value="Main Course" for="mainCourse" />
-					<p:inputText id="mainCourse" size="250" required="true"
+					<p:inputText id="mainCourse" size="80" required="true"
 						style="width:250px;" />
 
 					<p:outputLabel value="School" for="school" />
-					<p:inputText id="school" size="250" required="true"
+					<p:inputText id="school" size="80" required="true"
 						style="width:250px;" />
 
 					<p:outputLabel value="Upload CV/Resume" />
 					<p:fileUpload skinSimple="true" update="messages"
 						sizeLimit="100000" allowTypes="/(\.|\/)(pdf|doc|docx)$/"
 						invalidFileMessage="The format of the file must be pdf, doc or docx"
-						required="true" />
+						style="width:400px" required="true" />
 					<p:spacer />
 					<p:columnGroup>
 						<p:commandButton value="Cancel" ajax="false" type="" />

@@ -16,12 +16,22 @@ public class CandidateInterviewsBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Integer> interviewsCandidate;
+	private Integer interviewSelect;
+
+	public Integer getInterviewSelect() {
+		return interviewSelect;
+	}
+
+	public void setInterviewSelect(Integer interviewSelect) {
+		this.interviewSelect = interviewSelect;
+	}
 
 	public CandidateInterviewsBean() {
 		interviewsCandidate = new ArrayList<>();
 		for (int i = 0; i < 50; i++) {
 			interviewsCandidate.add(i);
 		}
+
 	}
 
 	public List<Integer> getInterviewsCandidate() {

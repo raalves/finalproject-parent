@@ -1,14 +1,16 @@
-<ui:composition xmln="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
+		<p:messages id="messages" showDetail="true" />
 
-		<p:dataTable id="candMyInterv" value="#{candidateInterviewsBean.interviewsCandidate}" var="myInterv"
-				style="margin-top:5px" emptyMessage="No records found"
-				rows="15" paginator="true" paginatorAlwaysVisible="false"
-				paginatorPosition="bottom" sortOrder="Id">
+		<p:dataTable id="candMyInterv"
+			value="#{candidateInterviewsBean.interviewsCandidate}" var="myInterv"
+			style="margin-top:5px" emptyMessage="No records found" rows="15"
+			paginator="true" paginatorAlwaysVisible="false"
+			paginatorPosition="bottom" sortOrder="Id" resizableColumns="true">
 
 			<p:column headerText="Id" sortBy="orderById">
 				<p:outputLabel value="12345" />
@@ -19,13 +21,36 @@
 			<p:column headerText="Date" style="text-align:center">
 				<p:outputLabel value="25/09/2015" />
 			</p:column>
-			<p:column headerText="Status" >
+			<p:column headerText="Status">
 				<p:outputLabel value="Schedlud?" />
 			</p:column>
-			<p:column headerText="Details" style="text-align:center">
-				<p:button icon="ui-icon-help" title="See details" />
+			<p:column headerText="Details" style="text-align:center;width:80px">
+				<p:commandButton icon="ui-icon-help" title="See details"
+					onclick="PF('intervDialog').show();return false">
+					<f:setPropertyActionListener value="#{myInterv}"
+						target="#{candidateInterviewsBean.interviewSelect}"></f:setPropertyActionListener>
+				</p:commandButton>
 			</p:column>
 		</p:dataTable>
-		<p:growl id="messages" showDetail="true" />
+		<p:dialog header="Interview Details" widgetVar="intervDialog"
+			modal="true" width="900" height="500" resizable="false"
+			closeOnEscape="true" position="center" style="padding:10px;">
+			<p:outputPanel id="intervDialog" style="padding-left:15px">
+
+				<h3>Title</h3>
+
+ver o que por..tabela?
+
+topicos??
+por detalhes da posiçao?!?!
+<div style="text-align: center">
+
+					<p:button value="Close"
+						onclick="PF('intervDialog').hide();return false;" />
+				</div>
+
+			</p:outputPanel>
+		</p:dialog>
+
 	</h:form>
 </ui:composition>

@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
-		<p:messages id="messages" showDetail="true" />
+		<p:messages id="messages" autoUpdate="true" showDetail="true" closable="true"/>
 		<p:button value="Change password"
 			onclick="PF('changePass').show();return false;" style="float:right" />
 
@@ -76,7 +76,6 @@
 				<p:password id="password2" required="true" />
 			</p:panelGrid>
 			<div style="text-align: center">
-				<p:button type="reset" value="Reset"></p:button>
 				<p:commandButton value="Clear" update="passChange" process="@this">
 					<p:resetInput target="passChange" />
 				</p:commandButton>
