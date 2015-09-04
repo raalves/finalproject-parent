@@ -4,7 +4,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
-		<p:growl id="messages" showDetail="true" autoUpdate="true" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<p:button value="Spontaneous Candidature"
+			outcome="/pages/public/SpontaneousCandidature.xhtml"
+			style="float:right" />
 
 		<h1 id="titleCareers">Our Vacancies</h1>
 
@@ -47,7 +51,7 @@
 
 
 		<p:dialog header="Vacancie Details" widgetVar="vacDialog" modal="true"
-			  width="900" height="500" resizable="false" closeOnEscape="true"
+			width="900" height="500" resizable="false" closeOnEscape="true"
 			position="center" style="padding:10px;">
 			<p:outputPanel id="vacDialog" style="padding-left:15px">
 
@@ -62,7 +66,7 @@
 				</p:panelGrid>
 				<div style="text-align: justify; margin-top: 20px">
 					<h5>Details</h5>
-					
+
 					<p>Working for us is like nothing on earth. Every day, our
 						teams across the globe challenge the limits of human achievement,
 						engineering solutions for our planet and beyond. Our
@@ -77,7 +81,7 @@
 						systems. Sound like you? Then it’s time to challenge your limits.
 						It’s time to give your career the rocket boost it deserves. It’s
 						time you joined CRITICAL Software!</p>
-					<p >KEY RESPONSIBILITIES</p>
+					<p>KEY RESPONSIBILITIES</p>
 					<p>Undertaking software development for embedded systems
 						Performing Verification &amp; Validation testing of embedded
 						systems Leading a team through your technical expertise (task
@@ -113,5 +117,7 @@
 			</p:outputPanel>
 
 		</p:dialog>
+
+
 	</h:form>
 </ui:composition>
