@@ -1,9 +1,11 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
+
 public interface RoleFacade {
 
-//	public abstract Lyric addLyric(String text, Song s);
-//	public abstract Lyric getLyricSongUser(User u, Song s);
-//	public abstract Lyric editLyric(User u, Lyric lyric);
-//	public abstract Lyric getLyricById(Long id);
+	public abstract RoleEntity findRoleById(Long id);
+
+	public abstract RoleEntity findRoleByName(Role role);
 }

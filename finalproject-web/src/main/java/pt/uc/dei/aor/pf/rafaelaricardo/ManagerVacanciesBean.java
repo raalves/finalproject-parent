@@ -13,7 +13,8 @@ public class ManagerVacanciesBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private List<Integer> vacanciesManager;
-	private Integer interviewSelect;
+
+	// private Integer interviewSelect;
 
 	public ManagerVacanciesBean() {
 		vacanciesManager = new ArrayList<>();

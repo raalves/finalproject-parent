@@ -25,13 +25,13 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "\"user\"")
 @NamedQueries({
-		@NamedQuery(name = "UserEntity.findUserById", query = "SELECT u FROM UserEntity u WHERE u.id = :id"),
-		@NamedQuery(name = "UserEntity.findUserByCreator", query = "SELECT u FROM UserEntity u WHERE u.creator = :creator"),
-		@NamedQuery(name = "UserEntity.findUserByFirstName", query = "SELECT u FROM UserEntity u WHERE u.firstName = :firstName"),
-		@NamedQuery(name = "UserEntity.findUserByLastName", query = "SELECT u FROM UserEntity u WHERE u.lastName = :lastName"),
-		@NamedQuery(name = "UserEntity.findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.email = :email"),
-		@NamedQuery(name = "UserEntity.findUserStartingBy", query = "SELECT u FROM UserEntity u WHERE u.firstName like :exp ORDER BY u.firstName"),
-		@NamedQuery(name = "UserEntity.findAllByIdOrder", query = "SELECT u FROM UserEntity u ORDER BY u.id") })
+	@NamedQuery(name = "UserEntity.findUserById", query = "SELECT u FROM UserEntity u WHERE u.id = :id"),
+	@NamedQuery(name = "UserEntity.findUserByCreator", query = "SELECT u FROM UserEntity u WHERE u.creator = :creator"),
+	@NamedQuery(name = "UserEntity.findUserByFirstName", query = "SELECT u FROM UserEntity u WHERE u.firstName = :firstName"),
+	@NamedQuery(name = "UserEntity.findUserByLastName", query = "SELECT u FROM UserEntity u WHERE u.lastName = :lastName"),
+	@NamedQuery(name = "UserEntity.findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.email = :email"),
+	@NamedQuery(name = "UserEntity.findUserStartingBy", query = "SELECT u FROM UserEntity u WHERE u.firstName like :exp ORDER BY u.firstName"),
+	@NamedQuery(name = "UserEntity.findAllByIdOrder", query = "SELECT u FROM UserEntity u ORDER BY u.id") })
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -88,12 +88,13 @@ public class UserEntity implements Serializable {
 	}
 
 	public UserEntity(String firstName, String lastName, String email,
-			String password) {
+			String password, ArrayList<RoleEntity> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.roles = roles;
 	}
 
 	// *************************** METHODS ***************************
@@ -190,7 +191,7 @@ public class UserEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = (prime * result) + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 

@@ -19,18 +19,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "guide")
 @NamedQueries({
-		@NamedQuery(name = "GuideEntity.findGuideById", query = "SELECT g FROM GuideEntity g WHERE g.id = :id"),
-		@NamedQuery(name = "GuideEntity.findGuideByAuthor", query = "SELECT g FROM GuideEntity g WHERE g.author = :author"),
-		@NamedQuery(name = "GuideEntity.findGuideByTitle", query = "SELECT g FROM GuideEntity g WHERE g.guideTitle = :guideTitle"),
-		@NamedQuery(name = "GuideEntity.findGuideByDate", query = "SELECT g FROM GuideEntity g WHERE g.guideDate = :guideDate"),
-		@NamedQuery(name = "GuideEntity.findAllByIdOrder", query = "SELECT g FROM GuideEntity g ORDER BY g.id") })
+	@NamedQuery(name = "GuideEntity.findGuideById", query = "SELECT g FROM GuideEntity g WHERE g.id = :id"),
+	@NamedQuery(name = "GuideEntity.findGuideByAuthor", query = "SELECT g FROM GuideEntity g WHERE g.author = :author"),
+	@NamedQuery(name = "GuideEntity.findGuideByTitle", query = "SELECT g FROM GuideEntity g WHERE g.guideTitle = :guideTitle"),
+	@NamedQuery(name = "GuideEntity.findGuideByDate", query = "SELECT g FROM GuideEntity g WHERE g.guideDate = :guideDate"),
+	@NamedQuery(name = "GuideEntity.findAllByIdOrder", query = "SELECT g FROM GuideEntity g ORDER BY g.id") })
 public class GuideEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -44,19 +41,19 @@ public class GuideEntity implements Serializable {
 	@JoinColumn(name = "author_id", nullable = false)
 	private UserEntity author;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(name = "guide_title", nullable = false)
 	private String guideTitle;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Temporal(TemporalType.DATE)
 	@Column(name = "guide_date", nullable = false)
 	private Date guideDate;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(name = "file_path", nullable = false)
 	private String filePath;
 
@@ -130,7 +127,7 @@ public class GuideEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = (prime * result) + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
