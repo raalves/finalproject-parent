@@ -7,8 +7,11 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class VacanciesMB implements Serializable {
+public class DescriptionMB implements Serializable {
 
-	private static final long serialVersionUID = -6744394530622360545L;
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -9066625586424123353L;
 
 }

@@ -18,11 +18,11 @@
 						<p:outputLabel value="Username" />
 						<p:inputText value="#{loginMB.email}" required="true"
 							requiredMessage="Empty Email" id="email" />
-						<p:message for="email" />
+						
 						<p:outputLabel value="Password" />
 						<p:password value="#{loginMB.password}" required="true"
 							requiredMessage="Empty password" id="password" />
-						<p:message for="password" />
+						
 						<p:commandButton value="login" ajax="false"
 							action="#{loginMB.loginCandidates()}" />
 					</p:panelGrid>

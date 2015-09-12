@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,16 +23,17 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+// @Table(name = "\"user\"")
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "utilizador")
 @NamedQueries({
-	@NamedQuery(name = "UserEntity.findUserById", query = "SELECT u FROM UserEntity u WHERE u.id = :id"),
-	@NamedQuery(name = "UserEntity.findUserByCreator", query = "SELECT u FROM UserEntity u WHERE u.creator = :creator"),
-	@NamedQuery(name = "UserEntity.findUserByFirstName", query = "SELECT u FROM UserEntity u WHERE u.firstName = :firstName"),
-	@NamedQuery(name = "UserEntity.findUserByLastName", query = "SELECT u FROM UserEntity u WHERE u.lastName = :lastName"),
-	@NamedQuery(name = "UserEntity.findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.email = :email"),
-	@NamedQuery(name = "UserEntity.findUserStartingBy", query = "SELECT u FROM UserEntity u WHERE u.firstName like :exp ORDER BY u.firstName"),
-	@NamedQuery(name = "UserEntity.findAllByIdOrder", query = "SELECT u FROM UserEntity u ORDER BY u.id") })
+		@NamedQuery(name = "UserEntity.findUserById", query = "SELECT u FROM UserEntity u WHERE u.id = :id"),
+		@NamedQuery(name = "UserEntity.findUserByCreator", query = "SELECT u FROM UserEntity u WHERE u.creator = :creator"),
+		@NamedQuery(name = "UserEntity.findUserByFirstName", query = "SELECT u FROM UserEntity u WHERE u.firstName = :firstName"),
+		@NamedQuery(name = "UserEntity.findUserByLastName", query = "SELECT u FROM UserEntity u WHERE u.lastName = :lastName"),
+		@NamedQuery(name = "UserEntity.findUserByEmail", query = "SELECT u FROM UserEntity u WHERE u.email = :email"),
+		@NamedQuery(name = "UserEntity.findUserStartingBy", query = "SELECT u FROM UserEntity u WHERE u.firstName like :exp ORDER BY u.firstName"),
+		@NamedQuery(name = "UserEntity.findAllByIdOrder", query = "SELECT u FROM UserEntity u ORDER BY u.id") })
 public class UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -68,7 +70,7 @@ public class UserEntity implements Serializable {
 	@JoinTable(name = "user_realizes_interview", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "interview_id"))
 	private List<InterviewEntity> interviews = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_acts_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles = new ArrayList<>();
 

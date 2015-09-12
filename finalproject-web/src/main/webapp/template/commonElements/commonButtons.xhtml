@@ -7,34 +7,42 @@
 		<div style="padding: 5px">
 			<div style="float: left; padding-left: 10px" id="areaName">
 				<p:outputLabel rendered="false">
-					<h2 >#{beanView.areaName} area</h2>
+					<h2>#{beanView.areaName} area</h2>
 				</p:outputLabel>
 			</div>
-			<p:commandButton value="popul" action="#{popMB.popul()}"/>
-			
+
 			<div style="float: right">
 				<p:menubar styleClass="menuButtons">
-					<p:submenu label="Select area" rendered="#{activeUserMB.newUser}">
+					<p:submenu label="Select area" rendered="#{activeUserMB.extraAreas}">
 						<p:menuitem value="Admin area" url="/pages/public/AdminPage.xhtml"
-							rendered="#{activeUserMB.adminTab}" actionListener="#{beanView.setAreaName(Administrador)}"
+							rendered="#{activeUserMB.adminTab}"
+							actionListener="#{beanView.setAreaName(Administrador)}"
 							update="areaName" />
 						<p:menuitem value=" Manager	area"
-							url="/pages/public/ManagerPage.xhtml" rendered="#{activeUserMB.managerTab}"
+							url="/pages/public/ManagerPage.xhtml"
+							rendered="#{activeUserMB.managerTab}"
 							action="#{beanView.setAreaName(Manager)}" update="areaName" />
 						<p:menuitem value="Interviewer area"
-							url="/pages/public/InterviewerPage.xhtml" rendered="#{activeUserMB.interviewerTab}"
+							url="/pages/public/InterviewerPage.xhtml"
+							rendered="#{activeUserMB.interviewerTab}"
 							action="#{beanView.setAreaName(Interviewer)}" update="areaName" />
 						<p:menuitem value="Candidate area"
-							url="/pages/public/CandidatePage.xhtml" rendered="#{activeUserMB.candidateTab}"
+							url="/pages/public/CandidatePage.xhtml"
+							rendered="#{activeUserMB.candidateTab}"
 							action="#{beanView.setAreaName(Candidate)}" update="areaName" />
-							
+
 					</p:submenu>
-					<p:menuitem value="Logout" url="/Home.xhtml" rendered="#{activeUserMB.newUser}" />
-					<p:menuitem id="loginEmployees" value="Login employees" url="/LoginEmployees.xhtml"
-						rendered="#{!activeUserMB.newUser}" />
-					<p:menuitem id="loginCandidates" value="Login candidates" url="/LoginCandidates.xhtml"
-						rendered="#{!activeUserMB.newUser}" />
+					<f:facet name="options">
+						<p:commandButton value="Logout" action="#{loginMB.logout()}"
+							rendered="#{activeUserMB.newUser}" styleClass="logoutButton" />
+
+						</f:facet>
+						<p:menuitem id="loginEmployees" value="Login employees"
+							url="/LoginEmployees.xhtml" rendered="#{!activeUserMB.newUser}" />
+						<p:menuitem id="loginCandidates" value="Login candidates"
+							url="/LoginCandidates.xhtml" rendered="#{!activeUserMB.newUser}" />
 				</p:menubar>
+
 
 			</div>
 		</div>

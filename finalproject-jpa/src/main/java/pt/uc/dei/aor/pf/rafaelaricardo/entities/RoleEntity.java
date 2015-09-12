@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +23,8 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 @Entity
 @Table(name = "role")
 @NamedQueries({
-	@NamedQuery(name = "RoleEntity.findRoleById", query = "SELECT r FROM RoleEntity r WHERE r.id = :id"),
-	@NamedQuery(name = "RoleEntity.findRoleByName", query = "SELECT r FROM RoleEntity r WHERE r.role = :role") })
+		@NamedQuery(name = "RoleEntity.findRoleById", query = "SELECT r FROM RoleEntity r WHERE r.id = :id"),
+		@NamedQuery(name = "RoleEntity.findRoleByName", query = "SELECT r FROM RoleEntity r WHERE r.role = :role") })
 public class RoleEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;;
@@ -39,10 +40,10 @@ public class RoleEntity implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 	private List<UserEntity> users = new ArrayList<>();
 
-	@OneToMany(mappedBy = "role")
+	@OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
 	private List<CandidateEntity> candidates = new ArrayList<>();
 
 	// ************************ CONSTRUCTORS *************************

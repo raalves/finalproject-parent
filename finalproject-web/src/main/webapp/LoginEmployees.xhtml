@@ -16,16 +16,16 @@
 					<strong>Please insert your credentials</strong>
 
 
-					<p:panelGrid columns="3" styleClass="loginForm">
+					<p:panelGrid columns="2" styleClass="loginForm">
 						<p:outputLabel value="Email" />
 						<p:inputText value="#{loginMB.email}" required="true"
 							requiredMessage="Empty email" id="email" />
 						
-						<p:message for="email"/>
+						
 						<p:outputLabel value="Password" />
 						<p:password value="#{loginMB.password}" required="true"
 							requiredMessage="Empty password" id="password" />
-						<p:message for="password" />
+						
 						
 						<p:commandButton value="Login" action="#{loginMB.loginEmployees()}" />
 					</p:panelGrid>

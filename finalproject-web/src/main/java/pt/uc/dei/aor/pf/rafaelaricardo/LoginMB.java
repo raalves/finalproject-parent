@@ -44,28 +44,10 @@ public class LoginMB implements Serializable {
 
 		try {
 			System.out.println(email + " " + password);
-			// System.out.println(request.getParameter(email));
-			// System.out.println(request.getParameter(password));
-			// System.out.println("Principal "
-			// + FacesContext.getCurrentInstance().getExternalContext()
-			// .getUserPrincipal());
-			// System.out.println("String at "
-			// + FacesContext.getCurrentInstance().getExternalContext()
-			// .getAuthType());
-			// System.out.println("String ru "
-			// + FacesContext.getCurrentInstance().getExternalContext()
-			// .getRemoteUser());
-			// Principal userprincipal = request.getUserPrincipal();
-			// if (request.getUserPrincipal() != null) {
-			// request.logout();
-			// }
-
 			request.login(email, password);
 
 		} catch (ServletException e) {
 			log.error(e.getMessage());
-			System.out.println(e.getMessage() + " "
-					+ e.getStackTrace().toString());
 			e.printStackTrace();
 			context.addMessage(null, new FacesMessage(
 					"Login failure: wrong email/password"));
@@ -84,13 +66,19 @@ public class LoginMB implements Serializable {
 		UserEntity u = applicationMB.findUserByEmail(email);
 		if (u != null) {
 			applicationMB.setFullName(u.getFirstName() + " " + u.getLastName());
+			actUser.setEmail(email);
 			actUser.setFirstName(u.getFirstName());
 			actUser.setLastName(u.getLastName());
 			actUser.setCurrentUser(u);
 			email = "";
-			// ir buscar role para por no caminho da pagina
-			// "/pages/"+roleUser+"/"+roleUser+"Page?faces-redirect=true";
-			return "/pages/admin/AdminPage?faces-redirect=true";
+			String path = actUser.searchUserRoles().get(0).getRole().toString();
+			String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
+			actUser.showTabs();
+
+			// String path = actUser.searchUserRoles().get(0).toString();
+
+			return "/pages/" + path.toLowerCase() + "/" + pagePath
+					+ "Page?faces-redirect=true";
 		}
 		return "/LoginEmployees?faces-redirect=true";
 
@@ -104,28 +92,13 @@ public class LoginMB implements Serializable {
 
 		try {
 			System.out.println(email + " " + password);
-			// System.out.println(request.getParameter(email));
-			// System.out.println(request.getParameter(password));
-			// System.out.println("Principal "
-			// + FacesContext.getCurrentInstance().getExternalContext()
-			// .getUserPrincipal());
-			// System.out.println("String at "
-			// + FacesContext.getCurrentInstance().getExternalContext()
-			// .getAuthType());
-			// System.out.println("String ru "
-			// + FacesContext.getCurrentInstance().getExternalContext()
-			// .getRemoteUser());
-			// Principal userprincipal = request.getUserPrincipal();
-			// if (request.getUserPrincipal() != null) {
-			// request.logout();
-			// }
 
 			request.login(email, password);
 
 		} catch (ServletException e) {
 			log.error(e.getMessage());
-			System.out.println(e.getMessage() + " "
-					+ e.getStackTrace().toString());
+			// System.out.println(e.getMessage() + " "
+			// + e.getStackTrace().toString());
 			e.printStackTrace();
 			context.addMessage(null, new FacesMessage(
 					"Login failure: wrong email/password"));
@@ -142,17 +115,42 @@ public class LoginMB implements Serializable {
 		log.info("Doing Login for: " + email);
 		CandidateEntity c = applicationMB.findCandidateByEmail(email);
 
-		// UserEntity u = applicationMB.findUserByEmail(email);
 		if (c != null) {
 			applicationMB.setFullName(c.getFirstName() + " " + c.getLastName());
+			actUser.setEmail(email);
 			actUser.setFirstName(c.getFirstName());
 			actUser.setLastName(c.getLastName());
 			actUser.setCurrentCandidate(c);
 			;
 			email = "";
+			actUser.showTabs();
 			return "/pages/candidate/CandidatePage?faces-redirect=true";
 		}
 		return "/LoginCandidates?faces-redirect=true";
+
+	}
+
+	public String doLogout() {
+		System.out.println("dologout");
+		actUser.hideTabs();
+
+		return "/Home.xhtml?faces-redirect=true";
+	}
+
+	public String logout() {
+		log.info("Doing logout for user :" + actUser.getEmail());
+
+		System.out.println("logout context");
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context
+				.getExternalContext().getRequest();
+		try {
+			request.logout();
+		} catch (ServletException e) {
+			context.addMessage(null, new FacesMessage("Logout failed"));
+			return null;
+		}
+		return doLogout();
 
 	}
 

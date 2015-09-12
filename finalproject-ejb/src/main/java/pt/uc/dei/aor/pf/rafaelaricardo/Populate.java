@@ -5,8 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,8 +26,10 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
-@Stateless
-@LocalBean
+@Startup
+@Singleton
+// @Stateless
+// @LocalBean
 public class Populate implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -38,10 +41,11 @@ public class Populate implements Serializable {
 	@Inject
 	private EncryptPass encPass;
 
-	public Populate() {
-	}
+	// public Populate() {
+	// }
 
-	public void populando() throws ParseException {
+	@PostConstruct
+	void populando() throws ParseException {
 
 		log.info("Populating th DB");
 		// ArrayList<RoleEntity> allRoles = new ArrayList<RoleEntity>();
@@ -66,7 +70,7 @@ public class Populate implements Serializable {
 		UserEntity[] users = {
 				new UserEntity("admin", "das couves", "admin@gmail.com",
 						encPass.encrypt("123"), rAdmin),
-				new UserEntity("interv", "das couves", "ainterv@gmail.com",
+				new UserEntity("interviewer", "das couves", "interv@gmail.com",
 						encPass.encrypt("123"), rInterv),
 				new UserEntity("manager", "das couves", "manager@gmail.com",
 						encPass.encrypt("123"), rManager),
@@ -74,7 +78,7 @@ public class Populate implements Serializable {
 						"candidate@gmail.com", encPass.encrypt("123"),
 						rCandidate),
 				new UserEntity("adminMan", "das couves", "adminman@gmail.com",
-						"abc", rAdminManager) };
+						encPass.encrypt("abc"), rAdminManager) };
 
 		DescriptionPosition dp = new DescriptionPosition();
 		dp.setDescription("<p>Working for us is like nothing on earth. Every day, our teams across the globe challenge the limits of human achievement, engineering solutions for our planet and beyond.</p><p>Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications. Now, we’re looking for talented Technical Managers for Embedded Systems to join our Systems and Software Engineering team in breaching the frontiers of space, aerospace and defence.</p><p>Across international projects, you’ll be working on some of the most critical software applications developing today, as part of a global team with more than 15 years’ experience working with embedded software and systems.</p><p>Sound like you? Then it’s time to challenge your limits. It’s time to give your career the rocket boost it deserves. It’s time you joined CRITICAL Software!</p>");
@@ -90,7 +94,7 @@ public class Populate implements Serializable {
 
 		PositionEntity position1 = new PositionEntity();
 		position1.setAdminCreator(users[0]);
-		position1.setTitle("Techinal manager for embedded systems");
+		position1.setTitle("Technical manager for embedded systems");
 		position1.setLocation(Location.COIMBRA);
 		position1.setLocation(Location.OPORTO);
 		position1.setPositionStatus(PositionStatus.OPEN);

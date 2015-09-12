@@ -38,8 +38,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 strong {
-/* 	font-family: "PFDinDisplayProLight", Georgia;
- */	font-weight: 600;
+	/* 	font-family: "PFDinDisplayProLight", Georgia;
+ */
+	font-weight: 600;
 }
 
 .container, .header, .top, .content, .footer {
@@ -66,10 +67,10 @@ strong {
 	font-family: "PFDinDisplayProLight", Georgia !important;
 }
 
-
 .footer {
-/* 	font-family: "PFDinDisplayProThin", Georgia;
- */	text-align: center;	
+	/* 	font-family: "PFDinDisplayProThin", Georgia;
+ */
+	text-align: center;
 	margin-top: 10px;
 }
 
@@ -77,7 +78,6 @@ strong {
 	background-color: transparent;
 	position: inherit;
 }
-
 
 .menuButtons {
 	border: 0px !important;
@@ -109,6 +109,8 @@ strong {
 
 )
 no-repeat
+
+
 ;
 }
 table th {
@@ -126,11 +128,14 @@ table th {
 	border: 1px solid #ccc;
 	margin: 20px;
 	padding: 10px;
-	
 }
-.ui-button .ui-button-text,.ui-paginator .ui-paginator-page{
-	color:#a50d12 !important;
+
+.ui-button .ui-button-text, .ui-paginator .ui-paginator-page {
+	color: #a50d12 !important;
 }
+
+
+
 .label {
 	text-align: right !important;
 	min-width: 50px !important;
@@ -138,4 +143,17 @@ table th {
 
 .field {
 	min-width: 100px !important;
+}
+.logoutButton	{
+
+	margin-right: 0px !important; 
+	
+	text-shadow : none !important;
+	font-weight: normal !important;
+	color: #ffffff !important;
+	/*background-color: #a50d12 !important;
+	background: #c4c4c4
+		-webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255,
+		0.8)), to(rgba(255, 255, 255, 0)));*/
+	
 }
