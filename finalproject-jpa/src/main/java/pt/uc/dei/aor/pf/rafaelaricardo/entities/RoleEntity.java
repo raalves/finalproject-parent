@@ -24,7 +24,8 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 @Table(name = "role")
 @NamedQueries({
 		@NamedQuery(name = "RoleEntity.findRoleById", query = "SELECT r FROM RoleEntity r WHERE r.id = :id"),
-		@NamedQuery(name = "RoleEntity.findRoleByName", query = "SELECT r FROM RoleEntity r WHERE r.role = :role") })
+		@NamedQuery(name = "RoleEntity.findRoleByName", query = "SELECT r FROM RoleEntity r WHERE r.role = :role"),
+		@NamedQuery(name = "RoleEntity.findAllByIdOrder", query = "SELECT r FROM RoleEntity r ORDER BY r.id") })
 public class RoleEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;;

@@ -1,6 +1,7 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 
 @Named
@@ -52,6 +54,23 @@ public class ApplicationMB implements Serializable {
 
 	public void goToProfile() {
 
+	}
+
+	public UserEntity addUser(UserEntity creator, String firstName,
+			String lastName, String email, String password,
+			ArrayList<RoleEntity> roles) {
+
+		try {
+			UserEntity u = userFacade.addUser(creator, firstName, lastName,
+					email, password, roles);
+			return u;
+		} catch (EJBException e) {
+			String errorMsg = "Error adding user " + e.getMessage();
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(errorMsg));
+			return null;
+		}
 	}
 
 	public UserEntity findUserByEmail(String email) {

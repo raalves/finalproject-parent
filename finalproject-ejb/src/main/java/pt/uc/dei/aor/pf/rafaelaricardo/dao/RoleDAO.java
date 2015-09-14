@@ -47,4 +47,7 @@ public class RoleDAO extends GenericDAO<RoleEntity> {
 			return null;
 	}
 
+	public List<RoleEntity> findAllByOrder() {
+		return super.findAllByOrder("RoleEntity.findAllByIdOrder");
+	}
 }

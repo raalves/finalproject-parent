@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
-import pt.uc.dei.aor.pf.rafaelaricardo.dao.RoleDAO;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
@@ -17,13 +15,12 @@ import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 public class ActiveUserMB implements Serializable {
 
 	private static final long serialVersionUID = -2924065797543265014L;
-	@Inject
-	private RoleDAO roleDAO;
 
 	private String email;
 	private String fullName;
 	private String firstName;
 	private String lastName;
+	private String areaName;
 	private UserEntity currentUser;
 	private CandidateEntity currentCandidate;
 	private List<RoleEntity> userRoles;
@@ -55,8 +52,7 @@ public class ActiveUserMB implements Serializable {
 				System.out.println(re);
 
 				if (re.getRole().toString() == ("ADMIN")) {
-					System.out.println("role do array "
-							+ re.getRole().toString());
+
 					adminTab = true;
 
 				} else if (re.getRole().toString() == ("MANAGER")) {
@@ -74,12 +70,6 @@ public class ActiveUserMB implements Serializable {
 
 	public void hideTabs() {
 		System.out.println("hide tabs");
-		// setEmail(null);
-		// setNewUser(false);
-		// setAdminTab(false);
-		// setManagerTab(false);
-		// setInterviewerTab(false);
-		// setCandidateTab(false);
 		email = null;
 		newUser = false;
 		extraAreas = false;
@@ -209,6 +199,14 @@ public class ActiveUserMB implements Serializable {
 
 	public void setExtraAreas(boolean extraAreas) {
 		this.extraAreas = extraAreas;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
 	}
 
 }

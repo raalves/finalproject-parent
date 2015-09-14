@@ -6,19 +6,35 @@
 
 	<div
 		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
+		
 		<p:outputLabel>
-			<h3>Welcome #{activeUserMB.currentUser.firstName} #{activeUserMB.currentUser.lastName}</h3>
+			<h3>Welcome #{activeUserMB.currentUser.firstName}
+				#{activeUserMB.currentUser.lastName}</h3>
 		</p:outputLabel>
 	</div>
 
 	<p:tabView id="tabAdmin">
-		<p:tab id="careersAdmin" title="Careers" />
-		<p:tab id="vacAdmin" title="Vacancies" />
-		<p:tab id="intervAdmin" title="Interviews" />
-		<p:tab id="guidesAdmin" title="Guides" />
-		<p:tab id="candAdmin" title="Candidatures" />
-		<p:tab id="reportsAdmin" title="Reports" />
-		<p:tab id="repgisterAdmin" title="New register" />
+		<p:tab id="careersAdmin" title="Careers">
+			<ui:include src="/pages/admin/Description.xhtml" />
+		</p:tab>
+		<p:tab id="vacAdmin" title="Vacancies">
+			<ui:include src="/pages/admin/Vacancies.xhtml" />
+		</p:tab>
+		<p:tab id="intervAdmin" title="Interviews">
+			<ui:include src="/pages/admin/Interviews.xhtml" />
+		</p:tab>
+		<p:tab id="guidesAdmin" title="Guides" >
+		<ui:include src="/pages/admin/Guides.xhtml" />
+		</p:tab>
+		<p:tab id="candAdmin" title="Candidatures">
+			<ui:include src="/pages/admin/Candidatures.xhtml" />
+		</p:tab>
+		<p:tab id="reportsAdmin" title="Reports">
+			<ui:include src="/pages/admin/Reports.xhtml" />
+		</p:tab>
+		<p:tab id="repgisterAdmin" title="New register">
+			<ui:include src="/pages/admin/NewUserRegister.xhtml" />
+		</p:tab>
 	</p:tabView>
 
 </ui:composition>

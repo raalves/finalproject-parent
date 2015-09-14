@@ -1,7 +1,9 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 
 public interface UserFacade {
@@ -9,6 +11,10 @@ public interface UserFacade {
 	public abstract UserEntity findUserById(Long id);
 
 	public abstract UserEntity findUserByEmail(String email);
+
+	public abstract UserEntity addUser(UserEntity creator, String firstName,
+			String lastName, String email, String password,
+			ArrayList<RoleEntity> roles);
 
 	public abstract List<UserEntity> findUserByCreator(UserEntity creator);
 

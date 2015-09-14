@@ -46,11 +46,11 @@
 					<p:outputLabel value="#vacancies" />
 					<p:outputLabel value="#{positionsMB.positionSelect.quantity}" />
 				</p:panelGrid>
-				<div style="text-align: justify; margin-top: 20px">
+				<div style=" margin-top: 20px" >
 					<h5>Details</h5>
 
-				<div>	#{positionsMB.positionSelect.descriptionPosition.description}
-				</div>	
+<h:outputLabel value="#{positionsMB.positionSelect.descriptionPosition.description}" escape="false" style="white-space: pre-wrap; "/>
+					
 					
 					<h5>KEY RESPONSIBILITIES</h5>
 					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}

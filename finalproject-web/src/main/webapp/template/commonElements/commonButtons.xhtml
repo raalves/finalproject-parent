@@ -5,31 +5,31 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
 		<div style="padding: 5px">
-			<div style="float: left; padding-left: 10px" id="areaName">
-				<p:outputLabel rendered="false">
-					<h2>#{beanView.areaName} area</h2>
+			<div style="float: left; padding-left: 10px" >
+				<p:outputLabel rendered="#{activeUserMB.newUser}" >
+					<h2 id="areaName">#{activeUserMB.areaName} area</h2>
 				</p:outputLabel>
 			</div>
 
 			<div style="float: right">
 				<p:menubar styleClass="menuButtons">
 					<p:submenu label="Select area" rendered="#{activeUserMB.extraAreas}">
-						<p:menuitem value="Admin area" url="/pages/public/AdminPage.xhtml"
+						<p:menuitem value="Admin area" url="/pages/admin/AdminPage.xhtml"
 							rendered="#{activeUserMB.adminTab}"
-							actionListener="#{beanView.setAreaName(Administrador)}"
-							update="areaName" />
+						 acrion="#{activeUserMB.setAreaName(Administrador)}"
+							update=":areaName" />
 						<p:menuitem value=" Manager	area"
-							url="/pages/public/ManagerPage.xhtml"
+							url="/pages/manager/ManagerPage.xhtml"
 							rendered="#{activeUserMB.managerTab}"
-							action="#{beanView.setAreaName(Manager)}" update="areaName" />
+							action="#{activeUserMB.setAreaName(Manager)}" update=":areaName" />
 						<p:menuitem value="Interviewer area"
-							url="/pages/public/InterviewerPage.xhtml"
+							url="/pages/interviewer/InterviewerPage.xhtml"
 							rendered="#{activeUserMB.interviewerTab}"
-							action="#{beanView.setAreaName(Interviewer)}" update="areaName" />
+							action="#{activeUserMB.setAreaName(Interviewer)}" update=":areaName" />
 						<p:menuitem value="Candidate area"
-							url="/pages/public/CandidatePage.xhtml"
+							url="/pages/candidate/CandidatePage.xhtml"
 							rendered="#{activeUserMB.candidateTab}"
-							action="#{beanView.setAreaName(Candidate)}" update="areaName" />
+							action="#{activeUserMB.setAreaName(Candidate)}" update=":areaName" />
 
 					</p:submenu>
 					<f:facet name="options">

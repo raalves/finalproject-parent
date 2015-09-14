@@ -1,5 +1,6 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,7 +9,9 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.dao.RoleDAO;
 import pt.uc.dei.aor.pf.rafaelaricardo.dao.UserDAO;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 
 @Stateless
@@ -18,6 +21,10 @@ public class UserFacadeImp implements UserFacade {
 			.getLogger(UserFacadeImp.class);
 	@EJB
 	private UserDAO userDAO;
+	@EJB
+	private EncryptPass encryptPass;
+	@EJB
+	private RoleDAO roleDAO;
 
 	@Override
 	public UserEntity findUserById(Long id) {
@@ -59,6 +66,21 @@ public class UserFacadeImp implements UserFacade {
 	public List<UserEntity> findAllByOrder() {
 		log.info("Creating query for all users (order by id)");
 		return userDAO.findAllByOrder();
+	}
+
+	@Override
+	public UserEntity addUser(UserEntity creator, String firstName,
+			String lastName, String email, String password,
+			ArrayList<RoleEntity> roles) {
+		log.info("Saving user in DB");
+
+		if (userDAO.findUserByEmail(email) == null) {
+			UserEntity u = new UserEntity(firstName, lastName, email,
+					encryptPass.encrypt(password), roles);
+			userDAO.save(u);
+			return u;
+		}
+		return null;
 	}
 
 }

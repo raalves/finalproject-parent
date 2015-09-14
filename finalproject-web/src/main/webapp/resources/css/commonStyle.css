@@ -10,12 +10,12 @@
 
 @import "../resources/fonts/PFDinDisplayPro-Medium.css";
 
-@font-face {
+/* @font-face {
 	font-family: 'PFDinDisplayProLight';
 	src: url("PFDinDisplayProLight.TTF");
 	font-weight: normal;
 	font-style: normal;
-}
+} */
 
 body {
 	font-family: "PFDinDisplayProLight", Georgia !important;

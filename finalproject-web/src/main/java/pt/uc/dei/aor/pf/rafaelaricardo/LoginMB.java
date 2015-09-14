@@ -74,7 +74,7 @@ public class LoginMB implements Serializable {
 			String path = actUser.searchUserRoles().get(0).getRole().toString();
 			String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
 			actUser.showTabs();
-
+			actUser.setAreaName(path);
 			// String path = actUser.searchUserRoles().get(0).toString();
 
 			return "/pages/" + path.toLowerCase() + "/" + pagePath

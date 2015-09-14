@@ -1,5 +1,7 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -30,4 +32,9 @@ public class RoleFacadeImp implements RoleFacade {
 		return roleDAO.findRoleByName(role);
 	}
 
+	@Override
+	public List<RoleEntity> findAllByIdOrder() {
+		log.info("Creating query for all roles (order by id)");
+		return roleDAO.findAllByOrder();
+	}
 }

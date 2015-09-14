@@ -63,9 +63,9 @@ public class Populate implements Serializable {
 		rManager.add(new RoleEntity(Role.MANAGER));
 		ArrayList<RoleEntity> rCandidate = new ArrayList<RoleEntity>();
 		rCandidate.add(new RoleEntity(Role.CANDIDATE));
-		ArrayList<RoleEntity> rAdminManager = new ArrayList<RoleEntity>();
-		rAdminManager.add(new RoleEntity(Role.ADMIN));
-		rAdminManager.add(new RoleEntity(Role.MANAGER));
+		// ArrayList<RoleEntity> rAdminManager = new ArrayList<RoleEntity>();
+		// rAdminManager.add(new RoleEntity(Role.ADMIN));
+		// rAdminManager.add(new RoleEntity(Role.MANAGER));
 
 		UserEntity[] users = {
 				new UserEntity("admin", "das couves", "admin@gmail.com",
@@ -76,12 +76,15 @@ public class Populate implements Serializable {
 						encPass.encrypt("123"), rManager),
 				new UserEntity("candidate", "das couves",
 						"candidate@gmail.com", encPass.encrypt("123"),
-						rCandidate),
-				new UserEntity("adminMan", "das couves", "adminman@gmail.com",
-						encPass.encrypt("abc"), rAdminManager) };
+						rCandidate) };
+		// new UserEntity("adminMan", "das couves", "adminman@gmail.com",
+		// encPass.encrypt("abc"), rAdminManager) };
 
 		DescriptionPosition dp = new DescriptionPosition();
-		dp.setDescription("<p>Working for us is like nothing on earth. Every day, our teams across the globe challenge the limits of human achievement, engineering solutions for our planet and beyond.</p><p>Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications. Now, we’re looking for talented Technical Managers for Embedded Systems to join our Systems and Software Engineering team in breaching the frontiers of space, aerospace and defence.</p><p>Across international projects, you’ll be working on some of the most critical software applications developing today, as part of a global team with more than 15 years’ experience working with embedded software and systems.</p><p>Sound like you? Then it’s time to challenge your limits. It’s time to give your career the rocket boost it deserves. It’s time you joined CRITICAL Software!</p>");
+		dp.setDescription("Working for us is like nothing on earth. Every day, our teams across the globe challenge the limits of human achievement, engineering solutions for our planet and beyond.&lt;br/&gt; Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications. Now, we’re looking for talented Technical Managers for Embedded Systems to join our Systems and Software Engineering team in breaching the frontiers of space, aerospace and defence."
+				+ "Across international projects, you’ll be working on some of the most critical software applications developing today, as part of a global team with more than 15 years’ experience working with embedded software and systems. '&lt;br/&gt;'"
+				+ "Sound like you? Then it’s time to challenge your limits. It’s time to give your career the rocket boost it deserves. It’s time you joined CRITICAL Software!"
+				+ "");
 		dp.setKeyResponsabilities("<p>Undertaking software development for embedded systems</p><p>Performing Verification & Validation testing of embedded systems</p><p>Leading a team through your technical expertise (task allocation, status reporting, and people management)keyResponsabilities</p>");
 		dp.setDesiredQualifications("<p>Knowledge of embedded software development in microcontrollers</p><p>Knowledge of safety-critical standards (for example, ECSS, DO-178B/C, ISO 26262, IEC 61508)</p><p>Knowledge of system development using model-based development techniques and tools (for example, SCADE and MATLAB)</p>");
 		dp.setRequiredQualifications("<p>More than 7 years’ experience working in software development and embedded systems engineering</p><p>Deep knowledge of different Operating Systems, particularly the concepts of real-time and embedded systems, computer architectures and programming languages (C/C++, Ada95)</p><p>Full-lifecycle software development experience, from initial requirements elicitation to design, coding, testing, documentation, implementation, integration and training</p><p>Teamwork and technical project management experience</p><p>Strong leadership, problem-solving and communication skills</p><p>Proficiency in English</p><p>Good organisational skills</p><p>Availability to travel, mainly Europe (United Kingdom, Germany, France)</p>");
@@ -120,8 +123,8 @@ public class Populate implements Serializable {
 			em.persist(rl);
 		for (RoleEntity rl : rManager)
 			em.persist(rl);
-		for (RoleEntity rl : rAdminManager)
-			em.persist(rl);
+		// for (RoleEntity rl : rAdminManager)
+		// em.persist(rl);
 		for (UserEntity uE : users)
 			em.persist(uE);
 		em.persist(generalGuide);

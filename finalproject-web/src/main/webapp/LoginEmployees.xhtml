@@ -7,7 +7,7 @@
 	<ui:define name="content">
 		<div id="loginPage" style="text-align: -webkit-center !important;">
 			<h:form id="loginEmployees">
-				<p:messages id="messagesLoginEmp" globalOnly="true"
+				<p:messages id="messagesLoginEmp" 
 					autoUpdate="true" closable="true" />
 				<p:panel>
 					<p:outputLabel>
@@ -19,15 +19,15 @@
 					<p:panelGrid columns="2" styleClass="loginForm">
 						<p:outputLabel value="Email" />
 						<p:inputText value="#{loginMB.email}" required="true"
-							requiredMessage="Empty email" id="email" />
+							requiredMessage="Please insert an email" id="email" />
 						
 						
 						<p:outputLabel value="Password" />
 						<p:password value="#{loginMB.password}" required="true"
-							requiredMessage="Empty password" id="password" />
+							requiredMessage="Please insert a password" id="password" />
 						
 						
-						<p:commandButton value="Login" action="#{loginMB.loginEmployees()}" />
+						<p:commandButton value="Login" action="#{loginMB.loginEmployees()}" ajax="false"/>
 					</p:panelGrid>
 				</p:panel>
 			</h:form>
