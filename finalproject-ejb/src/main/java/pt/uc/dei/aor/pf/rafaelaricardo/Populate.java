@@ -15,11 +15,14 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.CandidatureStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
@@ -48,11 +51,6 @@ public class Populate implements Serializable {
 	void populando() throws ParseException {
 
 		log.info("Populating th DB");
-		// ArrayList<RoleEntity> allRoles = new ArrayList<RoleEntity>();
-		// allRoles.add(new RoleEntity(Role.ADMIN));
-		// allRoles.add(new RoleEntity(Role.INTERVIEWER));
-		// allRoles.add(new RoleEntity(Role.MANAGER));
-		// allRoles.add(new RoleEntity(Role.CANDIDATE));
 
 		ArrayList<RoleEntity> rAdmin = new ArrayList<RoleEntity>();
 		rAdmin.add(new RoleEntity(Role.ADMIN));
@@ -63,9 +61,7 @@ public class Populate implements Serializable {
 		rManager.add(new RoleEntity(Role.MANAGER));
 		ArrayList<RoleEntity> rCandidate = new ArrayList<RoleEntity>();
 		rCandidate.add(new RoleEntity(Role.CANDIDATE));
-		// ArrayList<RoleEntity> rAdminManager = new ArrayList<RoleEntity>();
-		// rAdminManager.add(new RoleEntity(Role.ADMIN));
-		// rAdminManager.add(new RoleEntity(Role.MANAGER));
+		RoleEntity rCAnd = new RoleEntity(Role.CANDIDATE);
 
 		UserEntity[] users = {
 				new UserEntity("admin", "das couves", "admin@gmail.com",
@@ -113,6 +109,34 @@ public class Populate implements Serializable {
 		position1.setGuide(generalGuide);
 		position1.setManager(users[0]);
 
+		CandidateEntity candidate1 = new CandidateEntity();
+		candidate1.setFirstName("Rafaela	");
+		candidate1.setLastName("Lourenço");
+		candidate1.setBirthDate(ft.parse("1986-04-30"));
+		candidate1.setEmail("lourencorafaela@gmail.com");
+		candidate1.setPassword(encPass.encrypt("456"));
+		candidate1.setMobilePhone((long) 912345678);
+		candidate1.setPhone((long) 274111111);
+		candidate1
+				.setAddress("Travessa da Central Eléctrica nº2, 6100-654 Sertã");
+		candidate1.setCity("Sertã");
+		candidate1.setCountry("Postugal");
+		candidate1.setCourse("Eng");
+		candidate1.setSchool("FCUL");
+		candidate1.setCvPath("qqcoisa");
+		candidate1.setRole(rCAnd);
+		// candidate1.setCandidatures(candidatures);
+
+		ArrayList<CandidatureEntity> candidatures = new ArrayList<CandidatureEntity>();
+		CandidatureEntity candidature1 = new CandidatureEntity("qqcoisaCV",
+				"qqCoisaCoverLetter", ft.parse("2015-08-31"),
+				CandidatureStatus.SUBMITTED);
+		candidature1.setPosition(position1);
+		candidature1.setPublicSource(Source.FACEBOOK);
+		candidature1.setCandidate(candidate1);
+
+		candidatures.add(candidature1);
+
 		// for (RoleEntity rl : allRoles)
 		// em.persist(rl);
 		for (RoleEntity rl : rAdmin)
@@ -123,12 +147,16 @@ public class Populate implements Serializable {
 			em.persist(rl);
 		for (RoleEntity rl : rManager)
 			em.persist(rl);
+		em.persist(rCAnd);
 		// for (RoleEntity rl : rAdminManager)
 		// em.persist(rl);
 		for (UserEntity uE : users)
 			em.persist(uE);
 		em.persist(generalGuide);
 		em.persist(position1);
+		em.persist(candidate1);
+		for (CandidatureEntity c : candidatures)
+			em.persist(c);
 
 	}
 }

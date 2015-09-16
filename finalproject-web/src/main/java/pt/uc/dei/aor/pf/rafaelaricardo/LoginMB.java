@@ -48,9 +48,8 @@ public class LoginMB implements Serializable {
 
 		} catch (ServletException e) {
 			log.error(e.getMessage());
-			e.printStackTrace();
-			context.addMessage(null, new FacesMessage(
-					"Login failure: wrong email/password"));
+			// e.printStackTrace();
+			context.addMessage(null, new FacesMessage(e.getMessage()));
 
 			return null;
 		}
@@ -80,6 +79,7 @@ public class LoginMB implements Serializable {
 			return "/pages/" + path.toLowerCase() + "/" + pagePath
 					+ "Page?faces-redirect=true";
 		}
+		logout();
 		return "/LoginEmployees?faces-redirect=true";
 
 	}
@@ -97,11 +97,9 @@ public class LoginMB implements Serializable {
 
 		} catch (ServletException e) {
 			log.error(e.getMessage());
-			// System.out.println(e.getMessage() + " "
-			// + e.getStackTrace().toString());
-			e.printStackTrace();
+			// e.printStackTrace();
 			context.addMessage(null, new FacesMessage(
-					"Login failure: wrong email/password"));
+					"Login failure: wrong email/password: " + e.getMessage()));
 
 			return null;
 		}
@@ -121,11 +119,12 @@ public class LoginMB implements Serializable {
 			actUser.setFirstName(c.getFirstName());
 			actUser.setLastName(c.getLastName());
 			actUser.setCurrentCandidate(c);
-			;
+
 			email = "";
 			actUser.showTabs();
 			return "/pages/candidate/CandidatePage?faces-redirect=true";
 		}
+		logout();
 		return "/LoginCandidates?faces-redirect=true";
 
 	}

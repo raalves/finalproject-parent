@@ -4,8 +4,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="formNewUserReg">
-		<p:messages for="msgNewUser" autoUpdate="true" closable="true" />
-		<p:growl for="growlNewUser" autoUpdate="true" />
+		
+		<p:messages for="msgNewUser" severity="error,warn"  closable="true" />
+		<p:growl for="growlNewUser" severity="info" sticky="true" />
 		<p:panelGrid columns="2" style="margin-top:20px;"
 			columnClasses="label,field" styleClass="ui-noborder"
 			id="newUserRegister">
@@ -30,7 +31,7 @@
 
 			<p:outputLabel for="password2" value="Repeat password" />
 			<p:password id="password2" size="80"
-				value="#{newUserRegisterMB.repeatPassword}" required="true" requiredMessage="Please fill in the repeat password field!"/>
+				value="#{newUserRegisterMB.repeatPassword}" required="true" requiredMessage="Please fill in the repeat password field!" feedback="true"/>
 
 			<p:outputLabel for="userRoles" value="Profile" />
 			<p:selectManyCheckbox id="userRoles"

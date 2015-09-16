@@ -1,0 +1,102 @@
+<ui:composition template="/template/commonLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+
+		<h:form id="formNewCandidate" enctype="multipart/form-data">
+			<p:messages id="msgNewCand"  severity="error,warn" 
+				closable="true" style="text-align:left" />
+			<p:growl id="growlNewCand"  sticky="true" severity="info"/>
+			<p:panel>
+				<p:outputLabel>
+					<h2>New candidate register area</h2>
+				</p:outputLabel>
+
+				<p:panelGrid id="newCandForm" columns="2" styleClass="ui-noborder"
+					style="width: 100%; margin-top: 20px" columnClasses="label,field">
+					<p:outputLabel value="First Name" for="firstName" />
+					<p:inputText id="firstName" size="80" required="true"
+						requiredMessage="Please fill in the first name field!" value="#{newCandidateRegisterMB.firstName}" />
+
+					<p:outputLabel value="Last Name" for="lastName" />
+					<p:inputText id="lastName" size="80" required="true"
+						requiredMessage="Please fill in the last name field!" value="#{newCandidateRegisterMB.lastName}" />
+
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" size="80" required="true"
+						requiredMessage="Please fill in the email field!" value="#{newCandidateRegisterMB.email}" />
+
+					<p:outputLabel for="password1" value="Password" />
+					<p:password id="password1" match="password2" feedback="true"
+						size="80" required="true"
+						requiredMessage="Please fill in the password field!" value="#{newCandidateRegisterMB.password}"/>
+
+					<p:outputLabel for="password2" value="Repeat password" />
+					<p:password id="password2" size="80" required="true"
+						requiredMessage="Please fill in the repeat password field!"
+						feedback="true" value="#{newCandidateRegisterMB.repeatPassword}"/>
+
+					<p:outputLabel value="Birthdate" for="birthdate" />
+					<p:calendar id="birthdate" size="10" pattern="yyyy-MM-dd"
+						mask="true"  required="true"
+						requiredMessage="Please fill in the birthdate field!" value="#{newCandidateRegisterMB.birthdate}"/>
+
+					<p:outputLabel value="Adress" for="address" />
+					<p:inputText id="address" size="80" required="true"
+						requiredMessage="Please fill in the address field!" value="#{newCandidateRegisterMB.address}" />
+
+					<p:outputLabel value="City" for="city" />
+					<p:inputText id="city" size="80" required="true"
+						requiredMessage="Please fill in the City field!" value="#{newCandidateRegisterMB.city}" />
+
+					<p:outputLabel value="Country" for="country" />
+					<p:inputText id="country" size="80" required="true"
+						requiredMessage="Please fill in the Country field!" value="#{newCandidateRegisterMB.country}" />
+
+					<p:outputLabel value="Phone" for="phone" />
+					<p:inputText id="phone" maxlength="13" size="13"  value="#{newCandidateRegisterMB.phone}" />
+
+					<p:outputLabel value="Mobile phone" for="mobilePhone" />
+					<p:inputText id="mobilePhone" maxlength="13" size="13" required="true"
+						requiredMessage="Please fill in the mobile phone field!" value="#{newCandidateRegisterMB.mobilePhone}" />
+
+					<p:outputLabel value="Main Course" for="course" />
+					<p:inputText id="course" size="80" required="true"
+						style="width:250px;"
+						requiredMessage="Please fill in the course field!" value="#{newCandidateRegisterMB.course}" />
+
+					<p:outputLabel value="School" for="school" />
+					<p:inputText id="school" size="80" required="true"
+						style="width:250px;"
+						requiredMessage="Please fill in the school field!" value="#{newCandidateRegisterMB.school}" />
+
+					<p:outputLabel value="Upload CV/Resume (only in pdf format)" for="uploadCV" />
+					<h:inputFile id="uploadCV" class="buttons"
+						value="#{uploadFile.cvFile}" required="true"
+						requiredMessage="Please upload your CV/Resume!" />
+					<p:outputLabel value="Upload Cover Letter" for="uploadCoverLetter" />
+					<h:inputFile id="uploadCoverLetter" class="buttons"
+						value="#{uploadFile.coverLetterFile}" required="false"
+						requiredMessage="Please upload your CV/Resume!" />
+
+
+
+					<p:spacer />
+					<p:columnGroup>
+						<p:commandButton value="Cancel" onclick="history.go(-1)" />
+						<p:commandButton value="Clear" update="newCandForm"
+							process="@this">
+							<p:resetInput target="newCandForm" />
+						</p:commandButton>
+						<p:commandButton value="Submit"  action="#{newCandidateRegisterMB.newCandidate(uploadFile)}" ajax="false"/>
+					</p:columnGroup>
+				</p:panelGrid>
+
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

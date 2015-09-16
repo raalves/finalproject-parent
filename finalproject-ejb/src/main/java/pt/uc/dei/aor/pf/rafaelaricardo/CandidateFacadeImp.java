@@ -10,17 +10,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.dao.CandidateDAO;
+import pt.uc.dei.aor.pf.rafaelaricardo.dao.RoleDAO;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 
 @Stateless
 public class CandidateFacadeImp implements CandidateFacade {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(CandidateFacadeImp.class);
-
+	@EJB
+	private RoleDAO roleDao;
 	@EJB
 	private CandidateDAO candidateDao;
+	@EJB
+	private EncryptPass encryptPass;
 
 	@Override
 	public List<CandidateEntity> findAllByOrder() {
@@ -98,6 +103,66 @@ public class CandidateFacadeImp implements CandidateFacade {
 	public List<CandidateEntity> findCandidateBySchool(String school) {
 		log.info("Finding candidates by school: " + school);
 		return candidateDao.findCandidateBySchool(school);
+	}
+
+	@Override
+	public CandidateEntity addCandidate(String firstName, String lastName,
+			String email, String password, Date birthdate, String address,
+			String city, Long mobilePhone, String country, String course,
+			String school, String cvPath) {
+		log.info("Saving candidate in DB");
+
+		if (candidateDao.findCandidateByEmail(email) == null) {
+			CandidateEntity c = new CandidateEntity(firstName, lastName, email,
+					encryptPass.encrypt(password), birthdate, address, city,
+					mobilePhone, country, course, school, cvPath);
+			RoleEntity rc = new RoleEntity(Role.CANDIDATE);
+			roleDao.save(rc);
+			// roleDao.save(new RoleEntity(Role.CANDIDATE));
+			c.setRole(rc);
+			candidateDao.save(c);
+			return c;
+		}
+		return null;
+
+	}
+
+	@Override
+	public void addPhone(CandidateEntity candidate, Long phone) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean updateCandidatePass(CandidateEntity c, String oldPass,
+			String newPass) {
+		log.info("Update password from candidate: " + c.getEmail());
+		if (c != null) {
+			if (c.checkPassword(encryptPass.encrypt(oldPass))) {
+				c.setPassword(encryptPass.encrypt(newPass));
+				isCandidateWithAllData(c);
+				candidateDao.update(c);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void isCandidateWithAllData(CandidateEntity c) {
+		boolean hasError = false;
+
+		if (c == null) {
+			hasError = true;
+		}
+
+		if ((c.getFirstName() == null) || "".equals(c.getFirstName().trim())) {
+			hasError = true;
+		}
+
+		if (hasError) {
+			throw new IllegalArgumentException(
+					"The candidate is missing data. Check the name and password, they should have value.");
+		}
 	}
 
 	// @EJB

@@ -24,11 +24,12 @@ public class NewUserRegisterMB implements Serializable {
 	private static final long serialVersionUID = 1065309372563194418L;
 	private static final Logger log = LoggerFactory
 			.getLogger(NewUserRegisterMB.class);
+
 	@Inject
 	private ActiveUserMB actUser;
 
 	@Inject
-	private ApplicationMB aplicationMB;
+	private ApplicationMB applicationMB;
 	@EJB
 	private RoleFacade rolefacade;
 
@@ -55,7 +56,7 @@ public class NewUserRegisterMB implements Serializable {
 		if (email
 				.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
 			if (password.equals(repeatPassword)) {
-				if (aplicationMB.addUser(creator, firstName, lastName, email,
+				if (applicationMB.addUser(creator, firstName, lastName, email,
 						password, idSelectedRoles) == null) {
 					String errorMsg = "This email already exists!";
 					log.error(errorMsg);
@@ -74,14 +75,18 @@ public class NewUserRegisterMB implements Serializable {
 			} else {
 				String errorMsg = "Passwords don't macth";
 				log.error(errorMsg);
-				FacesContext.getCurrentInstance().addMessage("msgNewUser",
-						new FacesMessage(errorMsg));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+								null));
 			}
 		} else {
 			String errorMsg = "This email is not valid!";
 			log.error(errorMsg);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("msgNewUser"));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
 		}
 	}
 
