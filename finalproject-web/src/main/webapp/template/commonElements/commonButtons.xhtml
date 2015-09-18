@@ -3,47 +3,38 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form>
+	<h:form id="frm1">
 		<div style="padding: 5px">
-			<div style="float: left; padding-left: 10px" >
-				<p:outputLabel rendered="#{activeUserMB.newUser}" >
-					<h2 id="areaName">#{activeUserMB.areaName} area</h2>
-				</p:outputLabel>
-			</div>
 
+			<p:outputLabel id="userName" rendered="#{activeUserMB.newUser}"
+				style="float: left; padding-left: 10px">
+				<h2>Welcome #{activeUserMB.fullName}</h2>
+			</p:outputLabel>
 			<div style="float: right">
 				<p:menubar styleClass="menuButtons">
-					<p:submenu label="Select area" rendered="#{activeUserMB.extraAreas}">
+					<p:submenu label="Select area"
+						rendered="#{activeUserMB.extraAreas}">
 						<p:menuitem value="Admin area" url="/pages/admin/AdminPage.xhtml"
-							rendered="#{activeUserMB.adminTab}"
-						 acrion="#{activeUserMB.setAreaName(Administrador)}"
-							update=":areaName" />
+							rendered="#{activeUserMB.adminTab}" />
 						<p:menuitem value=" Manager	area"
 							url="/pages/manager/ManagerPage.xhtml"
-							rendered="#{activeUserMB.managerTab}"
-							action="#{activeUserMB.setAreaName(Manager)}" update=":areaName" />
+							rendered="#{activeUserMB.managerTab}" />
 						<p:menuitem value="Interviewer area"
 							url="/pages/interviewer/InterviewerPage.xhtml"
-							rendered="#{activeUserMB.interviewerTab}"
-							action="#{activeUserMB.setAreaName(Interviewer)}" update=":areaName" />
+							rendered="#{activeUserMB.interviewerTab}" />
 						<p:menuitem value="Candidate area"
 							url="/pages/candidate/CandidatePage.xhtml"
-							rendered="#{activeUserMB.candidateTab}"
-							action="#{activeUserMB.setAreaName(Candidate)}" update=":areaName" />
-
+							rendered="#{activeUserMB.candidateTab}" />
 					</p:submenu>
 					<f:facet name="options">
 						<p:commandButton value="Logout" action="#{loginMB.logout()}"
 							rendered="#{activeUserMB.newUser}" styleClass="logoutButton" />
-
-						</f:facet>
-						<p:menuitem id="loginEmployees" value="Login employees"
-							url="/LoginEmployees.xhtml" rendered="#{!activeUserMB.newUser}" />
-						<p:menuitem id="loginCandidates" value="Login candidates"
-							url="/LoginCandidates.xhtml" rendered="#{!activeUserMB.newUser}" />
+					</f:facet>
+					<p:menuitem id="loginEmployees" value="Login employees"
+						url="/LoginEmployees.xhtml" rendered="#{!activeUserMB.newUser}" />
+					<p:menuitem id="loginCandidates" value="Login candidates"
+						url="/LoginCandidates.xhtml" rendered="#{!activeUserMB.newUser}" />
 				</p:menubar>
-
-
 			</div>
 		</div>
 	</h:form>

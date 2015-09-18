@@ -8,16 +8,20 @@
 	<div
 		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
 		<p:outputLabel>
-			<h3>Welcome #{activeUserMB.currentCandidate.firstName} #{activeUserMB.currentCandidate.lastName}</h3>
+			<h3>Candidate Area </h3>
 		</p:outputLabel>
 	</div>
 
-	<p:tabView id="tabCand">
-		<p:tab id="careersCand" title="Careers">
-			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
+	<p:tabView id="tab">
+		<p:tab id="careers" title="Careers">
+<!-- 			<ui:include src="/pages/public/DescriptionPublic.xhtml" /> -->
+				<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
+		
 		</p:tab>
-		<p:tab id="myVacMan" title="Vacancies">
-			<ui:include src="/pages/candidate/PositionsCandidate.xhtml" />
+		<p:tab id="vac" title="Vacancies">
+					<ui:include src="/template/commonElements/Positions.xhtml"/>
+		
+<!-- 			<ui:include src="/pages/candidate/PositionsCandidate.xhtml" /> -->
 		</p:tab>
 		<p:tab id="candCand" title="My Candidatures">
 			<ui:include src="/pages/candidate/MyCandidatures.xhtml" />

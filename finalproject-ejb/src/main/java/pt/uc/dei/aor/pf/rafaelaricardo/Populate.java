@@ -61,6 +61,11 @@ public class Populate implements Serializable {
 		rManager.add(new RoleEntity(Role.MANAGER));
 		ArrayList<RoleEntity> rCandidate = new ArrayList<RoleEntity>();
 		rCandidate.add(new RoleEntity(Role.CANDIDATE));
+		ArrayList<RoleEntity> rAdminMan = new ArrayList<RoleEntity>();
+		rAdminMan.add(new RoleEntity(Role.ADMIN));
+		rAdminMan.add(new RoleEntity(Role.MANAGER));
+		rAdminMan.add(new RoleEntity(Role.INTERVIEWER));
+
 		RoleEntity rCAnd = new RoleEntity(Role.CANDIDATE);
 
 		UserEntity[] users = {
@@ -72,9 +77,9 @@ public class Populate implements Serializable {
 						encPass.encrypt("123"), rManager),
 				new UserEntity("candidate", "das couves",
 						"candidate@gmail.com", encPass.encrypt("123"),
-						rCandidate) };
-		// new UserEntity("adminMan", "das couves", "adminman@gmail.com",
-		// encPass.encrypt("abc"), rAdminManager) };
+						rCandidate),
+				new UserEntity("adminMan", "das couves", "teste2@gmail.com",
+						encPass.encrypt("abc"), rAdminMan) };
 
 		DescriptionPosition dp = new DescriptionPosition();
 		dp.setDescription("Working for us is like nothing on earth. Every day, our teams across the globe challenge the limits of human achievement, engineering solutions for our planet and beyond.&lt;br/&gt; Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications. Now, we’re looking for talented Technical Managers for Embedded Systems to join our Systems and Software Engineering team in breaching the frontiers of space, aerospace and defence."
@@ -147,11 +152,12 @@ public class Populate implements Serializable {
 			em.persist(rl);
 		for (RoleEntity rl : rManager)
 			em.persist(rl);
-		em.persist(rCAnd);
-		// for (RoleEntity rl : rAdminManager)
-		// em.persist(rl);
+
+		for (RoleEntity rl : rAdminMan)
+			em.persist(rl);
 		for (UserEntity uE : users)
 			em.persist(uE);
+		em.persist(rCAnd);
 		em.persist(generalGuide);
 		em.persist(position1);
 		em.persist(candidate1);

@@ -7,7 +7,8 @@
 	<ui:define name="content">
 		<h:form>
 
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
 
 			<p:panel>
 				<p:outputLabel>
@@ -85,8 +86,8 @@
 						style="width:400px" required="true" />
 					<p:spacer />
 					<p:columnGroup>
-					
-						<p:commandButton value="Back" onclick="history.go(-1)"  />
+
+						<p:commandButton value="Back" onclick="history.go(-1)" />
 						<p:commandButton value="Clear" update="newSpontCandForm"
 							process="@this">
 							<p:resetInput target="newSpontCandForm" />

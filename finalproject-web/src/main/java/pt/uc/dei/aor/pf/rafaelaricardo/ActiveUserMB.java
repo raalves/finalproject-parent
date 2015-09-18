@@ -20,7 +20,6 @@ public class ActiveUserMB implements Serializable {
 	private String fullName;
 	private String firstName;
 	private String lastName;
-	private String areaName;
 	private UserEntity currentUser;
 	private CandidateEntity currentCandidate;
 	private List<RoleEntity> userRoles;
@@ -35,11 +34,15 @@ public class ActiveUserMB implements Serializable {
 		email = null;
 		newUser = false;
 		extraAreas = false;
-
 		adminTab = false;
 		managerTab = false;
 		interviewerTab = false;
 		candidateTab = false;
+	}
+
+	public void showCandTabs() {
+		newUser = true;
+		candidateTab = true;
 	}
 
 	public void showTabs() {
@@ -50,17 +53,12 @@ public class ActiveUserMB implements Serializable {
 			extraAreas = true;
 			for (RoleEntity re : userRoles) {
 				System.out.println(re);
-
 				if (re.getRole().toString() == ("ADMIN")) {
-
 					adminTab = true;
-
 				} else if (re.getRole().toString() == ("MANAGER")) {
 					managerTab = true;
-
 				} else if (re.getRole().toString() == ("INTERVIEWER")) {
 					interviewerTab = true;
-
 				} else if (re.getRole().toString() == ("CANDIDATE")) {
 					candidateTab = true;
 				}
@@ -92,6 +90,30 @@ public class ActiveUserMB implements Serializable {
 		return userRoles;
 	}
 
+	// public void areaNameAdmin() {
+	// System.out.println("areaadmin");
+	// this.areaName = "Administrador";
+	// // setAreaName("Administrador");
+	// }
+	//
+	// public void areaNameManager() {
+	// System.out.println("areaman");
+	// this.areaName = "Manager";
+	// // setAreaName("Manager");
+	// }
+	//
+	// public void areaNameInterviewer() {
+	// System.out.println("areaInterv");
+	// this.areaName = "Interviewer";
+	// // setAreaName("Interviewer");
+	// }
+	//
+	// public void areaNameCandidate() {
+	// System.out.println("areacand");
+	// this.areaName = "Candidate";
+	// // setAreaName("Candidate");
+	// }
+
 	/********* Getters e Setters ************/
 	public String getEmail() {
 		return email;
@@ -105,7 +127,7 @@ public class ActiveUserMB implements Serializable {
 		return fullName;
 	}
 
-	public void setFullName(String firstName, String astNames) {
+	public void setFullName(String firstName, String lastName) {
 		this.fullName = this.firstName + " " + this.lastName;
 	}
 
@@ -178,6 +200,7 @@ public class ActiveUserMB implements Serializable {
 	}
 
 	public boolean isCandidateTab() {
+		// setAreaName("Candidate");
 		return candidateTab;
 	}
 
@@ -199,14 +222,6 @@ public class ActiveUserMB implements Serializable {
 
 	public void setExtraAreas(boolean extraAreas) {
 		this.extraAreas = extraAreas;
-	}
-
-	public String getAreaName() {
-		return areaName;
-	}
-
-	public void setAreaName(String areaName) {
-		this.areaName = areaName;
 	}
 
 }

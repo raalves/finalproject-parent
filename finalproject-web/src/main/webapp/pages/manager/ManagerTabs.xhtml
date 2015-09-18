@@ -7,20 +7,22 @@
 	<div
 		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
 		<p:outputLabel>
-			<h3>Welcome #{activeUserMB.currentUser.firstName} #{activeUserMB.currentUser.lastName}</h3>
+			<h3>Manager area</h3>
 		</p:outputLabel>
 	</div>
-
-
-	<p:tabView id="tabMan">
-		<p:tab id="careersMan" title="Careers">
-			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
+	<p:tabView id="tab">
+		<p:tab id="careers" title="Careers">
+				<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
 		</p:tab>
-		<p:tab id="myVacMan" title="Vacancies" />
+		<p:tab id="vac" title="Vacancies" >
+						<ui:include src="/template/commonElements/Positions.xhtml" />
+		</p:tab>
 		<p:tab id="vacMan" title="My Vacancies" >
 					<ui:include src="/pages/manager/MyVacancies.xhtml" />
 		</p:tab>
-		<p:tab id="candMan" title="Candidatures" />
+		<p:tab id="cand" title="Candidatures" >
+					<ui:include src="/template/commonElements/SearchCandidates.xhtml" />
+		</p:tab>
 	</p:tabView>
 
 </ui:composition>

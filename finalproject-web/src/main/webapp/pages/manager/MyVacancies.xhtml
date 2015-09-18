@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="frm1">
 
-		<p:dataTable id="managerVac"
+		<p:dataTable id="tab"
 			value="#{managerVacanciesBean.vacanciesManager}" var="myVac"
 			style="margin-top:5px" emptyMessage="No records found" rows="15"
 			paginator="true" paginatorAlwaysVisible="false"
@@ -34,7 +34,7 @@
 			</p:column>
 			<p:column headerText="Details" style="text-align:center">
 				<p:commandButton icon="ui-icon-help"
-					update=":tabMan:frm1:detailsSelectVacancie"
+					update=":tab:frm1:detailsSelectVacancie"
 					oncomplete="PF('detailsVac').show()">
 					<f:setPropertyActionListener value="#{myVac}"
 						target="#{vacDetailsBean.vac}" />

@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form id="frm1">
+<h:form id="frm1">
 		<p:messages id="messages" showDetail="true" autoUpdate="true"
 			closable="true" />
 		<p:button value="Spontaneous Candidature"
@@ -11,19 +11,22 @@
 			style="float:right" />
 
 		<h1 id="titleCareers">Our Positions</h1>
-		<p:dataTable id="positionsPublic" value="#{positionsMB.positions}"
-			var="position" rendered="true" resizableColumns="true" ajax="t">
-			<f:facet name="header">#{position.technicalArea}</f:facet>
+		<p:dataTable id="positions" value="#{positionsMB.positions}"
+			var="position" rendered="true" resizableColumns="true" rowKey="position">
+			<f:facet name="header"/>
 
-			<p:column style="text-align:left">
+			<p:column headerText="Title" style="text-align:left" sortBy="#{position.title}">
 				<p:outputLabel value="#{position.title}" />
 			</p:column>
-			<p:column style="text-align:right">
+			<p:column headerText="Technical area" style="text-align:center" sortBy="#{position.techincalArea}">
+				<p:outputLabel value="#{position.technicalArea}" />
+			</p:column>
+			<p:column headerText="Location" style="text-align:right" sortBy="#{position.location}">
 				<p:outputLabel value="#{position.location}" />
 			</p:column>
-			<p:column style="text-align:center;width:100px">
+			<p:column headerText="Details" style="text-align:center;width:100px">
 				<p:commandButton value="Details" icon="ui-icon-search"
-					oncomplete="PF('positionDialog').show();return false;" update=":tabPublic:frm1:detailsSelectedPosition">
+					oncomplete="PF('positionDialog').show();return false;" update=":tab:frm1:detailsSelectedPosition">
 					<f:setPropertyActionListener value="#{position}"
 						target="#{positionsMB.positionSelect}" />
 				</p:commandButton>
@@ -35,7 +38,7 @@
 		<p:dialog id="detailsSelectedPosition" header="Position Details" widgetVar="positionDialog" modal="true"
 			width="900" height="500" resizable="false" closeOnEscape="true"
 			position="center" style="padding:10px;">
-			<p:outputPanel id="positionDialog" style="padding-left:15px">
+			<p:outputPanel id="positionDialog" style="padding-left:15px" >
 
 				<h3>#{positionsMB.positionSelect.title}</h3>
 				<p:panelGrid columns="2" columnClasses="label, value">
@@ -64,11 +67,11 @@
 
 				</div>
 				<div style="text-align: center">
-					<p:button value="Send to a friend" />
-					<p:button value="Close"
+					<p:commandButton value="Send to a friend" />
+					<p:commandButton value="Close"
 						onclick="PF('positionDialog').hide();return false;" />
-					<p:button value="Apply"
-						onclick="PF('positionDialog').hide();return false;" />
+					<p:commandButton value="Apply" action="#{applyMB.applyToPosition(positionsMB.positionSelect)}" 
+						oncomplete="PF('positionDialog').hide();return false;" />
 				</div>
 			</p:outputPanel>
 
@@ -76,4 +79,4 @@
 
 
 	</h:form>
-</ui:composition>
+	</ui:composition>

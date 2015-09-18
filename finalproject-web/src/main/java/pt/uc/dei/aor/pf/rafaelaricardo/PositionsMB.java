@@ -9,6 +9,7 @@ import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.slf4j.Logger;
@@ -30,6 +31,8 @@ public class PositionsMB implements Serializable {
 
 	@EJB
 	private PositionFacade positionFacade;
+	@Inject
+	private ApplyMB applyMB;
 	private int id;
 	private String title;
 	private String location;
@@ -50,6 +53,13 @@ public class PositionsMB implements Serializable {
 
 	private List<PositionEntity> positions;
 
+	// public PositionsMB() {
+	// // String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
+	//
+	// technicalArea = technicalArea.toString().charAt(0)
+	// + technicalArea.toString().substring(1).toLowerCase();
+	// }
+
 	public void listAllPositions() {
 		try {
 			positions = positionFacade.findAllByOrder();
@@ -67,10 +77,12 @@ public class PositionsMB implements Serializable {
 
 	// Getters and Setters
 	public PositionEntity getPositionSelect() {
+
 		return positionSelect;
 	}
 
 	public void setPositionSelect(PositionEntity positionSelect) {
+
 		this.positionSelect = positionSelect;
 	}
 
@@ -79,6 +91,7 @@ public class PositionsMB implements Serializable {
 	}
 
 	public void setPositionFacade(PositionFacade positionFacade) {
+
 		this.positionFacade = positionFacade;
 	}
 

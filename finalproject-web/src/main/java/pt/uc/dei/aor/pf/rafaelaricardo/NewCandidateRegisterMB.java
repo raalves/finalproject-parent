@@ -66,7 +66,7 @@ public class NewCandidateRegisterMB implements Serializable {
 								new FacesMessage(FacesMessage.SEVERITY_ERROR,
 										errorMsg, null));
 
-						deleteUploadedFile(cvPath);
+						// deleteUploadedFile(cvPath);
 
 						// return "/pages/public/NewCandidateRegister";
 					} else {

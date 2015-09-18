@@ -32,6 +32,8 @@ public class LoginMB implements Serializable {
 	private ApplicationMB applicationMB;
 	@Inject
 	private ActiveUserMB actUser;
+	@Inject
+	private AreaNameMB areaName;
 
 	public LoginMB() {
 	}
@@ -41,19 +43,16 @@ public class LoginMB implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();
-
 		try {
 			System.out.println(email + " " + password);
 			request.login(email, password);
-
 		} catch (ServletException e) {
 			log.error(e.getMessage());
-			// e.printStackTrace();
-			context.addMessage(null, new FacesMessage(e.getMessage()));
-
+			context.addMessage(null, new FacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"Login failure: wrong email/password!", null));
 			return null;
 		}
-
 		return doLoginEmployees();
 	}
 
@@ -61,27 +60,19 @@ public class LoginMB implements Serializable {
 		System.out.println("do login");
 		log.info("Doing Login");
 		log.info("Doing Login for: " + email);
-
 		UserEntity u = applicationMB.findUserByEmail(email);
 		if (u != null) {
-			applicationMB.setFullName(u.getFirstName() + " " + u.getLastName());
-			actUser.setEmail(email);
-			actUser.setFirstName(u.getFirstName());
-			actUser.setLastName(u.getLastName());
 			actUser.setCurrentUser(u);
-			email = "";
+			actUser.setFullName(u.getFirstName() + " " + u.getLastName());
+			System.out.println(actUser.getFullName());
 			String path = actUser.searchUserRoles().get(0).getRole().toString();
 			String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
 			actUser.showTabs();
-			actUser.setAreaName(path);
-			// String path = actUser.searchUserRoles().get(0).toString();
-
 			return "/pages/" + path.toLowerCase() + "/" + pagePath
 					+ "Page?faces-redirect=true";
 		}
 		logout();
 		return "/LoginEmployees?faces-redirect=true";
-
 	}
 
 	public String loginCandidates() {
@@ -89,21 +80,16 @@ public class LoginMB implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();
-
 		try {
 			System.out.println(email + " " + password);
-
 			request.login(email, password);
-
 		} catch (ServletException e) {
 			log.error(e.getMessage());
-			// e.printStackTrace();
 			context.addMessage(null, new FacesMessage(
-					"Login failure: wrong email/password: " + e.getMessage()));
-
+					FacesMessage.SEVERITY_ERROR,
+					"Login failure: wrong email/password!", null));
 			return null;
 		}
-
 		return doLoginCandidates();
 	}
 
@@ -114,14 +100,10 @@ public class LoginMB implements Serializable {
 		CandidateEntity c = applicationMB.findCandidateByEmail(email);
 
 		if (c != null) {
-			applicationMB.setFullName(c.getFirstName() + " " + c.getLastName());
-			actUser.setEmail(email);
-			actUser.setFirstName(c.getFirstName());
-			actUser.setLastName(c.getLastName());
 			actUser.setCurrentCandidate(c);
-
-			email = "";
-			actUser.showTabs();
+			actUser.setFullName(c.getFirstName() + " " + c.getLastName());
+			areaName.setAreaName("Candidate");
+			actUser.showCandTabs();
 			return "/pages/candidate/CandidatePage?faces-redirect=true";
 		}
 		logout();
@@ -132,13 +114,11 @@ public class LoginMB implements Serializable {
 	public String doLogout() {
 		System.out.println("dologout");
 		actUser.hideTabs();
-
 		return "/Home.xhtml?faces-redirect=true";
 	}
 
 	public String logout() {
 		log.info("Doing logout for user :" + actUser.getEmail());
-
 		System.out.println("logout context");
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
@@ -150,7 +130,6 @@ public class LoginMB implements Serializable {
 			return null;
 		}
 		return doLogout();
-
 	}
 
 	// Getters and Setters
