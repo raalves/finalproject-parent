@@ -62,7 +62,31 @@ strong {
 .buttons {
 	height: 50px;
 }
-
+css
+ a.button {
+	-webkit-appearance: button;
+	text-decoration: none;
+	color: #a50d12 !important;
+	text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.7);
+	font-weight: bold;
+	padding: .3em 1em;
+	
+	border: 2px outset buttonface;
+	    border: 1px solid #a8a8a8;
+	    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+	        margin-right: .1em;
+			 text-align: center;
+    cursor: default;
+    color: buttontext;
+ 
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    background-color: buttonface;
+    box-sizing: border-box;
+}
 .ui-widget {
 	font-family: "PFDinDisplayProLight", Georgia !important;
 }
