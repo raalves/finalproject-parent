@@ -57,6 +57,8 @@ public class LoginMB implements Serializable {
 	}
 
 	public String doLoginEmployees() {
+		System.out.println("login");
+
 		System.out.println("do login");
 		log.info("Doing Login");
 		log.info("Doing Login for: " + email);
@@ -71,6 +73,11 @@ public class LoginMB implements Serializable {
 			return "/pages/" + path.toLowerCase() + "/" + pagePath
 					+ "Page?faces-redirect=true";
 		}
+		// log.error(e.getMessage());
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Login failure: wrong area login", null));
 		logout();
 		return "/LoginEmployees?faces-redirect=true";
 	}
@@ -106,6 +113,10 @@ public class LoginMB implements Serializable {
 			actUser.showCandTabs();
 			return "/pages/candidate/CandidatePage?faces-redirect=true";
 		}
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Login failure: wrong area login", null));
 		logout();
 		return "/LoginCandidates?faces-redirect=true";
 
@@ -125,6 +136,9 @@ public class LoginMB implements Serializable {
 				.getExternalContext().getRequest();
 		try {
 			request.logout();
+			actUser.setCurrentCandidate(null);
+			actUser.setCurrentUser(null);
+
 		} catch (ServletException e) {
 			context.addMessage(null, new FacesMessage("Logout failed"));
 			return null;

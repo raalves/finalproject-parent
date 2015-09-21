@@ -1,11 +1,11 @@
-<ui:composition xmln="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form id="frm1">
+	<h:form id="frm2">
 
-		<p:dataTable id="tab"
+		<p:dataTable id="tabVacancies"
 			value="#{managerVacanciesBean.vacanciesManager}" var="myVac"
 			style="margin-top:5px" emptyMessage="No records found" rows="15"
 			paginator="true" paginatorAlwaysVisible="false"
@@ -34,7 +34,7 @@
 			</p:column>
 			<p:column headerText="Details" style="text-align:center">
 				<p:commandButton icon="ui-icon-help"
-					update=":tab:frm1:detailsSelectVacancie"
+					update=":tab:frm2:detailsSelectVacancie"
 					oncomplete="PF('detailsVac').show()">
 					<f:setPropertyActionListener value="#{myVac}"
 						target="#{vacDetailsBean.vac}" />

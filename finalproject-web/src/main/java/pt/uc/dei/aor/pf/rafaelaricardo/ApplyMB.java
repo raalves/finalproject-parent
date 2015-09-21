@@ -53,24 +53,27 @@ public class ApplyMB implements Serializable {
 		System.out.println(positionS + "position que vem da web");
 		System.out.println(positionMB.getPositionSelect());
 
-		// Map<String,String> params =
-		// FacesContext.getExternalContext().getRequestParameterMap();
-		// String idString = params.get("selectPos")
-		// System.out.println(positionSelect);
 		if (actUserMB.getCurrentUser() != null) {
+
 			this.userLog = actUserMB.getCurrentUser();
-			System.out.println(actUserMB.getCurrentUser().getEmail());
-			return "pagina com dados de user";
+			String errorMsg = "Please create a new profile!";
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					"msgNewCandRegister",
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+			// System.out.println(actUserMB.getCurrentUser().getEmail());
+			return "/pages/public/NewCandidateRegister.xhtml?faces-redirect=true";
 		} else if (actUserMB.getCurrentCandidate() != null) {
 			this.candLog = actUserMB.getCurrentCandidate();
-			System.out.println(actUserMB.getCurrentCandidate().getEmail());
+			// System.out.println(actUserMB.getCurrentCandidate().getEmail());
 
 			return "/template/commonElements/NewCandidature.xhtml?faces-redirect=true";
 		} else {
-			String errorMsg = "Please log in!";
+			String errorMsg = "Please create a new profile!";
 			log.error(errorMsg);
 			FacesContext.getCurrentInstance().addMessage(
-					"msgNewUser",
+					"msgNewCandRegister",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
 			//
@@ -78,8 +81,12 @@ public class ApplyMB implements Serializable {
 			// HttpServletRequest request = (HttpServletRequest) context
 			// .getExternalContext().getRequest();
 			// return request.getHeader("Referer");
-			return "/Home.xtml?faces-redirect=true";
+
+			// return "window.history.go(-1)";
+			return "/pages/public/NewCandidateRegister.xhtml?faces-redirect=true";
+
 		}
+
 	}
 
 	public ActiveUserMB getActUserMB() {

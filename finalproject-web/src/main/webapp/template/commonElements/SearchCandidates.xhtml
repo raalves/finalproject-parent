@@ -3,9 +3,115 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-<!-- 	<ui:define name="searchCandidates"> -->
-	
-	procura de candidatos
-	
-<!-- 	</ui:define> -->
-	</ui:composition>
+
+	<h:form>
+		<p:messages id="msgSearchCandidatures" severity="error,warn"
+			closable="true" style="text-align:left" />
+		<p:growl id="growlSearchCandidatures" sticky="true" severity="info" />
+		<p:outputLabel>
+			<h3>Search for candidates</h3>
+		</p:outputLabel>
+		<p:button value="Create new Candidature"
+			outcome="/pages/public/NewCandidateRegister.xhtml"
+			style="float:right" />
+		<p:panel>
+			<p:panelGrid columns="4" styleClass="ui-noborder"
+				style="width: 100%; margin-top: 20px" columnClasses="label,field">
+				<p:outputLabel value="First Name" for="firstName" />
+				<p:inputText id="firstName" />
+
+				<p:outputLabel value="Last Name" for="lastName" />
+				<p:inputText id="lastName" />
+				<p:outputLabel value="Email" for="email" />
+				<p:inputText id="email" />
+				<p:outputLabel value="Address" for="address" />
+				<p:inputText id="address" />
+
+				<p:outputLabel value="City" for="city" />
+				<p:inputText id="city" />
+
+				<p:outputLabel value="Country" for="country" />
+				<p:inputText id="country" />
+				<p:outputLabel value="Phone" for="phone" />
+				<p:inputText id="phone" maxlength="13" size="15" />
+
+				<p:outputLabel value="Mobile phone" for="mobilePhone" />
+				<p:inputText id="mobilePhone" maxlength="13" size="15" />
+
+				<p:outputLabel value="Main Course" for="course" />
+				<p:inputText id="course" style="width:250px;" />
+
+				<p:outputLabel value="School" for="school" />
+				<p:inputText id="school" size="80" style="width:250px;" />
+
+
+				<p:spacer />
+				<p:selectBooleanCheckbox value="Only Spontaneous Candidatures" />
+				<p:commandButton value="Search"></p:commandButton>
+
+			</p:panelGrid>
+			<p:panelGrid id="freeSearch" columns="2" styleClass="ui-noborder"
+				style=" margin-top: 20px;align:left" columnClasses="label,field">
+				<p>Or do a free search</p>
+				<p:inputText />
+				<p:outputLabel value="Search" icon="ui-icon-search" />
+			</p:panelGrid>
+		</p:panel>
+		<p:separator />
+
+		<p:dataTable id="searchResult"  style="margin-top:5px"
+			emptyMessage="No records found" rows="15" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom"
+			 value="#{searchCandidatures.resultList}" var="candidate" sortOrder="#{candidate.id}">
+
+			<p:column headerText="First Name" sortBy="#{candidate.firstName}">
+				<p:outputLabel value="#{candidate.firstName}" />
+			</p:column>
+			<p:column headerText="Last Name" sortBy="#{candidate.lastName}">
+				<p:outputLabel value="#{candidate.lastName}" />
+			</p:column>
+
+			<p:column headerText="Email" sortBy="#{candidate.email}">
+				<p:outputLabel value="#{candidate.email}"/>
+			</p:column>
+			<p:column headerText="Address" sortBy="#{candidate.address}">
+				<p:outputLabel value="#{candidate.address}"/>
+			</p:column>
+			<p:column headerText="City" sortBy="#{candidate.city}">
+				<p:outputLabel value="#{candidate.city}"/>
+			</p:column>
+			<p:column headerText="Country" sortBy="#{candidate.country}">
+				<p:outputLabel value="#{candidate.country}" />
+			</p:column>
+			<p:column headerText="Phone" sortBy="#{candidate.phone}">
+				<p:outputLabel value="#{candidate.phone}" />
+			</p:column>
+			<p:column headerText="Mobile phone" sortBy="#{candidate.mobilePhone}">
+				<p:outputLabel value="#{candidate.mobilePhone}"/>
+			</p:column>
+
+			<p:column headerText="Course" sortBy="#{candidate.course}">
+				<p:outputLabel value="#{candidate.course}" />
+			</p:column>
+			<p:column headerText="School" sortBy="#{candidate.school}">
+				<p:outputLabel value="#{candidate.school}"/>
+			</p:column>
+			<p:column headerText="Associate to a position"
+				style="text-align:center;width:80px">
+				<p:commandButton icon="ui-icon-help" title="See details"
+					onclick="PF('assocToPosition').show();return false">
+
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+
+		<p:dialog id="assocToPosition" header="List of all positions"
+			widgetVar="positionDialog" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			por lista das posiçoes em aberto
+		</p:dialog>
+	</h:form>
+
+</ui:composition>

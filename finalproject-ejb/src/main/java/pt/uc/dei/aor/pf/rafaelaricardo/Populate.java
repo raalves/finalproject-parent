@@ -125,7 +125,7 @@ public class Populate implements Serializable {
 		candidate1
 				.setAddress("Travessa da Central Eléctrica nº2, 6100-654 Sertã");
 		candidate1.setCity("Sertã");
-		candidate1.setCountry("Postugal");
+		candidate1.setCountry("Portugal");
 		candidate1.setCourse("Eng");
 		candidate1.setSchool("FCUL");
 		candidate1.setCvPath("qqcoisa");

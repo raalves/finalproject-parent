@@ -6,27 +6,22 @@
 
 	<div
 		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
-		
 		<p:outputLabel>
 			<h3>Administrator area</h3>
 		</p:outputLabel>
 	</div>
-
 	<p:tabView id="tab">
 		<p:tab id="careers" title="Careers">
-<!-- 			<ui:include src="/pages/admin/Description.xhtml" /> -->
-		<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
+			<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
 		</p:tab>
 		<p:tab id="vac" title="Positions">
-					<ui:include src="/template/commonElements/Positions.xhtml"/>
-		
-<!-- 			<ui:include src="/pages/admin/Vacancies.xhtml" /> -->
+			<ui:include src="/template/commonElements/Positions.xhtml" />
 		</p:tab>
 		<p:tab id="intervAdmin" title="Interviews">
 			<ui:include src="/pages/admin/Interviews.xhtml" />
 		</p:tab>
-		<p:tab id="guidesAdmin" title="Guides" >
-		<ui:include src="/pages/admin/Guides.xhtml" />
+		<p:tab id="guidesAdmin" title="Guides">
+			<ui:include src="/pages/admin/Guides.xhtml" />
 		</p:tab>
 		<p:tab id="cand" title="Candidatures">
 			<ui:include src="/template/commonElements/SearchCandidates.xhtml" />
