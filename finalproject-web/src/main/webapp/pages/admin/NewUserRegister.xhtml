@@ -1,0 +1,55 @@
+<ui:composition xmln="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="formNewUserReg">
+		
+		<p:messages for="msgNewUser" severity="error,warn"  closable="true" />
+		<p:growl for="growlNewUser" severity="info" sticky="true" />
+		<p:panelGrid columns="2" style="margin-top:20px;"
+			columnClasses="label,field" styleClass="ui-noborder"
+			id="newUserRegister">
+			<p:outputLabel value="First Name" for="firstName" />
+			<p:inputText id="firstName" size="80"
+				value="#{newUserRegisterMB.firstName}" required="true"
+				requiredMessage="Please fill in the first name field!" />
+
+			<p:outputLabel value="Last Name" for="lastName" />
+			<p:inputText id="lastName" size="80"
+				value="#{newUserRegisterMB.lastName}" required="true"
+				requiredMessage="Please fill in the last name field!" />
+
+			<p:outputLabel value="Email" for="email" />
+			<p:inputText id="email" size="80" value="#{newUserRegisterMB.email}"
+				required="true" requiredMessage="Please fill in the email field!" />
+
+			<p:outputLabel for="password1" value="Password" />
+			<p:password id="password1" match="password2"
+				value="#{newUserRegisterMB.password}" feedback="true" size="80"
+				required="true" requiredMessage="Please fill in the password field!" />
+
+			<p:outputLabel for="password2" value="Repeat password" />
+			<p:password id="password2" size="80"
+				value="#{newUserRegisterMB.repeatPassword}" required="true" requiredMessage="Please fill in the repeat password field!" feedback="true"/>
+
+			<p:outputLabel for="userRoles" value="Profile" />
+			<p:selectManyCheckbox id="userRoles"
+				value="#{newUserRegisterMB.selectedRoles}" layout="grid" columns="3" required="true" requiredMessage="Please select at least one checkbox!">
+				<f:selectItems value="#{newUserRegisterMB.roles}" var="role"
+					itemLabel="#{role}" itemValue="#{role}" />
+			</p:selectManyCheckbox>
+			<p:spacer />
+			<p:columnGroup>
+				<p:commandButton value="Clear" update="newUserRegister"
+					process="@this">
+					<p:resetInput target="newUserRegister" />
+				</p:commandButton>
+				<p:commandButton value="Create new User"
+					action="#{newUserRegisterMB.newUser()}" ajax="false"  />
+			</p:columnGroup>
+
+		</p:panelGrid>
+
+	</h:form>
+</ui:composition>

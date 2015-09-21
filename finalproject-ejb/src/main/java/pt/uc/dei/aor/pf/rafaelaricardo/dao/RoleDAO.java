@@ -20,6 +20,7 @@ public class RoleDAO extends GenericDAO<RoleEntity> {
 		super.delete(role.getId(), RoleEntity.class);
 	}
 
+	@Override
 	public void save(RoleEntity role) {
 		super.save(role);
 	}
@@ -46,4 +47,7 @@ public class RoleDAO extends GenericDAO<RoleEntity> {
 			return null;
 	}
 
+	public List<RoleEntity> findAllByOrder() {
+		return super.findAllByOrder("RoleEntity.findAllByIdOrder");
+	}
 }

@@ -4,12 +4,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:tabView id="tabInterv">
-		<p:tab id="careersInterv" title="Careers">
-			<ui:include src="/pages/public/DescriptionPublic.xhtml" />
+	<div
+		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
+		<p:outputLabel>
+			<h3>interviewer area</h3>
+		</p:outputLabel>
+	</div>
+	<p:tabView id="tab">
+		<p:tab id="careers" title="Careers">
+<!-- 			<ui:include src="/pages/public/DescriptionPublic.xhtml" /> -->
+				<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
+		
 		</p:tab>
-		<p:tab id="vacInterv" title="Vacancies" />
-		<p:tab id="myIntervInterv" title="Interviews" />
+		<p:tab id="vac" title="Vacancies" >
+								<ui:include src="/template/commonElements/Positions.xhtml" />
+		</p:tab>
+		<p:tab id="myIntervInterv" title="Interviews">
+			<ui:include src="/pages/interviewer/MyInterviews.xhtml" />
+		</p:tab>
 	</p:tabView>
 
 </ui:composition>

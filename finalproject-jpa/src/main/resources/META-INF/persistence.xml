@@ -13,8 +13,11 @@
 		<class>pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity</class>
 		<class>pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity</class>
 		<class>pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity</class>
+		<class>pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+						<property name="hibernate.show_sql" value="true" />
+
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 		</properties>
 	</persistence-unit>

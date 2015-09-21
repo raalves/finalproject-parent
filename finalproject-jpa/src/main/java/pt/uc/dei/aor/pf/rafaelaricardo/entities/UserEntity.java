@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +23,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+// @Table(name = "\"user\"")
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "utilizador")
 @NamedQueries({
 		@NamedQuery(name = "UserEntity.findUserById", query = "SELECT u FROM UserEntity u WHERE u.id = :id"),
 		@NamedQuery(name = "UserEntity.findUserByCreator", query = "SELECT u FROM UserEntity u WHERE u.creator = :creator"),
@@ -68,7 +70,7 @@ public class UserEntity implements Serializable {
 	@JoinTable(name = "user_realizes_interview", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "interview_id"))
 	private List<InterviewEntity> interviews = new ArrayList<>();
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_acts_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles = new ArrayList<>();
 
@@ -88,12 +90,13 @@ public class UserEntity implements Serializable {
 	}
 
 	public UserEntity(String firstName, String lastName, String email,
-			String password) {
+			String password, ArrayList<RoleEntity> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.roles = roles;
 	}
 
 	// *************************** METHODS ***************************
@@ -190,7 +193,7 @@ public class UserEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = (prime * result) + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 

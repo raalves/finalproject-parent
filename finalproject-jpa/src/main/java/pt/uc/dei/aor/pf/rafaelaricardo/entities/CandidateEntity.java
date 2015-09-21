@@ -77,7 +77,7 @@ public class CandidateEntity implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Past
-	@Column(name = "birth_date", nullable = false)
+	@Column(name = "birthdate", nullable = false)
 	private Date birthDate;
 
 	@NotNull
@@ -90,11 +90,13 @@ public class CandidateEntity implements Serializable {
 	@Column(nullable = false)
 	private String city;
 
-	@NotBlank
+	// @NotBlank
+	// @NotBlank
+	// @Column(nullable = false)
 	private Long phone;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(name = "mobile_phone", nullable = false)
 	private Long mobilePhone;
 
@@ -144,9 +146,13 @@ public class CandidateEntity implements Serializable {
 		this.course = course;
 		this.school = school;
 		this.cvPath = cvPath;
+		// this.role = new RoleEntity(Role.CANDIDATE);
 	}
 
 	// *************************** METHODS ***************************
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
+	}
 
 	public Long getId() {
 		return id;
@@ -280,7 +286,7 @@ public class CandidateEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = (prime * result) + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 

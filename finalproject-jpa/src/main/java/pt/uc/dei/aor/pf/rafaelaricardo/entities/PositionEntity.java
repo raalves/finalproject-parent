@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,9 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
@@ -33,21 +31,21 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 @Entity
 @Table(name = "position")
 @NamedQueries({
-	@NamedQuery(name = "PositionEntity.findPositionById", query = "SELECT p FROM PositionEntity p WHERE p.id = :id"),
-	@NamedQuery(name = "PositionEntity.findPositionByTitle", query = "SELECT p FROM PositionEntity p WHERE p.title = :title"),
-	@NamedQuery(name = "PositionEntity.findPositionByAdminCreator", query = "SELECT p FROM PositionEntity p WHERE p.adminCreator = :adminCreator"),
-	@NamedQuery(name = "PositionEntity.findPositionByManager", query = "SELECT p FROM PositionEntity p WHERE p.manager = :manager"),
-	@NamedQuery(name = "PositionEntity.findPositionByGuide", query = "SELECT p FROM PositionEntity p WHERE p.guide = :guide"),
-	@NamedQuery(name = "PositionEntity.findPositionByLocation", query = "SELECT p FROM PositionEntity p WHERE p.location = :location"),
-	@NamedQuery(name = "PositionEntity.findPositionByPositionStatus", query = "SELECT p FROM PositionEntity p WHERE p.positionStatus = :positionStatus"),
-	@NamedQuery(name = "PositionEntity.findPositionByQuantity", query = "SELECT p FROM PositionEntity p WHERE p.quantity = :quantity"),
-	@NamedQuery(name = "PositionEntity.findPositionByCompany", query = "SELECT p FROM PositionEntity p WHERE p.company = :company"),
-	@NamedQuery(name = "PositionEntity.findPositionByTechnicalArea", query = "SELECT p FROM PositionEntity p WHERE p.technicalArea = :technicalArea"),
-	@NamedQuery(name = "PositionEntity.findPositionBySource", query = "SELECT p FROM PositionEntity p WHERE p.source = :source"),
-	@NamedQuery(name = "PositionEntity.findPositionByOpenningDate", query = "SELECT p FROM PositionEntity p WHERE p.openningDate = :openningDate"),
-	@NamedQuery(name = "PositionEntity.findPositionByClosingDate", query = "SELECT p FROM PositionEntity p WHERE p.closingDate = :closingDate"),
-	@NamedQuery(name = "PositionEntity.findPositionBySLA", query = "SELECT p FROM PositionEntity p WHERE p.sla = :sla"),
-	@NamedQuery(name = "PositionEntity.findAllByIdOrder", query = "SELECT u FROM PositionEntity u ORDER BY u.id") })
+		@NamedQuery(name = "PositionEntity.findPositionById", query = "SELECT p FROM PositionEntity p WHERE p.id = :id"),
+		@NamedQuery(name = "PositionEntity.findPositionByTitle", query = "SELECT p FROM PositionEntity p WHERE p.title = :title"),
+		@NamedQuery(name = "PositionEntity.findPositionByAdminCreator", query = "SELECT p FROM PositionEntity p WHERE p.adminCreator = :adminCreator"),
+		@NamedQuery(name = "PositionEntity.findPositionByManager", query = "SELECT p FROM PositionEntity p WHERE p.manager = :manager"),
+		@NamedQuery(name = "PositionEntity.findPositionByGuide", query = "SELECT p FROM PositionEntity p WHERE p.guide = :guide"),
+		@NamedQuery(name = "PositionEntity.findPositionByLocation", query = "SELECT p FROM PositionEntity p WHERE p.location = :location"),
+		@NamedQuery(name = "PositionEntity.findPositionByPositionStatus", query = "SELECT p FROM PositionEntity p WHERE p.positionStatus = :positionStatus"),
+		@NamedQuery(name = "PositionEntity.findPositionByQuantity", query = "SELECT p FROM PositionEntity p WHERE p.quantity = :quantity"),
+		@NamedQuery(name = "PositionEntity.findPositionByCompany", query = "SELECT p FROM PositionEntity p WHERE p.company = :company"),
+		@NamedQuery(name = "PositionEntity.findPositionByTechnicalArea", query = "SELECT p FROM PositionEntity p WHERE p.technicalArea = :technicalArea"),
+		@NamedQuery(name = "PositionEntity.findPositionBySource", query = "SELECT p FROM PositionEntity p WHERE p.source = :source"),
+		@NamedQuery(name = "PositionEntity.findPositionByOpenningDate", query = "SELECT p FROM PositionEntity p WHERE p.openningDate = :openningDate"),
+		@NamedQuery(name = "PositionEntity.findPositionByClosingDate", query = "SELECT p FROM PositionEntity p WHERE p.closingDate = :closingDate"),
+		@NamedQuery(name = "PositionEntity.findPositionBySLA", query = "SELECT p FROM PositionEntity p WHERE p.sla = :sla"),
+		@NamedQuery(name = "PositionEntity.findAllByIdOrder", query = "SELECT u FROM PositionEntity u ORDER BY u.id") })
 public class PositionEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -69,64 +67,63 @@ public class PositionEntity implements Serializable {
 	@JoinColumn(name = "guide_id", nullable = false)
 	private GuideEntity guide;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(nullable = false)
 	private String title;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Location location;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(name = "position_status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private PositionStatus positionStatus;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(nullable = false)
 	private int quantity;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(nullable = false)
 	private String company;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(name = "technical_area", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TechnicalArea technicalArea;
 
-	@NotNull
-	@NotBlank
-	@Column(nullable = false)
-	private String description;
+	@Embedded
+	@Column(nullable = false, length = 2000)
+	private DescriptionPosition descriptionPosition;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Source source;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Temporal(TemporalType.DATE)
 	@Column(name = "openning_date", nullable = false)
 	private Date openningDate;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Temporal(TemporalType.DATE)
 	@Column(name = "closing_date", nullable = false)
 	private Date closingDate;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(nullable = false)
 	private int sla;
 
@@ -141,8 +138,8 @@ public class PositionEntity implements Serializable {
 
 	public PositionEntity(String title, Location location,
 			PositionStatus positionStatus, int quantity, String company,
-			TechnicalArea technicalArea, String description, Source source,
-			Date openningDate, Date closingDate, int sla) {
+			TechnicalArea technicalArea, DescriptionPosition description,
+			Source source, Date openningDate, Date closingDate, int sla) {
 		super();
 		this.title = title;
 		this.location = location;
@@ -150,7 +147,7 @@ public class PositionEntity implements Serializable {
 		this.quantity = quantity;
 		this.company = company;
 		this.technicalArea = technicalArea;
-		this.description = description;
+		this.descriptionPosition = description;
 		this.source = source;
 		this.openningDate = openningDate;
 		this.closingDate = closingDate;
@@ -239,12 +236,12 @@ public class PositionEntity implements Serializable {
 		this.technicalArea = technicalArea;
 	}
 
-	public String getDescription() {
-		return description;
+	public DescriptionPosition getDescriptionPosition() {
+		return descriptionPosition;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptionPosition(DescriptionPosition description) {
+		this.descriptionPosition = description;
 	}
 
 	public Source getSource() {
@@ -291,7 +288,7 @@ public class PositionEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = (prime * result) + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -319,7 +316,7 @@ public class PositionEntity implements Serializable {
 				+ title + ", location=" + location + ", positionStatus="
 				+ positionStatus + ", quantity=" + quantity + ", company="
 				+ company + ", technicalArea=" + technicalArea
-				+ ", description=" + description + ", source=" + source
+				+ ", description=" + descriptionPosition + ", source=" + source
 				+ ", openningDate=" + openningDate + ", closingDate="
 				+ closingDate + ", sla=" + sla + "]";
 	}

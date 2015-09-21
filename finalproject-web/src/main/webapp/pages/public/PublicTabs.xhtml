@@ -4,10 +4,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-		<p:tabView id="tabPublic">
-			<p:tab title="Careers">
-				<ui:include src="/pages/public/DescriptionPublic.xhtml" />
-			</p:tab>
-			<p:tab title="Vacancies" />
-		</p:tabView>
+	<p:tabView id="tab">
+		<p:tab title="Careers">
+			<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
+		</p:tab>
+		<p:tab title="Vacancies">
+			<ui:include src="/template/commonElements/Positions.xhtml" />
+		</p:tab>
+	</p:tabView>
 </ui:composition>

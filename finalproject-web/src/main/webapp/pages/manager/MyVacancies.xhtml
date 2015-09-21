@@ -1,0 +1,89 @@
+<ui:composition xmln="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="frm1">
+
+		<p:dataTable id="tab"
+			value="#{managerVacanciesBean.vacanciesManager}" var="myVac"
+			style="margin-top:5px" emptyMessage="No records found" rows="15"
+			paginator="true" paginatorAlwaysVisible="false"
+			paginatorPosition="bottom" sortOrder="Id"
+			tableStyle="table-layout:auto;">
+
+			<p:column headerText="Id" sortBy="Id">
+				<p:outputLabel value="12345" />
+			</p:column>
+			<p:column headerText="Vacancie Title ?">
+				<p:outputLabel value="Java developer JR" />
+			</p:column>
+			<p:column headerText="Location" style="text-align:center">
+				<p:outputLabel value="Porto" />
+			</p:column>
+			<p:column headerText="Status">
+				<p:outputLabel id="sts" value="#{myVacanciesBean.statusSelect}"
+					style="margin-right:5px" />
+
+			</p:column>
+			<p:column headerText="Interviewer">
+				<p:outputLabel value="Zé" />
+			</p:column>
+			<p:column headerText="#Candidates">
+				<p:outputLabel value="100" />
+			</p:column>
+			<p:column headerText="Details" style="text-align:center">
+				<p:commandButton icon="ui-icon-help"
+					update=":tab:frm1:detailsSelectVacancie"
+					oncomplete="PF('detailsVac').show()">
+					<f:setPropertyActionListener value="#{myVac}"
+						target="#{vacDetailsBean.vac}" />
+				</p:commandButton>
+				
+			</p:column>
+		</p:dataTable>
+		<p:dialog id="detailsSelectVacancie" widgetVar="detailsVac"
+			header="Details" draggable="false" resizable="false" modal="true"
+			style="padding:10px;">
+			<p:panelGrid columns="2" style="margin-top: 20px"
+				columnClasses="label,field" styleClass="ui-noborder"
+				id="detailsVacancy">
+
+				<p:outputLabel value="Id" />
+				<p:outputLabel value="2345" />
+				<p:outputLabel value="Title" />
+				<p:outputLabel value="Java Developer" />
+				<p:outputLabel value="Opening date" />
+				<p:outputLabel value="01/01/2015" />
+				<p:outputLabel value="Closing date" />
+				<p:outputLabel value="01/07/2015" />
+				<p:outputLabel value="SLA" />
+				<p:outputLabel value="2 semanas" />
+				<p:outputLabel value="# positions" />
+				<p:outputLabel value="10" />
+				<p:outputLabel value="Manager" />
+				<p:outputLabel value="ze das couves" />
+				<p:outputLabel value="Company" />
+				<p:outputLabel value="intel" />
+				<p:outputLabel value="Description" />
+						fazer dialog identico as vagas publicas
+						<p:outputLabel value="Source" />
+						por lista.dropdown?
+						
+					<p:outputLabel value="Guide" />
+						consultar guiao
+					<p:spacer />
+				<div style="text-align: center">
+
+					
+					<p:button value="Close"
+						onclick="PF('detailsVac').hide();return false;" />
+					<p:button value="Save changes"
+						onclick="PF('detailsVac').hide();return false;" />
+				</div>
+			</p:panelGrid>
+		</p:dialog>
+
+	</h:form>
+
+</ui:composition>

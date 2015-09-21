@@ -1,9 +1,20 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
+import java.util.Date;
+import java.util.List;
+
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
+
 public interface GuideFacade {
 
-//	public abstract Lyric addLyric(String text, Song s);
-//	public abstract Lyric getLyricSongUser(User u, Song s);
-//	public abstract Lyric editLyric(User u, Lyric lyric);
-//	public abstract Lyric getLyricById(Long id);
+	public abstract List<GuideEntity> findAllByOrder();
+
+	public abstract GuideEntity findGuideById(Long id);
+
+	public abstract List<GuideEntity> findGuideByAuthor(UserEntity author);
+
+	public abstract List<GuideEntity> findGuideByTitle(String title);
+
+	public abstract List<GuideEntity> findGuideByDate(Date guideDate);
 }

@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<p:growl id="messages" showDetail="true" />
+
+		<p:dataTable id="candMyCand"
+			value="#{candidateCandidaturesBean.candidaturesCandidate}"
+			var="myCand" style="margin-top:5px" emptyMessage="No records found"
+			rows="15" paginator="true" paginatorAlwaysVisible="false"
+			paginatorPosition="bottom" sortOrder="Id">
+
+			<p:column headerText="Id" sortBy="Id">
+				<p:outputLabel value="#{candidateCandidaturesBean.numb}" />
+			</p:column>
+			<p:column headerText="Vacancie Title ?">
+				<p:outputLabel value="Java developer JR" />
+			</p:column>
+			<p:column headerText="Location" style="text-align:center">
+				<p:outputLabel value="Porto" />
+			</p:column>
+			<p:column headerText="Status">
+				<p:outputLabel value="Schedlud?" />
+			</p:column>
+			<p:column headerText="Details" style="text-align:center;width:80px">
+				<p:commandButton icon="ui-icon-help" title="See details"
+					onclick="PF('candDialog').show();return false">
+					<f:setPropertyActionListener value="#{myCand}"
+						target="#{candidateCandidaturesBean.candidatureSelect}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+
+
+
+		<p:dialog header="Candidature Details" widgetVar="candDialog"
+			modal="true" width="900" height="500" resizable="false"
+			closeOnEscape="true" position="center" style="padding:10px;">
+			<p:outputPanel id="candDialog" style="padding-left:15px">
+
+				<h3>Title</h3>
+
+ver o que por..tabela?
+
+topicos??
+								<div style="text-align: center">
+
+					<p:button value="Close"
+						onclick="PF('candDialog').hide();return false;" />
+				</div>
+			</p:outputPanel>
+
+		</p:dialog>
+
+	</h:form>
+</ui:composition>

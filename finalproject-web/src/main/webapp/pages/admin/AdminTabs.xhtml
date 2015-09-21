@@ -1,18 +1,42 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
+	<div
+		style="float: right; padding: 12px 20px 0px 0px; position: relative;">
+		
+		<p:outputLabel>
+			<h3>Administrator area</h3>
+		</p:outputLabel>
+	</div>
 
-	<p:tabView id="tabAdmin">
-		<p:tab id="careersAdmin" title="Careers" />
-		<p:tab id="vacAdmin" title="Vacancies" />
-		<p:tab id="intervAdmin" title="Interviews" />
-		<p:tab id="guidesAdmin" title="Guides" />
-		<p:tab id="candAdmin" title="Candidatures" />
-		<p:tab id="reportsAdmin" title="Reports" />
-		<p:tab id="repgisterAdmin" title="New register" />
+	<p:tabView id="tab">
+		<p:tab id="careers" title="Careers">
+<!-- 			<ui:include src="/pages/admin/Description.xhtml" /> -->
+		<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
+		</p:tab>
+		<p:tab id="vac" title="Positions">
+					<ui:include src="/template/commonElements/Positions.xhtml"/>
+		
+<!-- 			<ui:include src="/pages/admin/Vacancies.xhtml" /> -->
+		</p:tab>
+		<p:tab id="intervAdmin" title="Interviews">
+			<ui:include src="/pages/admin/Interviews.xhtml" />
+		</p:tab>
+		<p:tab id="guidesAdmin" title="Guides" >
+		<ui:include src="/pages/admin/Guides.xhtml" />
+		</p:tab>
+		<p:tab id="cand" title="Candidatures">
+			<ui:include src="/template/commonElements/SearchCandidates.xhtml" />
+		</p:tab>
+		<p:tab id="reportsAdmin" title="Reports">
+			<ui:include src="/pages/admin/Reports.xhtml" />
+		</p:tab>
+		<p:tab id="repgisterAdmin" title="New register">
+			<ui:include src="/pages/admin/NewUserRegister.xhtml" />
+		</p:tab>
 	</p:tabView>
-	
+
 </ui:composition>
