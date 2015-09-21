@@ -16,6 +16,7 @@
 	font-weight: normal;
 	font-style: normal;
 } */
+
 body {
 	font-family: "PFDinDisplayProLight", Georgia !important;
 	font-size: 14px;
@@ -62,20 +63,6 @@ strong {
 	height: 50px;
 }
 
-a.button {
-	-webkit-appearance: button;
-	text-decoration: none;
-	color: #a50d12 !important;
-	text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.7);
-	font-weight: bold;
-	padding: .3em 1em;
-	padding: 2px 6px 3px;
-	border: 2px outset buttonface;
-	    border: 1px solid #a8a8a8;
-	    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
-	        margin-right: .1em;
-}
-
 .ui-widget {
 	font-family: "PFDinDisplayProLight", Georgia !important;
 }
@@ -87,7 +74,7 @@ a.button {
 	margin-top: 10px;
 }
 
-#tabAdmin, #tabMan, #tabInterv, #tabPublic, #tabCand, .ui-tabs, #tab {
+#tabAdmin, #tabMan, #tabInterv, #tabPublic, #tabCand, .ui-tabs {
 	background-color: transparent;
 	position: inherit;
 }
@@ -124,19 +111,17 @@ a.button {
 no-repeat
 
 
-
-
 ;
 }
 table th {
 	background-color: #eee solid !important;
 	color: #a50d12 !important;
 }
+ui-datatable-header ui-widget-header ui-corner-top{
+	display:none;
+	
 
-ui-datatable-header ui-widget-header ui-corner-top {
-	display: none;
-}
-
+	}
 #loginPage {
 	width: 100%;
 }
@@ -153,6 +138,8 @@ ui-datatable-header ui-widget-header ui-corner-top {
 	color: #a50d12 !important;
 }
 
+
+
 .label {
 	text-align: right !important;
 	min-width: 50px !important;
@@ -161,14 +148,16 @@ ui-datatable-header ui-widget-header ui-corner-top {
 .field {
 	min-width: 100px !important;
 }
+.logoutButton	{
 
-.logoutButton {
-	margin-right: 0px !important;
-	text-shadow: none !important;
+	margin-right: 0px !important; 
+	
+	text-shadow : none !important;
 	font-weight: normal !important;
 	color: #ffffff !important;
 	/*background-color: #a50d12 !important;
 	background: #c4c4c4
 		-webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255,
 		0.8)), to(rgba(255, 255, 255, 0)));*/
+	
 }
