@@ -22,10 +22,7 @@ public class InterviewDAO extends GenericDAO<InterviewEntity> {
 		super.delete(interview.getId(), InterviewEntity.class);
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
->>>>>>> origin/master
 	public void save(InterviewEntity interview) {
 		super.save(interview);
 	}
@@ -45,15 +42,6 @@ public class InterviewDAO extends GenericDAO<InterviewEntity> {
 			return null;
 	}
 
-<<<<<<< HEAD
-	public List<InterviewEntity> findInterviewByCandidature(CandidatureEntity candidature) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("candidature", candidature);
-		return super.findSomeResults("InterviewEntity.findInterviewByCandidature",
-				parameters);
-	}
-	
-=======
 	public List<InterviewEntity> findInterviewByCandidature(
 			CandidatureEntity candidature) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
@@ -62,29 +50,20 @@ public class InterviewDAO extends GenericDAO<InterviewEntity> {
 				"InterviewEntity.findInterviewByCandidature", parameters);
 	}
 
->>>>>>> origin/master
 	public List<InterviewEntity> findInterviewByDate(Date interviewDate) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("interviewDate", interviewDate);
 		return super.findSomeResults("InterviewEntity.findInterviewByDate",
 				parameters);
 	}
-<<<<<<< HEAD
-	
-	public List<InterviewEntity> findInterviewByStatus(InterviewStatus interviewStatus) {
-=======
 
 	public List<InterviewEntity> findInterviewByStatus(
 			InterviewStatus interviewStatus) {
->>>>>>> origin/master
+
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("interviewStatus", interviewStatus);
 		return super.findSomeResults("InterviewEntity.findInterviewByStatus",
 				parameters);
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master

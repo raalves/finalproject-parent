@@ -73,10 +73,11 @@ public class UserFacadeImp implements UserFacade {
 			String lastName, String email, String password,
 			ArrayList<RoleEntity> roles) {
 		log.info("Saving user in DB");
-
+		System.out.println(creator);
 		if (userDAO.findUserByEmail(email) == null) {
 			UserEntity u = new UserEntity(firstName, lastName, email,
 					encryptPass.encrypt(password), roles);
+			u.setCreator(creator);
 			userDAO.save(u);
 			return u;
 		}

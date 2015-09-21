@@ -14,7 +14,7 @@ public interface GuideFacade {
 
 	public abstract List<GuideEntity> findGuideByAuthor(UserEntity author);
 
-	public abstract List<GuideEntity> findGuideByTitle(String title);
+	public abstract List<GuideEntity> findGuideByTitle(String guideTitle);
 
 	public abstract List<GuideEntity> findGuideByDate(Date guideDate);
 }

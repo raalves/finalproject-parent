@@ -49,6 +49,7 @@ public class NewUserRegisterMB implements Serializable {
 
 	public void newUser() {
 		creator = actUser.getCurrentUser();
+
 		log.info(creator.getId() + ": admin creating a new User/Employee");
 		log.debug("Creating new user " + email);
 		findIdSelectRoles();

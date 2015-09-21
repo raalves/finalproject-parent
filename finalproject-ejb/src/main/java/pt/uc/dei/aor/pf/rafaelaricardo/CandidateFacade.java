@@ -37,9 +37,9 @@ public interface CandidateFacade {
 	public abstract List<CandidateEntity> findCandidateByMobilePhone(
 			Long mobilePhone);
 
-	public abstract List<CandidateEntity> findCandidateByCountry(Long country);
+	public abstract List<CandidateEntity> findCandidateByCountry(String country);
 
-	public abstract List<CandidateEntity> findCandidateByCourse(Long course);
+	public abstract List<CandidateEntity> findCandidateByCourse(String course);
 
 	public abstract List<CandidateEntity> findCandidateBySchool(String school);
 

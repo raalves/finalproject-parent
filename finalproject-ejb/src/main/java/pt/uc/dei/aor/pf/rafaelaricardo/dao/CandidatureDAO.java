@@ -24,25 +24,18 @@ public class CandidatureDAO extends GenericDAO<CandidatureEntity> {
 		super.delete(candidature.getId(), CandidatureEntity.class);
 	}
 
-<<<<<<< HEAD
-	public void save(CandidatureEntity guide) {
-		super.save(guide);
-=======
 	@Override
 	public void save(CandidatureEntity candidature) {
 		super.save(candidature);
->>>>>>> origin/master
+
 	}
 
 	public List<CandidatureEntity> findAllByOrder() {
 		return super.findAllByOrder("CandidatureEntity.findAllByIdOrder");
 	}
 
-<<<<<<< HEAD
 	public CandidatureEntity findCandidatureById(Long id) {
-=======
-	public CandidatureEntity findUserById(Long id) {
->>>>>>> origin/master
+
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("id", id);
 		List<CandidatureEntity> list = super.findSomeResults(
@@ -51,37 +44,6 @@ public class CandidatureDAO extends GenericDAO<CandidatureEntity> {
 			return list.get(0);
 		else
 			return null;
-	}
-
-<<<<<<< HEAD
-	public List<CandidatureEntity> findCandidatureByPosition(PositionEntity position) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("position", position);
-		return super.findSomeResults("CandidatureEntity.findCandidatureByPosition",
-				parameters);
-	}
-	
-	public List<CandidatureEntity> findCandidatureByCandidate(CandidateEntity candidate) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("candidate", candidate);
-		return super.findSomeResults("CandidatureEntity.findCandidatureByCandidate",
-				parameters);
-	}
-	
-	public List<CandidatureEntity> findCandidatureBySource(Source publicSource) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("publicSource", publicSource);
-		return super.findSomeResults("CandidatureEntity.findCandidatureBySource",
-				parameters);
-	}
-	
-=======
-	public List<CandidatureEntity> findCandidatureByPosition(
-			PositionEntity position) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("position", position);
-		return super.findSomeResults(
-				"CandidatureEntity.findCandidatureByPosition", parameters);
 	}
 
 	public List<CandidatureEntity> findCandidatureByCandidate(
@@ -99,26 +61,20 @@ public class CandidatureDAO extends GenericDAO<CandidatureEntity> {
 				"CandidatureEntity.findCandidatureBySource", parameters);
 	}
 
->>>>>>> origin/master
+	public List<CandidatureEntity> findCandidatureByPosition(
+			PositionEntity position) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("position", position);
+		return super.findSomeResults(
+				"CandidatureEntity.findCandidatureByPosition", parameters);
+	}
+
 	public List<CandidatureEntity> findCandidatureByDate(Date candidatureDate) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("candidatureDate", candidatureDate);
 		return super.findSomeResults("CandidatureEntity.findCandidatureByDate",
 				parameters);
 	}
-<<<<<<< HEAD
-	
-	public List<CandidatureEntity> findCandidatureByStatus(CandidatureStatus candidatureStatus) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("candidatureStatus", candidatureStatus);
-		return super.findSomeResults("CandidatureEntity.findCandidatureByStatus",
-				parameters);
-	}
-
-	
-
-}
-=======
 
 	public List<CandidatureEntity> findCandidatureByStatus(
 			CandidatureStatus candidatureStatus) {
@@ -128,4 +84,3 @@ public class CandidatureDAO extends GenericDAO<CandidatureEntity> {
 				"CandidatureEntity.findCandidatureByStatus", parameters);
 	}
 }
->>>>>>> origin/master

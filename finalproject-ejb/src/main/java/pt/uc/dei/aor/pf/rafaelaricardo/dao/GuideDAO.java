@@ -21,10 +21,7 @@ public class GuideDAO extends GenericDAO<GuideEntity> {
 		super.delete(guide.getId(), GuideEntity.class);
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
->>>>>>> origin/master
 	public void save(GuideEntity guide) {
 		super.save(guide);
 	}
@@ -51,15 +48,10 @@ public class GuideDAO extends GenericDAO<GuideEntity> {
 				parameters);
 	}
 
-<<<<<<< HEAD
 	public List<GuideEntity> findGuideByTitle(String guideTitle) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("guideTitle", guideTitle);
-=======
-	public List<GuideEntity> findGuideByTitle(String title) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("title", title);
->>>>>>> origin/master
+
 		return super
 				.findSomeResults("GuideEntity.findGuideByTitle", parameters);
 	}
@@ -69,9 +61,5 @@ public class GuideDAO extends GenericDAO<GuideEntity> {
 		parameters.put("guideDate", guideDate);
 		return super.findSomeResults("GuideEntity.findGuideByDate", parameters);
 	}
-<<<<<<< HEAD
 
 }
-=======
-}
->>>>>>> origin/master

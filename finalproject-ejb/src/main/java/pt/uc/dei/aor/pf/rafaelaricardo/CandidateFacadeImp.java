@@ -88,13 +88,13 @@ public class CandidateFacadeImp implements CandidateFacade {
 	}
 
 	@Override
-	public List<CandidateEntity> findCandidateByCountry(Long country) {
+	public List<CandidateEntity> findCandidateByCountry(String country) {
 		log.info("Finding candidates by country: " + country);
 		return candidateDao.findCandidateByCountry(country);
 	}
 
 	@Override
-	public List<CandidateEntity> findCandidateByCourse(Long course) {
+	public List<CandidateEntity> findCandidateByCourse(String course) {
 		log.info("Finding candidates by course: " + course);
 		return candidateDao.findCandidateByCourse(course);
 	}
@@ -116,10 +116,10 @@ public class CandidateFacadeImp implements CandidateFacade {
 			CandidateEntity c = new CandidateEntity(firstName, lastName, email,
 					encryptPass.encrypt(password), birthdate, address, city,
 					mobilePhone, country, course, school, cvPath);
-			RoleEntity rc = new RoleEntity(Role.CANDIDATE);
-			roleDao.save(rc);
-			// roleDao.save(new RoleEntity(Role.CANDIDATE));
-			c.setRole(rc);
+			// RoleEntity rc = new RoleEntity(Role.CANDIDATE);
+			// roleDao.save(rc);
+
+			c.setRole(roleDao.findRoleByName(Role.CANDIDATE));
 			candidateDao.save(c);
 			return c;
 		}

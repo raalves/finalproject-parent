@@ -31,9 +31,9 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 	}
 
 	@Override
-	public CandidatureEntity findUserById(Long id) {
+	public CandidatureEntity findCandidatureById(Long id) {
 		log.info("Finding candidature by last id: " + id);
-		return candidatureDAO.findUserById(id);
+		return candidatureDAO.findCandidatureById(id);
 	}
 
 	@Override

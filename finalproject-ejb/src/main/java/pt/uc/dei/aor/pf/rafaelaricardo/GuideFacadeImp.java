@@ -40,9 +40,9 @@ public class GuideFacadeImp implements GuideFacade {
 	}
 
 	@Override
-	public List<GuideEntity> findGuideByTitle(String title) {
-		log.info("Finding guide starting by title: " + title);
-		return guideDAO.findGuideByTitle(title);
+	public List<GuideEntity> findGuideByTitle(String guideTitle) {
+		log.info("Finding guide starting by title: " + guideTitle);
+		return guideDAO.findGuideByTitle(guideTitle);
 	}
 
 	@Override

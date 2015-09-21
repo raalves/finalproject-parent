@@ -13,7 +13,7 @@ public interface CandidatureFacade {
 
 	public abstract List<CandidatureEntity> findAllByOrder();
 
-	public abstract CandidatureEntity findUserById(Long id);
+	public abstract CandidatureEntity findCandidatureById(Long id);
 
 	public abstract List<CandidatureEntity> findCandidatureByPosition(
 			PositionEntity position);
