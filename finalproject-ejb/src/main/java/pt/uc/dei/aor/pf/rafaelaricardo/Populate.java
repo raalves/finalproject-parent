@@ -50,7 +50,7 @@ public class Populate implements Serializable {
 	@PostConstruct
 	void populando() throws ParseException {
 
-		log.info("Populating th DB");
+		log.info("Populating the DB");
 
 		ArrayList<RoleEntity> rAdmin = new ArrayList<RoleEntity>();
 		rAdmin.add(new RoleEntity(Role.ADMIN));
