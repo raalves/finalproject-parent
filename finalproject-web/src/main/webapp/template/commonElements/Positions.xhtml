@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-<h:form id="frm1">
+	<h:form id="frm1">
 		<p:messages id="messages" showDetail="true" autoUpdate="true"
 			closable="true" />
 		<p:button value="Spontaneous Candidature"
@@ -12,36 +12,42 @@
 
 		<h1 id="titleCareers">Our Positions</h1>
 		<p:dataTable id="positions" value="#{positionsMB.positions}"
-			var="position" rendered="true" resizableColumns="true" rowKey="position">
-			<f:facet name="header"/>
+			var="position" rendered="true" resizableColumns="true"
+			rowKey="position">
+			<f:facet name="header" />
 
-			<p:column headerText="Title" style="text-align:left" sortBy="#{position.title}">
+			<p:column headerText="Title" style="text-align:left"
+				sortBy="#{position.title}">
 				<p:outputLabel value="#{position.title}" />
 			</p:column>
-			<p:column headerText="Technical area" style="text-align:center" sortBy="#{position.techincalArea}">
+			<p:column headerText="Technical area" style="text-align:center"
+				sortBy="#{position.technicalArea}">
 				<p:outputLabel value="#{position.technicalArea}" />
 			</p:column>
-			<p:column headerText="Location" style="text-align:right" sortBy="#{position.location}">
+			<p:column headerText="Location" style="text-align:right"
+				sortBy="#{position.location}">
 				<p:outputLabel value="#{position.location}" />
 			</p:column>
 			<p:column headerText="Details" style="text-align:center;width:100px">
 				<p:commandButton value="Details" icon="ui-icon-search"
-					oncomplete="PF('positionDialog').show();return false;" update=":tab:frm1:detailsSelectedPosition">
+					oncomplete="PF('positionDialog').show();return false;"
+					update=":tab:frm1:detailsSelectedPosition">
 					<f:setPropertyActionListener value="#{position}"
 						target="#{positionsMB.positionSelect}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
-		
 
 
-		<p:dialog id="detailsSelectedPosition" header="Position Details" widgetVar="positionDialog" modal="true"
-			width="900" height="500" resizable="false" closeOnEscape="true"
-			position="center" style="padding:10px;">
-			<p:outputPanel id="positionDialog" style="padding-left:15px" >
+
+		<p:dialog id="detailsSelectedPosition" header="Position Details"
+			widgetVar="positionDialog" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel id="positionDialog" style="padding-left:15px">
 
 				<h3>#{positionsMB.positionSelect.title}</h3>
-				<p:panelGrid columns="2" columnClasses="label, value">
+				<p:panelGrid columns="2" columnClasses="label, value" >
 					<p:outputLabel value="Location" />
 					<p:outputLabel value="#{positionsMB.positionSelect.location}" />
 					<p:outputLabel value="Vacancie id" />
@@ -49,28 +55,34 @@
 					<p:outputLabel value="#vacancies" />
 					<p:outputLabel value="#{positionsMB.positionSelect.quantity}" />
 				</p:panelGrid>
-				<div style=" margin-top: 20px" >
-					<h5>Details</h5>
+				<div>
+					<h5 style="margin-top: 20px">Details</h5>
+					#{positionsMB.positionSelect.descriptionPosition.description}
+					
+					<!-- 					<h:outputLabel -->
+					<!-- 						value="#{positionsMB.positionSelect.descriptionPosition.description}" -->
+					<!-- 						escape="false" style="white-space: pre-wrap; " /> -->
 
-<h:outputLabel value="#{positionsMB.positionSelect.descriptionPosition.description}" escape="false" style="white-space: pre-wrap; "/>
-					
-					
-					<h5>KEY RESPONSIBILITIES</h5>
+
+					<h5 style="margin-top: 20px">KEY RESPONSIBILITIES</h5>
 					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}
-					
-					<h5>REQUIRED QUALIFICATIONS, SKILLS AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
-					
-					<h5>DESIRED QUALIFICATIONS, SKILLS AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
-					
 
+					<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
+
+					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
 				</div>
 				<div style="text-align: center">
-					<a class="button"  href="mailto:?subject=Interesting for you&amp;body=Go to this website (www.critical.com) and search for this postion: #{positionsMB.title}. Hope you like it">Send to a friend</a>
+					<a class="button"
+						href="mailto:?subject=Interesting for you&amp;body=Go to this website (www.criticalsoftware.com) and search for this postion: #{positionsMB.positionSelect.title}. Hope you like it">Send
+						to a friend</a>
 					<p:commandButton value="Close"
 						onclick="PF('positionDialog').hide();return false;" />
-					<p:commandButton value="Apply" action="#{applyMB.applyToPosition(positionsMB.positionSelect)}" 
+					<p:commandButton value="Apply"
+						action="#{applyMB.applyToPosition(positionsMB.positionSelect)}"
 						oncomplete="PF('positionDialog').hide();return false;" />
 				</div>
 			</p:outputPanel>
@@ -79,4 +91,4 @@
 
 
 	</h:form>
-	</ui:composition>
+</ui:composition>

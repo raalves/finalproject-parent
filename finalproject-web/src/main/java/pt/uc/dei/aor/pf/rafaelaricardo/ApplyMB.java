@@ -52,6 +52,7 @@ public class ApplyMB implements Serializable {
 		System.out.println("applytoposition");
 		System.out.println(positionS + "position que vem da web");
 		System.out.println(positionMB.getPositionSelect());
+		// this.positionSelect=positionMB.getPositionSelect();
 
 		if (actUserMB.getCurrentUser() != null) {
 

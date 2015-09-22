@@ -31,7 +31,7 @@ public class UploadFile implements Serializable {
 	private String localPath;
 	private String typeFile = "CV";
 
-	public String uploadCV(String email) {
+	public String upload(String email) {
 		log.info("Uploading CV file");
 
 		try {
@@ -89,15 +89,14 @@ public class UploadFile implements Serializable {
 	public String generatePath(String email) {
 		System.out.println(typeFile + " typefile");
 		localPath = System.getProperty("jboss.home.dir")
-				+ "\\ProjFinalUploadedFiles\\" + email + "_"
-				+ getCurrentTimeStamp() + "_" + typeFile + "_"
-				+ getFilename(cvFile);
+				+ "\\ProjFinalUploadedFiles\\" + typeFile + "_" + email + "_"
+				+ getCurrentTimeStamp() + "_" + getFilename(cvFile);
 		return localPath;
 	}
 
 	private String generateServerPath(String email, String typeFile) {
-		return "\\candidate\\" + email + "_" + getCurrentTimeStamp() + "_"
-				+ typeFile + "_" + getFilename(cvFile);
+		return "\\candidate\\" + typeFile + "_" + email + "_"
+				+ getCurrentTimeStamp() + "_" + getFilename(cvFile);
 	}
 
 	private static String getFilename(Part part) {

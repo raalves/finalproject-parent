@@ -7,8 +7,8 @@
 	<ui:define name="content">
 
 		<h:form id="formNewCandidate" enctype="multipart/form-data">
-			<p:messages id="msgNewCandRegister" severity="error,warn" closable="true"
-				style="text-align:left" autoUpdate="true"/>
+			<p:messages id="msgNewCandRegister" severity="error,warn"
+				closable="true" style="text-align:left" autoUpdate="true" />
 			<p:growl id="growlNewCand" sticky="true" severity="info" />
 			<p:panel>
 				<p:outputLabel>
@@ -18,7 +18,7 @@
 				<p:panelGrid id="newCandForm" columns="2" styleClass="ui-noborder"
 					style="width: 100%; margin-top: 20px" columnClasses="label,field">
 					<p:outputLabel value="First Name" for="firstName" />
-					
+
 					<p:inputText id="firstName" size="80" required="true"
 						requiredMessage="Please fill in the first name field!"
 						value="#{newCandidateRegisterMB.firstName}" />
@@ -92,10 +92,14 @@
 					<h:inputFile id="uploadCV" class="buttons"
 						value="#{uploadFile.cvFile}" required="true"
 						requiredMessage="Please upload your CV/Resume!" />
-					<p:outputLabel value="Upload Cover Letter" for="uploadCoverLetter" />
-					<h:inputFile id="uploadCoverLetter" class="buttons"
-						value="#{uploadFile.coverLetterFile}" required="false"
-						requiredMessage="Please upload your CV/Resume!" />
+					<p:outputLabel value="Upload Cover Letter" for="coverLetter" />
+					<p:inputTextarea id="coverLetter"
+						value="#{newCandidateRegisterMB.coverLetter}" rows="10" cols="100"
+						
+						autoResize="false" maxlength="5000" />
+					<!-- 					<h:inputFile id="uploadCoverLetter" class="buttons" -->
+					<!-- 						value="#{uploadFile.coverLetterFile}" required="false" -->
+					<!-- 						requiredMessage="Please upload your CV/Resume!" /> -->
 
 					<p:spacer />
 					<p:columnGroup>

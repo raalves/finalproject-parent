@@ -87,6 +87,7 @@ public class PositionsMB implements Serializable {
 	}
 
 	public PositionFacade getPositionFacade() {
+		applyMB.setPositionSelect(positionSelect);
 		return positionFacade;
 	}
 

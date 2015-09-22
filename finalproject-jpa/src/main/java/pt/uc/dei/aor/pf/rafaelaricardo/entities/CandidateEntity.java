@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -120,6 +121,9 @@ public class CandidateEntity implements Serializable {
 	@Column(name = "cv_path", nullable = false)
 	private String cvPath;
 
+	@Length(max = 5000)
+	private String coverLetter;
+
 	@OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
 	private List<CandidatureEntity> candidatures = new ArrayList<>();
 
@@ -146,7 +150,6 @@ public class CandidateEntity implements Serializable {
 		this.course = course;
 		this.school = school;
 		this.cvPath = cvPath;
-		// this.role = new RoleEntity(Role.CANDIDATE);
 	}
 
 	// *************************** METHODS ***************************
@@ -280,6 +283,14 @@ public class CandidateEntity implements Serializable {
 
 	public void setCandidatures(List<CandidatureEntity> candidatures) {
 		this.candidatures = candidatures;
+	}
+
+	public String getCoverLetter() {
+		return coverLetter;
+	}
+
+	public void setCoverLetter(String coverLetter) {
+		this.coverLetter = coverLetter;
 	}
 
 	@Override

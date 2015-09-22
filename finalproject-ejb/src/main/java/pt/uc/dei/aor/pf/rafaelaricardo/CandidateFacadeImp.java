@@ -109,7 +109,7 @@ public class CandidateFacadeImp implements CandidateFacade {
 	public CandidateEntity addCandidate(String firstName, String lastName,
 			String email, String password, Date birthdate, String address,
 			String city, Long mobilePhone, String country, String course,
-			String school, String cvPath) {
+			String school, String cvPath, String coverLetter) {
 		log.info("Saving candidate in DB");
 
 		if (candidateDao.findCandidateByEmail(email) == null) {
@@ -118,7 +118,9 @@ public class CandidateFacadeImp implements CandidateFacade {
 					mobilePhone, country, course, school, cvPath);
 			// RoleEntity rc = new RoleEntity(Role.CANDIDATE);
 			// roleDao.save(rc);
-
+			if (coverLetter != null) {
+				c.setCoverLetter(coverLetter);
+			}
 			c.setRole(roleDao.findRoleByName(Role.CANDIDATE));
 			candidateDao.save(c);
 			return c;

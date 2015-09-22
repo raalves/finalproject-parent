@@ -17,7 +17,7 @@ public interface CandidateFacade {
 	public abstract CandidateEntity addCandidate(String firstName,
 			String lastName, String email, String password, Date birthdate,
 			String address, String city, Long mobilePhone, String country,
-			String course, String school, String cvPath);
+			String course, String school, String cvPath, String coverLetter);
 
 	public abstract List<CandidateEntity> findCandidateByRole(RoleEntity role);
 

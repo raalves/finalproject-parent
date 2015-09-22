@@ -40,25 +40,26 @@ public class NewCandidateRegisterMB implements Serializable {
 	private String course;
 	private String school;
 	private String cvPath;
-	private String coverLetterPath;
+	private String coverLetter;
 
 	public NewCandidateRegisterMB() {
 	}
 
 	public String newCandidate(UploadFile cvFile) {
+
 		log.info("Registering new Candidate");
 		System.out.println("regist candidate" + birthdate);
 		if (email
 				.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
 			if (password.equals(repeatPassword)) {
 				if (cvFile != null) {
-
 					cvPath = cvFile.generatePath(email);
-					// cvPath = cvFile.uploadCV(email);
+					System.out.println("cvpath" + cvPath);
+
 					if (applicationMB.addCandidate(firstName, lastName, email,
 							password, birthdate, address, city,
 							Long.parseLong(mobilePhone), country, course,
-							school, cvPath) == null) {
+							school, cvPath, coverLetter) == null) {
 						String errorMsg = "This email already exists!";
 						log.error(errorMsg);
 						FacesContext.getCurrentInstance().addMessage(
@@ -66,22 +67,22 @@ public class NewCandidateRegisterMB implements Serializable {
 								new FacesMessage(FacesMessage.SEVERITY_ERROR,
 										errorMsg, null));
 
-						// deleteUploadedFile(cvPath);
-
-						// return "/pages/public/NewCandidateRegister";
+						return "/pages/public/NewCandidateRegister";
 					} else {
-						// if (phone != null) {
-						//
-						// }
-						cvFile.uploadCV(email);
+
+						cvFile.upload(email);
+
 						String infoMsg = "Successfully created candidate";
-						log.error(infoMsg);
+						log.info(infoMsg);
 						FacesContext.getCurrentInstance().addMessage(
 								null,
 								new FacesMessage(FacesMessage.SEVERITY_INFO,
 										infoMsg, null));
 						// return "history.go(-1)";
+						return "/LoginCandidates";
+
 					}
+
 				} else {
 					String errorMsg = "Please choose a cv for upload!";
 					log.error(errorMsg);
@@ -89,17 +90,17 @@ public class NewCandidateRegisterMB implements Serializable {
 							null,
 							new FacesMessage(FacesMessage.SEVERITY_ERROR,
 									errorMsg, null));
-					// return "/pages/public/NewCandidateRegister";
+					return "/pages/public/NewCandidateRegister";
 				}
 
 			} else {
-				String errorMsg = "Passwords don't macth";
+				String errorMsg = "Passwords don't match";
 				log.error(errorMsg);
 				FacesContext.getCurrentInstance().addMessage(
 						null,
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 								null));
-				// return "/pages/public/NewCandidateRegister";
+				return "/pages/public/NewCandidateRegister";
 			}
 		} else {
 			String errorMsg = "This email is not valid!";
@@ -108,10 +109,8 @@ public class NewCandidateRegisterMB implements Serializable {
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
-
+			return "/pages/public/NewCandidateRegister";
 		}
-		return "/pages/public/NewCandidateRegister";
-
 	}
 
 	public void deleteUploadedFile(String filePath) {
@@ -245,12 +244,12 @@ public class NewCandidateRegisterMB implements Serializable {
 		this.cvPath = cvPath;
 	}
 
-	public String getCoverLetterPath() {
-		return coverLetterPath;
+	public String getCoverLetter() {
+		return coverLetter;
 	}
 
-	public void setCoverLetterPath(String coverLetterPath) {
-		this.coverLetterPath = coverLetterPath;
+	public void setCoverLetter(String coverLetter) {
+		this.coverLetter = coverLetter;
 	}
 
 }

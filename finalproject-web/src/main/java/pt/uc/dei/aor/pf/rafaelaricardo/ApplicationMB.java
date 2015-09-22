@@ -77,12 +77,12 @@ public class ApplicationMB implements Serializable {
 	public CandidateEntity addCandidate(String firstName, String lastName,
 			String email, String password, Date birthdate, String address,
 			String city, Long mobilePhone, String country, String course,
-			String school, String cvPath) {
+			String school, String cvPath, String coverLetter) {
 
 		try {
 			CandidateEntity c = candidateFacade.addCandidate(firstName,
 					lastName, email, password, birthdate, address, city,
-					mobilePhone, country, course, school, cvPath);
+					mobilePhone, country, course, school, cvPath, coverLetter);
 			return c;
 		} catch (EJBException e) {
 			String errorMsg = "Error adding candidate: " + e.getMessage();
