@@ -4,8 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import pt.uc.dei.aor.pf.rafaelaricardo.dao.CandidateDAO;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
@@ -15,6 +21,8 @@ import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 public class ActiveUserMB implements Serializable {
 
 	private static final long serialVersionUID = -2924065797543265014L;
+	private static final Logger log = LoggerFactory
+			.getLogger(ActiveUserMB.class);
 
 	private String email;
 	private String fullName;
@@ -29,6 +37,7 @@ public class ActiveUserMB implements Serializable {
 	private boolean managerTab;
 	private boolean interviewerTab;
 	private boolean candidateTab;
+	private CandidateDAO candidateDAO;
 
 	public ActiveUserMB() {
 		email = null;
@@ -88,6 +97,28 @@ public class ActiveUserMB implements Serializable {
 	public List<RoleEntity> searchUserRoles() {
 		setUserRoles(currentUser.getRoles());
 		return userRoles;
+	}
+
+	public void submitChanges() {
+		try {
+			candidateDAO.save(currentCandidate);
+			String infomsg = "Profile successfully changed";
+			log.info(infomsg);
+			FacesContext.getCurrentInstance()
+					.addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO,
+									infomsg, null));
+
+		} catch (Exception e) {
+			String errormsg = "Error on changing Profile";
+			log.error(errormsg);
+			FacesContext.getCurrentInstance()
+					.addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									errormsg, null));
+		}
 	}
 
 	// public void areaNameAdmin() {

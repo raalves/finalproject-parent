@@ -93,7 +93,7 @@ public class NewCandidateRegisterMB implements Serializable {
 				}
 
 			} else {
-				String errorMsg = "Passwords don't macth";
+				String errorMsg = "Passwords don't match";
 				log.error(errorMsg);
 				FacesContext.getCurrentInstance().addMessage(
 						null,

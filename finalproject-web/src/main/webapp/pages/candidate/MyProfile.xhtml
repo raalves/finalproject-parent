@@ -3,8 +3,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form>
-		<p:messages id="messages" autoUpdate="true" showDetail="true" closable="true"/>
+	<h:form enctype="multipart/form-data">
+		<p:messages id="messages" severity="error,warn" showDetail="true" closable="true"/>
+		<p:growl id="growlUpDateProfile" sticky="true" severity="info"/>
 		<p:button value="Change password"
 			onclick="PF('changePass').show();return false;" style="float:right" />
 
@@ -12,51 +13,48 @@
 			columnClasses="label,field" styleClass="ui-noborder" id="myProfile">
 
 			<p:outputLabel value="First Name" for="firstName" />
-			<p:inputText id="firstName" size="80" required="true" />
+			<p:inputText id="firstName" size="80" required="true" value="#{activeUserMB.currentCandidate.firstName}"/>
 
 			<p:outputLabel value="Last Name" for="lastName" />
-			<p:inputText id="lastName" size="80" required="true" />
+			<p:inputText id="lastName" size="80" required="true" value="#{activeUserMB.currentCandidate.lastName}"/>
 
 			<p:outputLabel value="Email" for="email" />
-			<p:inputText id="email" size="80" required="true" />
+			<p:inputText id="email" size="80" required="true" value="#{activeUserMB.currentCandidate.email}"/>
 
 			<p:outputLabel value="Birthdate" for="birthdate" />
-			<p:calendar id="birthdate" size="10" pattern="dd/MM/yyyy" mask="true"
-				maxdate="31/12/1997" readonly="true" required="true" />
+			<p:calendar id="birthdate" size="10" pattern="yyyy/MM/dd" mask="true"
+				maxdate="31/12/1997" readonly="true" required="true" value="#{activeUserMB.currentCandidate.birthDate}"/>
 
 			<p:outputLabel value="Adress" for="address" />
-			<p:inputText id="address" size="80" required="true" />
+			<p:inputText id="address" size="80" required="true" value="#{activeUserMB.currentCandidate.address}"/>
 
 			<p:outputLabel value="City" for="city" />
-			<p:inputText id="city" size="80" required="true" />
+			<p:inputText id="city" size="80" required="true" value="#{activeUserMB.currentCandidate.city}"/>
 
 			<p:outputLabel value="Country" for="country" />
-			<p:inputText id="country" size="80" required="true" />
+			<p:inputText id="country" size="80" required="true" value="#{activeUserMB.currentCandidate.country}"/>
 
 			<p:outputLabel value="Phone" for="phone" />
-			<p:inputText id="phone" size="13" required="true" />
+			<p:inputText id="phone" size="13" value="#{activeUserMB.currentCandidate.phone}"/>
 
 			<p:outputLabel value="Mobile phone" for="mobilePhone" />
-			<p:inputText id="mobilePhone" size="13" required="true" />
+			<p:inputText id="mobilePhone" size="13" required="true" value="#{activeUserMB.currentCandidate.mobilePhone}"/>
 
-			<p:outputLabel value="Main Course" for="mainCourse" />
-			<p:inputText id="mainCourse" size="80" required="true" />
+			<p:outputLabel value="Course" for="course" />
+			<p:inputText id="course" size="80" required="true" value="#{activeUserMB.currentCandidate.course}"/>
 
 			<p:outputLabel value="School" for="school" />
-			<p:inputText id="school" size="80" required="true" />
+			<p:inputText id="school" size="80" required="true" value="#{activeUserMB.currentCandidate.school}"/>
 
 			<p:outputLabel value="Upload CV/Resume" />
-			<p:fileUpload required="true" skinSimple="true" update="messages"
-				sizeLimit="100000" allowTypes="/(\.|\/)(pdf|doc|docx)$/"
-				invalidFileMessage="The format of the file must be pdf, doc or docx"
-				style="width:400px" />
+			<h:inputFile id="uploadCV" required="true" value="#{activeUserMB.currentCandidate.cvPath}"/>
 			<p:spacer />
 			<p:columnGroup>
 				<p:commandButton value="Cancel" ajax="false" />
 				<p:commandButton value="Clear" update="myProfile" process="@this">
 					<p:resetInput target="myProfile" />
 				</p:commandButton>
-				<p:commandButton value="Submit changes" ajax="false" />
+				<p:commandButton value="Submit changes" ajax="false" action="#{activeUserMB.submitChanges()}"/>
 			</p:columnGroup>
 
 
