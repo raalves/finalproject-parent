@@ -82,12 +82,12 @@ public class PositionsMB implements Serializable {
 	}
 
 	public void setPositionSelect(PositionEntity positionSelect) {
-
+		System.out.println("set position select" + positionSelect);
+		applyMB.setPositionSelect(positionSelect);
 		this.positionSelect = positionSelect;
 	}
 
 	public PositionFacade getPositionFacade() {
-		applyMB.setPositionSelect(positionSelect);
 		return positionFacade;
 	}
 

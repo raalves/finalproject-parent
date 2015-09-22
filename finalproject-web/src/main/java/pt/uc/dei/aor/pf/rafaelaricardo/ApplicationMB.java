@@ -15,8 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 
 @Named
 @SessionScoped
@@ -72,6 +75,28 @@ public class ApplicationMB implements Serializable {
 					new FacesMessage(errorMsg));
 			return null;
 		}
+	}
+
+	public CandidatureEntity addCandidature(CandidateEntity candLog,
+			PositionEntity positionSelect, String cvPath,
+			String motivationLetter, Date candidatureDate, Source sourcesSelect) {
+
+		try {
+			CandidatureEntity cand = candidatureFacade.addCandidature(candLog,
+					positionSelect, cvPath, motivationLetter, candidatureDate,
+					sourcesSelect);
+			return cand;
+		} catch (EJBException e) {
+			String errorMsg = "You already have a candidature for this position: "
+					+ e.getMessage();
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					"msgNewCand",
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg, e
+							.getMessage()));
+			return null;
+		}
+
 	}
 
 	public CandidateEntity addCandidate(String firstName, String lastName,

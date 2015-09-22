@@ -1,0 +1,123 @@
+<ui:composition template="/template/commonLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+
+		<h:form id="formNewCandidature" enctype="multipart/form-data">
+			<p:messages id="msgNewCand" severity="error,warn" closable="true"
+				style="text-align:left" />
+			<p:growl id="growlNewCand" sticky="true" severity="info" />
+			<p:panel>
+				<p:outputLabel>
+					<h2>New candidature area</h2>
+				</p:outputLabel>
+
+				<h5>You are applying to position:"
+					#{applyMB.positionSelect.title} "</h5>
+				<p:spacer />
+
+
+				<p:panelGrid id="newCandForm" columns="2" styleClass="ui-noborder"
+					style="width: 100%; margin-top: 20px" columnClasses="label,field">
+					<p:outputLabel
+						value="Where did you get knowledge of this position?"
+						for="sourcePosition" />
+					<p:selectManyCheckbox id="sourcePosition" layout="grid" columns="4"
+						value="#{applyMB.sourcesSelect}" required="true"
+						requiredMessage="Please select your sources">
+						<f:selectItems value="#{applyMB.sources}" var="source"
+							itemLabel="#{source}" itemValue="#{source}" />
+					</p:selectManyCheckbox>
+					<p:outputLabel value="First Name" for="firstName" />
+					<p:inputText id="firstName" size="80" required="true"
+						requiredMessage="Please fill in the first name field!"
+						value="#{applyMB.candLog.firstName}" />
+
+					<p:outputLabel value="Last Name" for="lastName" />
+					<p:inputText id="lastName" size="80" required="true"
+						requiredMessage="Please fill in the last name field!"
+						value="#{applyMB.candLog.lastName}" />
+
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" size="80" required="true" disabled="true"
+						requiredMessage="Please fill in the email field!"
+						value="#{applyMB.candLog.email}" />
+
+					<p:outputLabel value="Birthdate" for="birthdate" />
+					<p:calendar id="birthdate" size="10" pattern="yyyy-MM-dd"
+						mask="true" required="true" disabled="true"
+						requiredMessage="Please fill in the birthdate field!"
+						value="#{applyMB.candLog.birthDate}" />
+
+					<p:outputLabel value="Adress" for="address" />
+					<p:inputText id="address" size="80" required="true"
+						requiredMessage="Please fill in the address field!"
+						value="#{applyMB.candLog.address}" />
+
+					<p:outputLabel value="City" for="city" />
+					<p:inputText id="city" size="80" required="true"
+						requiredMessage="Please fill in the City field!"
+						value="#{applyMB.candLog.city}" />
+
+					<p:outputLabel value="Country" for="country" />
+					<p:inputText id="country" size="80" required="true"
+						requiredMessage="Please fill in the Country field!"
+						value="#{applyMB.candLog.country}" />
+
+					<p:outputLabel value="Phone" for="phone" />
+					<p:inputText id="phone" maxlength="13" size="13"
+						value="#{applyMB.candLog.phone}" />
+
+					<p:outputLabel value="Mobile phone" for="mobilePhone" />
+					<p:inputText id="mobilePhone" maxlength="13" size="13"
+						required="true"
+						requiredMessage="Please fill in the mobile phone field!"
+						value="#{applyMB.candLog.mobilePhone}" />
+
+					<p:outputLabel value="Main Course" for="course" />
+					<p:inputText id="course" size="80" required="true"
+						style="width:250px;"
+						requiredMessage="Please fill in the course field!"
+						value="#{applyMB.candLog.course}" />
+
+					<p:outputLabel value="School" for="school" />
+					<p:inputText id="school" size="80" required="true"
+						style="width:250px;"
+						requiredMessage="Please fill in the school field!"
+						value="#{applyMB.candLog.school}" />
+
+					<p:outputLabel value="Upload CV/Resume (only in pdf format)"
+						for="uploadCV" />
+					<h:inputFile id="uploadCV" class="buttons"
+						value="#{uploadFile.cvFile}" required="true"
+						requiredMessage="Please upload your CV/Resume!" />
+					<p:outputLabel
+						value="Motivation Letter - tell us why you should be choosen for this position"
+						for="motivationLetter" />
+					<p:inputTextarea id="motivationLetter"
+						value="#{applyMB.motivationLetter}" rows="10" cols="100"
+						counter="display" counterTemplate="{0} characters remaining"
+						autoResize="false" maxlength="5000" />
+					<p:spacer />
+					<h:outputText id="display" />
+					
+
+					<p:spacer />
+					<p:columnGroup>
+						<p:commandButton value="Cancel" onclick="history.go(-1)" />
+						<p:commandButton value="Clear" update="newCandForm"
+							process="@this">
+							<p:resetInput target="newCandForm" />
+						</p:commandButton>
+						<p:commandButton value="Submit" ajax="false"
+							action="#{applyMB.submitCandidature(uploadFile)}" />
+					</p:columnGroup>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

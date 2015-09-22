@@ -3,6 +3,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 
 @Named
 @SessionScoped
@@ -28,13 +30,16 @@ public class ApplyMB implements Serializable {
 	private ActiveUserMB actUserMB;
 	@Inject
 	private PositionsMB positionMB;
-
+	@Inject
+	private ApplicationMB applicationMB;
+	@EJB
+	private CandidatureFacade candidatureFacade;
 	private UserEntity userLog;
 	private CandidateEntity candLog;
 	private String firstName;
 	private String lastName;
 	private String email;
-
+	// private String candidatureStatus;
 	private Date birthdate;
 	private String address;
 	private String city;
@@ -44,50 +49,120 @@ public class ApplyMB implements Serializable {
 	private String course;
 	private String school;
 	private String cvPath;
-	private String coverLetterPath;
-
+	private String motivationLetter;
+	private Date candidatureDate;
 	private PositionEntity positionSelect;
+	private Source sourcesSelect;
 
-	public String applyToPosition(PositionEntity positionS) {
+	// private ArrayList<Source>
+
+	public String submitCandidature(UploadFile uploadFile) {
+		this.candidatureDate = getCurrentTimeStamp();
+		// this.candidatureStatus=;
+
+		if (uploadFile != null) {
+			cvPath = uploadFile.generatePath(email);
+			System.out.println("cvpath" + cvPath);
+			if (motivationLetter != null) {
+				if (applicationMB.addCandidature(candLog, positionSelect,
+						cvPath, motivationLetter, candidatureDate,
+						sourcesSelect) == null) {
+					String errorMsg = "Erro during submition of candidature";
+					log.error(errorMsg);
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									errorMsg, null));
+
+					return "/pages/candidate/NewCandidature";
+				} else {
+
+					uploadFile.upload(email);
+
+					String infoMsg = "Successfully created candidature";
+					log.info(infoMsg);
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO,
+									infoMsg, null));
+					// return "history.go(-1)";
+					return "/pages/candidate/myCandidatures";
+				}
+
+			} else {
+				String errorMsg = "Please write your motivation letter!";
+				log.error(errorMsg);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+								null));
+				return "/pages/public/NewCandidateRegister";
+			}
+		} else {
+			String errorMsg = "Please choose a cv for upload!";
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+			return "/pages/public/NewCandidateRegister";
+		}
+
+		// return null;
+	}
+
+	// public void findSourceSelect() {
+	// ArrayList<Source> allSources=candidatureFacade.fin
+	// }
+
+	public String applyToPosition() {
 		System.out.println("applytoposition");
-		System.out.println(positionS + "position que vem da web");
-		System.out.println(positionMB.getPositionSelect());
+		System.out.println(positionSelect.getTitle());
+		// System.out.println(positionMB.getPositionSelect());
 		// this.positionSelect=positionMB.getPositionSelect();
 
 		if (actUserMB.getCurrentUser() != null) {
 
 			this.userLog = actUserMB.getCurrentUser();
-			String errorMsg = "Please create a new profile!";
+			String errorMsg = "Please do login in or create a new  candidate profile!";
 			log.error(errorMsg);
 			FacesContext.getCurrentInstance().addMessage(
-					"msgNewCandRegister",
+					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
 			// System.out.println(actUserMB.getCurrentUser().getEmail());
-			return "/pages/public/NewCandidateRegister.xhtml?faces-redirect=true";
+			return "/LoginCandidates";
 		} else if (actUserMB.getCurrentCandidate() != null) {
 			this.candLog = actUserMB.getCurrentCandidate();
 			// System.out.println(actUserMB.getCurrentCandidate().getEmail());
 
-			return "/template/commonElements/NewCandidature.xhtml?faces-redirect=true";
+			return "/pages/candidate/NewCandidature.xhtml?faces-redirect=true";
 		} else {
-			String errorMsg = "Please create a new profile!";
+			String errorMsg = "Please do login in or create a new  candidate profile!";
 			log.error(errorMsg);
 			FacesContext.getCurrentInstance().addMessage(
 					"msgNewCandRegister",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
-			//
-			// FacesContext context = FacesContext.getCurrentInstance();
-			// HttpServletRequest request = (HttpServletRequest) context
-			// .getExternalContext().getRequest();
-			// return request.getHeader("Referer");
 
-			// return "window.history.go(-1)";
-			return "/pages/public/NewCandidateRegister.xhtml?faces-redirect=true";
+			return "/LoginCandidates";
 
 		}
 
+	}
+
+	public static Date getCurrentTimeStamp() {
+		// SimpleDateFormat sdfDate = new
+		// SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+		Date now = new Date();
+		// String strDate = sdfDate.format(now);
+		// return strDate;
+		return now;
+	}
+
+	// Getters and Setters
+	public Source getSources() {
+		return positionSelect.getSource();
 	}
 
 	public ActiveUserMB getActUserMB() {
@@ -210,12 +285,12 @@ public class ApplyMB implements Serializable {
 		this.cvPath = cvPath;
 	}
 
-	public String getCoverLetterPath() {
-		return coverLetterPath;
+	public String getMotivationLetter() {
+		return motivationLetter;
 	}
 
-	public void setCoverLetterPath(String coverLetterPath) {
-		this.coverLetterPath = coverLetterPath;
+	public void setMotivationLetter(String motivationLetter) {
+		this.motivationLetter = motivationLetter;
 	}
 
 	public PositionEntity getPositionSelect() {
@@ -224,6 +299,22 @@ public class ApplyMB implements Serializable {
 
 	public void setPositionSelect(PositionEntity positionSelect) {
 		this.positionSelect = positionSelect;
+	}
+
+	public Date getCandidatureDate() {
+		return candidatureDate;
+	}
+
+	public void setCandidatureDate(Date candidatureDate) {
+		this.candidatureDate = candidatureDate;
+	}
+
+	public Source getSourcesSelect() {
+		return sourcesSelect;
+	}
+
+	public void setSelectSources(Source sourcesSelect) {
+		this.sourcesSelect = sourcesSelect;
 	}
 
 }

@@ -71,4 +71,42 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 		return candidatureDAO.findCandidatureByStatus(candidatureStatus);
 	}
 
+	@Override
+	public CandidatureEntity addCandidature(CandidateEntity candLog,
+			PositionEntity positionSelect, String cvPath,
+			String motivationLetter, Date candidatureDate, Source sourcesSelect) {
+		if (hasAnotherCandidature(positionSelect, candLog)) {
+			return null;
+		} else {
+			log.info("Saving candidature in DB");
+
+			CandidatureEntity cand = new CandidatureEntity(cvPath,
+					motivationLetter, candidatureDate,
+					CandidatureStatus.SUBMITTED);
+			cand.setPublicSource(sourcesSelect);
+			candidatureDAO.save(cand);
+			return cand;
+
+		}
+
+	}
+
+	private boolean hasAnotherCandidature(PositionEntity positionSelect,
+			CandidateEntity candLog) {
+		List<CandidatureEntity> positionsArray = candidatureDAO
+				.findCandidatureByPosition(positionSelect);
+		List<CandidatureEntity> candidateArray = candidatureDAO
+				.findCandidatureByCandidate(candLog);
+		for (CandidatureEntity p : positionsArray) {
+			for (CandidatureEntity c : candidateArray) {
+				if (p.getId() == c.getId()) {
+					// break;
+
+					return true;
+				}
+			}
+			break;
+		}
+		return false;
+	}
 }

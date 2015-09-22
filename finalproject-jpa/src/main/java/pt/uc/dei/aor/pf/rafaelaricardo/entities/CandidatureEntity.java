@@ -57,13 +57,13 @@ public class CandidatureEntity implements Serializable {
 
 	@NotNull
 	@NotBlank
-	@Column(name = "resume_path", nullable = false)
-	private String resumePath;
+	@Column(name = "cv_path", nullable = false)
+	private String cvPath;
 
 	@NotNull
 	@NotBlank
-	@Column(name = "covering_letter_path", nullable = false)
-	private String coveringLetterPath;
+	@Column(name = "motivation_letter", nullable = false)
+	private String motivationLetter;
 
 	// @NotNull
 	// @NotBlank
@@ -90,11 +90,11 @@ public class CandidatureEntity implements Serializable {
 		super();
 	}
 
-	public CandidatureEntity(String resumePath, String coveringLetterPath,
+	public CandidatureEntity(String cvPath, String motivationLetter,
 			Date candidatureDate, CandidatureStatus candidatureStatus) {
 		super();
-		this.resumePath = resumePath;
-		this.coveringLetterPath = coveringLetterPath;
+		this.cvPath = cvPath;
+		this.motivationLetter = motivationLetter;
 		this.candidatureDate = candidatureDate;
 		this.candidatureStatus = candidatureStatus;
 	}
@@ -126,19 +126,19 @@ public class CandidatureEntity implements Serializable {
 	}
 
 	public String getResumePath() {
-		return resumePath;
+		return cvPath;
 	}
 
 	public void setResumePath(String resumePath) {
-		this.resumePath = resumePath;
+		this.cvPath = resumePath;
 	}
 
-	public String getCoveringLetterPath() {
-		return coveringLetterPath;
+	public String getMotivationLetter() {
+		return motivationLetter;
 	}
 
-	public void setCoveringLetterPath(String coveringLetterPath) {
-		this.coveringLetterPath = coveringLetterPath;
+	public void setMotivationLetter(String motivationLetter) {
+		this.motivationLetter = motivationLetter;
 	}
 
 	public Source getPublicSource() {

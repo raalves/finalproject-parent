@@ -30,4 +30,8 @@ public interface CandidatureFacade {
 	public abstract List<CandidatureEntity> findCandidatureByStatus(
 			CandidatureStatus candidatureStatus);
 
+	public abstract CandidatureEntity addCandidature(CandidateEntity candLog,
+			PositionEntity positionSelect, String cvPath,
+			String motivationLetter, Date candidatureDate, Source sourcesSelect);
+
 }

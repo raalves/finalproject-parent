@@ -4,8 +4,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="frm1">
-		<p:messages id="messages" showDetail="true" autoUpdate="true"
-			closable="true" />
+		<p:messages id="msgPositions" severity="error,warn"
+				closable="true" style="text-align:left" autoUpdate="true" />
+			<p:growl id="growlPosiitions" sticky="true" severity="info" />
+			
 		<p:button value="Spontaneous Candidature"
 			outcome="/pages/public/SpontaneousCandidature.xhtml"
 			style="float:right" />
@@ -82,7 +84,7 @@
 					<p:commandButton value="Close"
 						onclick="PF('positionDialog').hide();return false;" />
 					<p:commandButton value="Apply"
-						action="#{applyMB.applyToPosition(positionsMB.positionSelect)}"
+						action="#{applyMB.applyToPosition()}"
 						oncomplete="PF('positionDialog').hide();return false;" />
 				</div>
 			</p:outputPanel>
