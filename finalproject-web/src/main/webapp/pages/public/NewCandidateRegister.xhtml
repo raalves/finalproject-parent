@@ -92,16 +92,13 @@
 					<h:inputFile id="uploadCV" class="buttons"
 						value="#{uploadFile.cvFile}" required="true"
 						requiredMessage="Please upload your CV/Resume!" />
-					<p:outputLabel value="Upload Cover Letter" for="coverLetter" />
+					<p:outputLabel value="Cover Letter" for="coverLetter" />
 					<p:inputTextarea id="coverLetter"
 						value="#{newCandidateRegisterMB.coverLetter}" rows="10" cols="100"
 						counter="display" counterTemplate="{0} characters remaining"
 						autoResize="false" maxlength="5000" />
-						<h:outputText id="display" />
-					<!-- 					<h:inputFile id="uploadCoverLetter" class="buttons" -->
-					<!-- 						value="#{uploadFile.coverLetterFile}" required="false" -->
-					<!-- 						requiredMessage="Please upload your CV/Resume!" /> -->
-
+					<p:spacer />
+					<h:outputText id="display" />
 					<p:spacer />
 					<p:columnGroup>
 						<p:commandButton value="Cancel" onclick="history.go(-1)" />
