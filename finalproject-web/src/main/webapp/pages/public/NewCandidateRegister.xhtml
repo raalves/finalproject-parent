@@ -95,8 +95,9 @@
 					<p:outputLabel value="Upload Cover Letter" for="coverLetter" />
 					<p:inputTextarea id="coverLetter"
 						value="#{newCandidateRegisterMB.coverLetter}" rows="10" cols="100"
-						
+						counter="display" counterTemplate="{0} characters remaining"
 						autoResize="false" maxlength="5000" />
+						<h:outputText id="display" />
 					<!-- 					<h:inputFile id="uploadCoverLetter" class="buttons" -->
 					<!-- 						value="#{uploadFile.coverLetterFile}" required="false" -->
 					<!-- 						requiredMessage="Please upload your CV/Resume!" /> -->
