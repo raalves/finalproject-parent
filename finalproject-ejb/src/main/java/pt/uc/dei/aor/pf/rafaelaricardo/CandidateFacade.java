@@ -48,4 +48,5 @@ public interface CandidateFacade {
 	public abstract boolean updateCandidatePass(CandidateEntity c,
 			String oldPass, String newPass);
 
+	public abstract boolean updateCandidateProfile(CandidateEntity candidate);
 }

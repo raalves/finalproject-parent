@@ -167,6 +167,16 @@ public class CandidateFacadeImp implements CandidateFacade {
 		}
 	}
 
+	@Override
+	public boolean updateCandidateProfile(CandidateEntity candidate) {
+		if (candidate != null) {
+			if (candidateDao.update(candidate) != null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// @EJB
 	// private LyricDAO lyrDAO;
 	//

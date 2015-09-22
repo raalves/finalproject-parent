@@ -3,11 +3,13 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +39,8 @@ public class ActiveUserMB implements Serializable {
 	private boolean managerTab;
 	private boolean interviewerTab;
 	private boolean candidateTab;
-	private CandidateDAO candidateDAO;
+	@EJB
+	private CandidateFacade candidateFacade;
 
 	public ActiveUserMB() {
 		email = null;
@@ -99,10 +102,18 @@ public class ActiveUserMB implements Serializable {
 		return userRoles;
 	}
 
-	public void submitChanges() {
-		try {
-			candidateDAO.save(currentCandidate);
+	public void submitChanges(UploadFile uploadFile) {
+		System.out.println(uploadFile);
+		if (uploadFile == null) {
+			currentCandidate.setCvPath(currentCandidate.getCvPath());
+		} else {
+			currentCandidate.setCvPath(uploadFile.generatePath(currentCandidate
+					.getEmail()));
+		}
+		if (candidateFacade.updateCandidateProfile(currentCandidate)) {
 			String infomsg = "Profile successfully changed";
+			if (uploadFile != null)
+				uploadFile.upload(currentCandidate.getEmail());
 			log.info(infomsg);
 			FacesContext.getCurrentInstance()
 					.addMessage(
@@ -110,14 +121,13 @@ public class ActiveUserMB implements Serializable {
 							new FacesMessage(FacesMessage.SEVERITY_INFO,
 									infomsg, null));
 
-		} catch (Exception e) {
+		} else {
 			String errormsg = "Error on changing Profile";
 			log.error(errormsg);
-			FacesContext.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(FacesMessage.SEVERITY_ERROR,
-									errormsg, null));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errormsg,
+							null));
 		}
 	}
 
