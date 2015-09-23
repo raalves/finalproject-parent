@@ -92,19 +92,20 @@
 			<p:panelGrid columns="2" style="margin:10px" id="passChange">
 				<p:outputLabel for="password1" value="New Password" />
 				<p:password id="password1" match="password2" feedback="true"
-					required="true" />
+					required="true" value="#{activeUserMB.newPassword}" />
 
 				<p:outputLabel for="password2" value="Repeat new password" />
-				<p:password id="password2" required="true" />
+				<p:password id="password2" required="true"
+					value="#{activeUserMB.repeatNewPassword}" />
 			</p:panelGrid>
 			<div style="text-align: center">
 				<p:commandButton value="Clear" update="passChange" process="@this">
 					<p:resetInput target="passChange" />
 				</p:commandButton>
-				<p:commandButton value="Cancel"
+				<p:commandButton value="Close"
 					onclick="PF('changePass').hide();return false;" />
 				<p:commandButton value="Save changes"
-					 />
+					action="#{activeUserMB.savePasswordChanges()}" />
 			</div>
 		</h:form>
 	</p:dialog>

@@ -136,14 +136,12 @@ public class CandidateFacadeImp implements CandidateFacade {
 	}
 
 	@Override
-	public boolean updateCandidatePass(CandidateEntity c, String oldPass,
-			String newPass) {
+	public boolean updateCandidatePass(CandidateEntity c, String newPass) {
 		log.info("Update password from candidate: " + c.getEmail());
 		if (c != null) {
-			if (c.checkPassword(encryptPass.encrypt(oldPass))) {
-				c.setPassword(encryptPass.encrypt(newPass));
-				isCandidateWithAllData(c);
-				candidateDao.update(c);
+			c.setPassword(encryptPass.encrypt(newPass));
+			isCandidateWithAllData(c);
+			if(candidateDao.update(c) != null){
 				return true;
 			}
 		}
@@ -174,6 +172,13 @@ public class CandidateFacadeImp implements CandidateFacade {
 				return true;
 			}
 		}
+		return false;
+	}
+
+	@Override
+	public boolean updateCandidatePass(CandidateEntity c, String password,
+			String password2) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

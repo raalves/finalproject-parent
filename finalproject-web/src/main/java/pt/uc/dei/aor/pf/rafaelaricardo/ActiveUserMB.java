@@ -30,6 +30,8 @@ public class ActiveUserMB implements Serializable {
 	private String fullName;
 	private String firstName;
 	private String lastName;
+	private String newPassword;
+	private String repeatNewPassword;
 	private UserEntity currentUser;
 	private CandidateEntity currentCandidate;
 	private List<RoleEntity> userRoles;
@@ -131,6 +133,28 @@ public class ActiveUserMB implements Serializable {
 		}
 	}
 
+	public String savePasswordChanges() {
+		if (newPassword.equals(repeatNewPassword)) {
+			if (candidateFacade.updateCandidatePass(currentCandidate,
+					newPassword)) {
+				String infomsg = "Password successfully changed";
+				log.info(infomsg);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, infomsg,
+								null));
+			}
+		} else {
+			String errormsg = "Error on changing Password";
+			log.error(errormsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errormsg,
+							null));
+		}
+		return null;
+	}
+
 	// public void areaNameAdmin() {
 	// System.out.println("areaadmin");
 	// this.areaName = "Administrador";
@@ -186,6 +210,22 @@ public class ActiveUserMB implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getRepeatNewPassword() {
+		return repeatNewPassword;
+	}
+
+	public void setRepeatNewPassword(String repeatNewPassword) {
+		this.repeatNewPassword = repeatNewPassword;
 	}
 
 	public UserEntity getCurrentUser() {
