@@ -4,57 +4,56 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form>
-		<p:messages id="msgSearchCandidatures" severity="error,warn"
+	<h:form >
+		<p:messages id="msgSearchCandidates" severity="error,warn"
 			closable="true" style="text-align:left" />
-		<p:growl id="growlSearchCandidatures" sticky="true" severity="info" />
+		<p:growl id="growlSearchCandidates" sticky="true" severity="info" />
 		<p:outputLabel>
 			<h3>Search for candidates</h3>
 		</p:outputLabel>
-		<p:button value="Create new Candidature"
+		<p:button value="Create new Candidate"
 			outcome="/pages/public/NewCandidateRegister.xhtml"
 			style="float:right" />
 		<p:panel>
 			<p:panelGrid columns="4" styleClass="ui-noborder"
 				style="width: 100%; margin-top: 20px" columnClasses="label,field">
 				<p:outputLabel value="First Name" for="firstName" />
-				<p:inputText id="firstName" />
+				<p:inputText id="firstName" value="#{searchCandidaturesMB.firstName}"/>
 
 				<p:outputLabel value="Last Name" for="lastName" />
-				<p:inputText id="lastName" />
+				<p:inputText id="lastName" value="#{searchCandidaturesMB.lastName}"/>
 				<p:outputLabel value="Email" for="email" />
-				<p:inputText id="email" />
+				<p:inputText id="email" value="#{searchCandidaturesMB.email}"/>
 				<p:outputLabel value="Address" for="address" />
-				<p:inputText id="address" />
+				<p:inputText id="address" value="#{searchCandidaturesMB.address}"/>
 
 				<p:outputLabel value="City" for="city" />
-				<p:inputText id="city" />
+				<p:inputText id="city" value="#{searchCandidaturesMB.city}"/>
 
 				<p:outputLabel value="Country" for="country" />
-				<p:inputText id="country" />
+				<p:inputText id="country" value="#{searchCandidaturesMB.country}"/>
 				<p:outputLabel value="Phone" for="phone" />
-				<p:inputText id="phone" maxlength="13" size="15" />
+				<p:inputText id="phone" maxlength="13" value="#{searchCandidaturesMB.phone}"/>
 
 				<p:outputLabel value="Mobile phone" for="mobilePhone" />
-				<p:inputText id="mobilePhone" maxlength="13" size="15" />
+				<p:inputText id="mobilePhone" maxlength="13"  value="#{searchCandidaturesMB.mobilePhone}"/>
 
 				<p:outputLabel value="Main Course" for="course" />
-				<p:inputText id="course" style="width:250px;" />
+				<p:inputText id="course" style="width:250px;" value="#{searchCandidaturesMB.course}"/>
 
 				<p:outputLabel value="School" for="school" />
-				<p:inputText id="school" size="80" style="width:250px;" />
-
-
+				<p:inputText id="school" style="width:250px;" value="#{searchCandidaturesMB.school}"/>
 				<p:spacer />
-				<p:selectBooleanCheckbox value="Only Spontaneous Candidatures" />
-				<p:commandButton value="Search"></p:commandButton>
+				<p:selectBooleanCheckbox itemLabel="Only Spontaneous Candidatures" value="#{searchCandidaturesMB.spontaneous}"/>
+				<p:spacer/>
+				<p:commandButton value="Search" action="#{searchCandidaturesMB.search()}" update="@form"/>
 
 			</p:panelGrid>
 			<p:panelGrid id="freeSearch" columns="2" styleClass="ui-noborder"
-				style=" margin-top: 20px;align:left" columnClasses="label,field">
-				<p>Or do a free search</p>
-				<p:inputText />
-				<p:outputLabel value="Search" icon="ui-icon-search" />
+				style=" margin-top: 10px;align:right" columnClasses="label,field">
+				<p>Or do a free search</p><p:spacer/>
+				<p:inputText value="#{searchCandidaturesMB.freeSearch}" />
+				<p:commandButton value="Search" icon="ui-icon-search" action="#{searchCandidaturesMB.freeSearch()}" update="@form"/>
 			</p:panelGrid>
 		</p:panel>
 		<p:separator />
@@ -62,7 +61,7 @@
 		<p:dataTable id="searchResult"  style="margin-top:5px"
 			emptyMessage="No records found" rows="15" paginator="true"
 			paginatorAlwaysVisible="false" paginatorPosition="bottom"
-			 value="#{searchCandidatures.resultList}" var="candidate" sortOrder="#{candidate.id}">
+			 value="#{searchCandidaturesMB.resultList}" var="candidate" sortOrder="#{candidate.id}">
 
 			<p:column headerText="First Name" sortBy="#{candidate.firstName}">
 				<p:outputLabel value="#{candidate.firstName}" />
@@ -70,37 +69,28 @@
 			<p:column headerText="Last Name" sortBy="#{candidate.lastName}">
 				<p:outputLabel value="#{candidate.lastName}" />
 			</p:column>
-
 			<p:column headerText="Email" sortBy="#{candidate.email}">
 				<p:outputLabel value="#{candidate.email}"/>
-			</p:column>
-			<p:column headerText="Address" sortBy="#{candidate.address}">
-				<p:outputLabel value="#{candidate.address}"/>
-			</p:column>
+			</p:column>		
 			<p:column headerText="City" sortBy="#{candidate.city}">
 				<p:outputLabel value="#{candidate.city}"/>
-			</p:column>
-			<p:column headerText="Country" sortBy="#{candidate.country}">
-				<p:outputLabel value="#{candidate.country}" />
-			</p:column>
-			<p:column headerText="Phone" sortBy="#{candidate.phone}">
-				<p:outputLabel value="#{candidate.phone}" />
 			</p:column>
 			<p:column headerText="Mobile phone" sortBy="#{candidate.mobilePhone}">
 				<p:outputLabel value="#{candidate.mobilePhone}"/>
 			</p:column>
-
 			<p:column headerText="Course" sortBy="#{candidate.course}">
 				<p:outputLabel value="#{candidate.course}" />
 			</p:column>
-			<p:column headerText="School" sortBy="#{candidate.school}">
-				<p:outputLabel value="#{candidate.school}"/>
+			
+			<p:column headerText="Details" style="text-align:center;width:100px">
+				<p:commandButton icon="ui-icon-search"/>
+					
+			
 			</p:column>
 			<p:column headerText="Associate to a position"
 				style="text-align:center;width:80px">
 				<p:commandButton icon="ui-icon-help" title="See details"
 					onclick="PF('assocToPosition').show();return false">
-
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>

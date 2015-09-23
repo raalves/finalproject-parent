@@ -53,10 +53,11 @@
 		<!-- Tests -->
 		<junit-version>4.12</junit-version>
 		<mockito-version>1.10.19</mockito-version>
-		
+
 		<!-- Primefaces -->
 		<primefaces-version>5.2</primefaces-version>
-
+		<!-- Utilities -->
+		<lang3.version>3.1</lang3.version>
 	</properties>
 
 
