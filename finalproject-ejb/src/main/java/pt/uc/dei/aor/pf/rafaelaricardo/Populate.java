@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -96,18 +97,28 @@ public class Populate implements Serializable {
 		generalGuide.setFilePath("qqcoisa");
 		generalGuide.setAuthor(users[0]);
 
+		List<Source> sourcesPos1 = new ArrayList<Source>();
+
+		sourcesPos1.add(Source.CRITICAL_SOFTWARE_WEBSITE);
+		sourcesPos1.add(Source.FACEBOOK);
+		sourcesPos1.add(Source.GLASSDOOR);
+		sourcesPos1.add(Source.LINKEDIN);
+		List<Location> localPos1 = new ArrayList<Location>();
+
+		localPos1.add(Location.COIMBRA);
+		localPos1.add(Location.OPORTO);
+
 		PositionEntity position1 = new PositionEntity();
 		position1.setAdminCreator(users[0]);
 		position1.setTitle("Technical manager for embedded systems");
-		position1.setLocation(Location.COIMBRA);
-		position1.setLocation(Location.OPORTO);
+		position1.setLocation(localPos1);
+
 		position1.setPositionStatus(PositionStatus.OPEN);
 		position1.setQuantity(2);
 		position1.setCompany("Critical Software");
 		position1.setTechnicalArea(TechnicalArea.INTEGRATION);
 		position1.setDescriptionPosition(dp);
-		position1.setSource(Source.CRITICAL_SOFTWARE_WEBSITE);
-		position1.setSource(Source.FACEBOOK);
+		position1.setSource(sourcesPos1);
 		position1.setOpenningDate(ft.parse("2015-08-01"));
 		position1.setClosingDate(ft.parse("2015-10-31"));
 		position1.setSla(8);
@@ -132,12 +143,15 @@ public class Populate implements Serializable {
 		candidate1.setRole(rCAnd);
 		// candidate1.setCandidatures(candidatures);
 
+		List<Source> sourceCand1 = new ArrayList<Source>();
+		sourceCand1.add(Source.FACEBOOK);
+
 		ArrayList<CandidatureEntity> candidatures = new ArrayList<CandidatureEntity>();
 		CandidatureEntity candidature1 = new CandidatureEntity("qqcoisaCV",
 				"qqCoisaCoverLetter", ft.parse("2015-08-31"),
 				CandidatureStatus.SUBMITTED);
 		candidature1.setPosition(position1);
-		candidature1.setPublicSource(Source.FACEBOOK);
+		candidature1.setPublicSource(sourceCand1);
 		candidature1.setCandidate(candidate1);
 
 		candidatures.add(candidature1);

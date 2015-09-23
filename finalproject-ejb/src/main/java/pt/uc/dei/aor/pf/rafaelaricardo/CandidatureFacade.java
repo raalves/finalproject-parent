@@ -21,8 +21,8 @@ public interface CandidatureFacade {
 	public abstract List<CandidatureEntity> findCandidatureByCandidate(
 			CandidateEntity candidate);
 
-	public abstract List<CandidatureEntity> findCandidatureBySource(
-			Source publicSource);
+	// public abstract List<CandidatureEntity> findCandidatureBySource(
+	// Source publicSource);
 
 	public abstract List<CandidatureEntity> findCandidatureByDate(
 			Date candidatureDate);
@@ -32,6 +32,7 @@ public interface CandidatureFacade {
 
 	public abstract CandidatureEntity addCandidature(CandidateEntity candLog,
 			PositionEntity positionSelect, String cvPath,
-			String motivationLetter, Date candidatureDate, Source sourcesSelect);
+			String motivationLetter, Date candidatureDate,
+			List<Source> sourcesSelect);
 
 }

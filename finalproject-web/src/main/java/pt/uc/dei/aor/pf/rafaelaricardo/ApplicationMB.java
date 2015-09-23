@@ -3,6 +3,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -79,7 +80,8 @@ public class ApplicationMB implements Serializable {
 
 	public CandidatureEntity addCandidature(CandidateEntity candLog,
 			PositionEntity positionSelect, String cvPath,
-			String motivationLetter, Date candidatureDate, Source sourcesSelect) {
+			String motivationLetter, Date candidatureDate,
+			List<Source> sourcesSelect) {
 
 		try {
 			CandidatureEntity cand = candidatureFacade.addCandidature(candLog,

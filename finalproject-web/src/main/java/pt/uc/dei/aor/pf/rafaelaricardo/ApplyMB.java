@@ -2,6 +2,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -52,7 +53,7 @@ public class ApplyMB implements Serializable {
 	private String motivationLetter;
 	private Date candidatureDate;
 	private PositionEntity positionSelect;
-	private Source sourcesSelect;
+	private List<Source> sourcesSelect;
 
 	// private ArrayList<Source>
 
@@ -161,7 +162,7 @@ public class ApplyMB implements Serializable {
 	}
 
 	// Getters and Setters
-	public Source getSources() {
+	public List<Source> getSources() {
 		return positionSelect.getSource();
 	}
 
@@ -309,11 +310,11 @@ public class ApplyMB implements Serializable {
 		this.candidatureDate = candidatureDate;
 	}
 
-	public Source getSourcesSelect() {
+	public List<Source> getSourcesSelect() {
 		return sourcesSelect;
 	}
 
-	public void setSelectSources(Source sourcesSelect) {
+	public void setSelectSources(List<Source> sourcesSelect) {
 		this.sourcesSelect = sourcesSelect;
 	}
 

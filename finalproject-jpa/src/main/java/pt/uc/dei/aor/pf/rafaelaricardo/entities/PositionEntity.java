@@ -7,10 +7,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +43,8 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 		@NamedQuery(name = "PositionEntity.findPositionByQuantity", query = "SELECT p FROM PositionEntity p WHERE p.quantity = :quantity"),
 		@NamedQuery(name = "PositionEntity.findPositionByCompany", query = "SELECT p FROM PositionEntity p WHERE p.company = :company"),
 		@NamedQuery(name = "PositionEntity.findPositionByTechnicalArea", query = "SELECT p FROM PositionEntity p WHERE p.technicalArea = :technicalArea"),
-		@NamedQuery(name = "PositionEntity.findPositionBySource", query = "SELECT p FROM PositionEntity p WHERE p.source = :source"),
+		// @NamedQuery(name = "PositionEntity.findPositionBySource", query =
+		// "SELECT p FROM PositionEntity p WHERE p.source = :source"),
 		@NamedQuery(name = "PositionEntity.findPositionByOpenningDate", query = "SELECT p FROM PositionEntity p WHERE p.openningDate = :openningDate"),
 		@NamedQuery(name = "PositionEntity.findPositionByClosingDate", query = "SELECT p FROM PositionEntity p WHERE p.closingDate = :closingDate"),
 		@NamedQuery(name = "PositionEntity.findPositionBySLA", query = "SELECT p FROM PositionEntity p WHERE p.sla = :sla"),
@@ -74,9 +77,10 @@ public class PositionEntity implements Serializable {
 
 	// @NotNull
 	// @NotBlank
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Location location;
+	private List<Location> location;
 
 	// @NotNull
 	// @NotBlank
@@ -106,9 +110,10 @@ public class PositionEntity implements Serializable {
 
 	// @NotNull
 	// @NotBlank
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Source source;
+	private List<Source> source;
 
 	// @NotNull
 	// @NotBlank
@@ -136,10 +141,11 @@ public class PositionEntity implements Serializable {
 		super();
 	}
 
-	public PositionEntity(String title, Location location,
+	public PositionEntity(String title, List<Location> location,
 			PositionStatus positionStatus, int quantity, String company,
 			TechnicalArea technicalArea, DescriptionPosition description,
-			Source source, Date openningDate, Date closingDate, int sla) {
+			ArrayList<Source> source, Date openningDate, Date closingDate,
+			int sla) {
 		super();
 		this.title = title;
 		this.location = location;
@@ -196,11 +202,11 @@ public class PositionEntity implements Serializable {
 		this.title = title;
 	}
 
-	public Location getLocation() {
+	public List<Location> getLocation() {
 		return location;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(List<Location> location) {
 		this.location = location;
 	}
 
@@ -244,11 +250,11 @@ public class PositionEntity implements Serializable {
 		this.descriptionPosition = description;
 	}
 
-	public Source getSource() {
+	public List<Source> getSource() {
 		return source;
 	}
 
-	public void setSource(Source source) {
+	public void setSource(List<Source> source) {
 		this.source = source;
 	}
 
@@ -311,14 +317,15 @@ public class PositionEntity implements Serializable {
 
 	@Override
 	public String toString() {
+
 		return "PositionEntity [id=" + id + ", adminCreator=" + adminCreator
 				+ ", manager=" + manager + ", guide=" + guide + ", title="
 				+ title + ", location=" + location + ", positionStatus="
 				+ positionStatus + ", quantity=" + quantity + ", company="
 				+ company + ", technicalArea=" + technicalArea
-				+ ", description=" + descriptionPosition + ", source=" + source
-				+ ", openningDate=" + openningDate + ", closingDate="
-				+ closingDate + ", sla=" + sla + "]";
+				+ ", description=" + descriptionPosition + ", source="
+				+ source.toString() + ", openningDate=" + openningDate
+				+ ", closingDate=" + closingDate + ", sla=" + sla + "]";
 	}
 
 }

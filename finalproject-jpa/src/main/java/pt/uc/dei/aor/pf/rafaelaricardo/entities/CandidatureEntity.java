@@ -7,9 +7,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +36,9 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 		@NamedQuery(name = "CandidatureEntity.findCandidatureById", query = "SELECT c FROM CandidatureEntity c WHERE c.id = :id"),
 		@NamedQuery(name = "CandidatureEntity.findCandidatureByPosition", query = "SELECT c FROM CandidatureEntity c WHERE c.position = :position"),
 		@NamedQuery(name = "CandidatureEntity.findCandidatureByCandidate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidate = :candidate"),
-		@NamedQuery(name = "CandidatureEntity.findCandidatureBySource", query = "SELECT c FROM CandidatureEntity c WHERE c.publicSource = :publicSource"),
+		// @NamedQuery(name = "CandidatureEntity.findCandidatureBySource", query
+		// =
+		// "SELECT c FROM CandidatureEntity c WHERE c.publicSource = :publicSource"),
 		@NamedQuery(name = "CandidatureEntity.findCandidatureByDate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureDate = :candidatureDate"),
 		@NamedQuery(name = "CandidatureEntity.findCandidatureByStatus", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureStatus = :candidatureStatus"),
 		@NamedQuery(name = "CandidatureEntity.findAllByIdOrder", query = "SELECT c FROM CandidatureEntity c ORDER BY c.id") })
@@ -67,9 +71,10 @@ public class CandidatureEntity implements Serializable {
 
 	// @NotNull
 	// @NotBlank
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Column(name = "public_source")
 	@Enumerated(EnumType.STRING)
-	private Source publicSource;
+	private List<Source> publicSource;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "candidature_date", nullable = false)
@@ -141,11 +146,11 @@ public class CandidatureEntity implements Serializable {
 		this.motivationLetter = motivationLetter;
 	}
 
-	public Source getPublicSource() {
+	public List<Source> getPublicSource() {
 		return publicSource;
 	}
 
-	public void setPublicSource(Source publicSource) {
+	public void setPublicSource(List<Source> publicSource) {
 		this.publicSource = publicSource;
 	}
 
