@@ -4,18 +4,17 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="frm1">
-		<p:messages id="msgPositions" severity="error,warn"
-				closable="true" style="text-align:left" autoUpdate="true" />
-			<p:growl id="growlPosiitions" sticky="true" severity="info" />
-			
+		<p:messages id="msgPositions" severity="error,warn" closable="true"
+			style="text-align:left" autoUpdate="true" />
+		<p:growl id="growlPosiitions" sticky="true" severity="info" />
+
 		<p:button value="Spontaneous Candidature"
 			outcome="/pages/public/SpontaneousCandidature.xhtml"
 			style="float:right" />
 
-		<h1 id="titleCareers">Our Positions</h1>
+		<h1 id="titleCareers">Open Positions</h1>
 		<p:dataTable id="positions" value="#{positionsMB.positions}"
-			var="position" rendered="true" resizableColumns="true"
-			rowKey="position">
+			var="position" resizableColumns="true">
 			<f:facet name="header" />
 
 			<p:column headerText="Title" style="text-align:left"
@@ -26,12 +25,11 @@
 				sortBy="#{position.technicalArea}">
 				<p:outputLabel value="#{position.technicalArea}" />
 			</p:column>
-			<p:column headerText="Location" style="text-align:right"
-				sortBy="#{position.location}">
+			<p:column headerText="Location" style="text-align:right">
 				<p:outputLabel value="#{position.location}" />
 			</p:column>
 			<p:column headerText="Details" style="text-align:center;width:100px">
-				<p:commandButton value="Details" icon="ui-icon-search"
+				<p:commandButton icon="ui-icon-search"
 					oncomplete="PF('positionDialog').show();return false;"
 					update=":tab:frm1:detailsSelectedPosition">
 					<f:setPropertyActionListener value="#{position}"

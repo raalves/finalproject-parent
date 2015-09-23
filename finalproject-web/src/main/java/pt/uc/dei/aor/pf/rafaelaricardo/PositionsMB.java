@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,8 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
-@Named
-@RequestScoped
+@ManagedBean
+@ViewScoped
 public class PositionsMB implements Serializable {
 
 	private static final long serialVersionUID = -6744394530622360545L;
@@ -52,6 +53,7 @@ public class PositionsMB implements Serializable {
 	private PositionEntity positionSelect;
 
 	private List<PositionEntity> positions;
+	
 
 	// public PositionsMB() {
 	// // String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
@@ -60,6 +62,7 @@ public class PositionsMB implements Serializable {
 	// + technicalArea.toString().substring(1).toLowerCase();
 	// }
 
+	@PostConstruct
 	public void listAllPositions() {
 		try {
 			positions = positionFacade.findAllByOrder();
@@ -221,7 +224,6 @@ public class PositionsMB implements Serializable {
 	}
 
 	public List<PositionEntity> getPositions() {
-		listAllPositions();
 		return positions;
 	}
 
