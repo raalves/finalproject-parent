@@ -46,7 +46,10 @@ public interface CandidateFacade {
 	public abstract void addPhone(CandidateEntity candidate, Long phone);
 
 	public abstract boolean updateCandidatePass(CandidateEntity c,
-			String oldPass, String newPass);
+			String newPass);
 
 	public abstract boolean updateCandidateProfile(CandidateEntity candidate);
+
+	public abstract boolean updateCandidatePass(CandidateEntity c,
+			String password, String password2);
 }
