@@ -56,8 +56,9 @@
 
 		<!-- Primefaces -->
 		<primefaces-version>5.2</primefaces-version>
+		
 		<!-- Utilities -->
-		<lang3.version>3.1</lang3.version>
+		<lang3.version>3.4</lang3.version>
 	</properties>
 
 

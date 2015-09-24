@@ -50,7 +50,7 @@ public class SearchCandidaturesMB implements Serializable {
 	private String mobilePhone;
 	private String course;
 	private String school;
-	private String freeSearch;
+	private String searchFree;
 	private boolean spontaneous;
 	private CandidateEntity candidateSelect;
 
@@ -82,8 +82,7 @@ public class SearchCandidaturesMB implements Serializable {
 	}
 
 	public void freeSearch() {
-		System.out.println(freeSearch);
-		resultList = filterCandidateFreeSearch(freeSearch);
+		resultList = filterCandidateFreeSearch();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -112,17 +111,15 @@ public class SearchCandidaturesMB implements Serializable {
 			criteria.add(Restrictions.ilike("city", city, MatchMode.ANYWHERE));
 		}
 		if (StringUtils.isNotBlank(country)) {
-			System.out.println(country);
-
 			criteria.add(Restrictions.ilike("country", country,
 					MatchMode.ANYWHERE));
 		}
 		if (StringUtils.isNotBlank(phone)) {
-			criteria.add(Restrictions.ilike("phone", phone, MatchMode.ANYWHERE));
+			criteria.add(Restrictions.eq("phone", Long.parseLong(phone)));
 		}
 		if (StringUtils.isNotBlank(mobilePhone)) {
-			criteria.add(Restrictions.ilike("mobilePhone", mobilePhone,
-					MatchMode.ANYWHERE));
+			criteria.add(Restrictions.eq("mobilePhone",
+					Long.parseLong(mobilePhone)));
 		}
 		if (StringUtils.isNotBlank(course)) {
 			criteria.add(Restrictions.ilike("course", course,
@@ -136,52 +133,34 @@ public class SearchCandidaturesMB implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<CandidateEntity> filterCandidateFreeSearch(String freeSearch) {
+	public List<CandidateEntity> filterCandidateFreeSearch() {
 
-		log.info("Filtering candidates");
-		Session session = manager.unwrap(Session.class);
-		Criteria criteria = session.createCriteria(CandidateEntity.class);
+		log.info("Filtering candidates by free search");
 
-		if (StringUtils.isNotBlank(freeSearch)) {
-			criteria.add(Restrictions.ilike("firstName", freeSearch,
-					MatchMode.ANYWHERE));
-			// }
-			// if (StringUtils.isNotBlank(freeSearch)) {
-			criteria.add(Restrictions.ilike("lastName", freeSearch,
-					MatchMode.ANYWHERE));
-			// }
-			// if (StringUtils.isNotBlank(freeSearch)) {
-			criteria.add(Restrictions.ilike("email", freeSearch,
-					MatchMode.ANYWHERE));
-			// }
-			// if (StringUtils.isNotBlank(freeSearch)) {
-			criteria.add(Restrictions.ilike("address", freeSearch,
-					MatchMode.ANYWHERE));
-			// }
-			// if (StringUtils.isNotBlank(freeSearch)) {
-			criteria.add(Restrictions.ilike("city", freeSearch,
-					MatchMode.ANYWHERE));
-			// }
-			// if (StringUtils.isNotBlank(freeSearch)) {
-			criteria.add(Restrictions.ilike("country", freeSearch,
-					MatchMode.ANYWHERE));
+		Session session2 = manager.unwrap(Session.class);
+		Criteria criteria2 = session2.createCriteria(CandidateEntity.class);
+
+		if (StringUtils.isNotBlank(searchFree)) {
+			criteria2.add(Restrictions
+					.disjunction()
+					.add(Restrictions.ilike("firstName", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("lastName", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("email", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("address", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("city", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("country", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("course", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("school", searchFree,
+							MatchMode.ANYWHERE)));
 		}
-		// if (StringUtils.isNotBlank(phone)) {
-		// criteria.add(Restrictions.ilike("phone", phone, MatchMode.ANYWHERE));
-		// }
-		// if (StringUtils.isNotBlank(mobilePhone)) {
-		// criteria.add(Restrictions.ilike("mobilePhone", mobilePhone,
-		// MatchMode.ANYWHERE));
-		// }
-		// if (StringUtils.isNotBlank(freeSearch)) {
-		criteria.add(Restrictions.ilike("course", freeSearch,
-				MatchMode.ANYWHERE));
-		// }
-		// if (StringUtils.isNotBlank(freeSearch)) {
-		criteria.add(Restrictions.ilike("school", freeSearch,
-				MatchMode.ANYWHERE));
-		// }
-		return criteria.addOrder(Order.asc("firstName")).list();
+		return criteria2.addOrder(Order.asc("firstName")).list();
 	}
 
 	// Getters and Setters
@@ -305,12 +284,12 @@ public class SearchCandidaturesMB implements Serializable {
 		this.spontaneous = spontaneous;
 	}
 
-	public String getFreeSearch() {
-		return freeSearch;
+	public String getSearchFree() {
+		return searchFree;
 	}
 
-	public void setFreeSearch(String freeSearch) {
-		this.freeSearch = freeSearch;
+	public void setSearchFree(String searchFree) {
+		this.searchFree = searchFree;
 	}
 
 	// public Boolean getSpontaneous() {

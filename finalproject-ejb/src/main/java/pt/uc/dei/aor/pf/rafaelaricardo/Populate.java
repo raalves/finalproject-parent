@@ -227,7 +227,7 @@ public class Populate implements Serializable {
 		candidate2.setBirthDate(ft.parse("1983-03-24"));
 		candidate2.setEmail("ricardo@gmail.com");
 		candidate2.setPassword(encPass.encrypt("456"));
-		candidate2.setMobilePhone((long) 912345678);
+		candidate2.setMobilePhone((long) 925874913);
 		candidate2.setPhone((long) 274111111);
 		candidate2.setAddress("algures na serta");
 		candidate2.setCity("Sertã");
