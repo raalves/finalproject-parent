@@ -53,7 +53,6 @@ public class PositionsMB implements Serializable {
 	private PositionEntity positionSelect;
 
 	private List<PositionEntity> positions;
-	
 
 	// public PositionsMB() {
 	// // String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
@@ -66,12 +65,13 @@ public class PositionsMB implements Serializable {
 	public void listAllPositions() {
 		try {
 			positions = positionFacade.findAllByOrder();
-			System.out.println(positions.get(0).getTitle());
 		} catch (EJBException e) {
 			String errorMessage = "Error getting positions" + e.getMessage();
 			log.error(errorMessage);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(errorMessage));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage,
+							null));
 		}
 		// return null;
 	}
