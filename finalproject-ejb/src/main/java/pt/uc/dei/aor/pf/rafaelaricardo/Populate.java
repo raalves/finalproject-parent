@@ -217,7 +217,6 @@ public class Populate implements Serializable {
 		candidature1.setPosition(position1);
 		candidature1.setPublicSource(sourceCand1);
 		candidature1.setCandidate(candidate1);
-
 		candidatures.add(candidature1);
 
 		// Candidate2
@@ -236,9 +235,18 @@ public class Populate implements Serializable {
 		candidate2.setSchool("FCUL");
 		candidate2.setCvPath("qqcoisa");
 		candidate2.setRole(rCAnd);
-		// candidate1.setCandidatures(candidatures);
+		// candidate1.setCandidatures();
 
-		List<Source> sourceCand2 = new ArrayList<Source>();
+		// spontaneous
+		List<CandidatureEntity> candSP = new ArrayList<CandidatureEntity>();
+		CandidatureEntity candidatureSP1 = new CandidatureEntity("spont",
+				"spont", ft.parse("2015-08-31"), CandidatureStatus.SUBMITTED);
+		// candidature1.setPosition(position1);
+		// candidature1.setPublicSource(sourceCand1);
+		candidatureSP1.setCandidate(candidate2);
+		candSP.add(candidatureSP1);
+
+		// List<Source> sourceCand2 = new ArrayList<Source>();
 		// sourceCand2.add(sourcesPos1.get(0));
 
 		// ArrayList<CandidatureEntity> candidatures = new
@@ -277,6 +285,8 @@ public class Populate implements Serializable {
 		em.persist(position2);
 		em.persist(candidate2);
 		for (CandidatureEntity c : candidatures)
+			em.persist(c);
+		for (CandidatureEntity c : candSP)
 			em.persist(c);
 
 	}

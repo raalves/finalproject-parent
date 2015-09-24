@@ -25,6 +25,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.CandidatureStatus;
@@ -52,7 +54,7 @@ public class CandidatureEntity implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "position_id", nullable = false)
+	@JoinColumn(name = "position_id")
 	private PositionEntity position;
 
 	@ManyToOne
@@ -72,6 +74,7 @@ public class CandidatureEntity implements Serializable {
 	// @NotNull
 	// @NotBlank
 	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	@Column(name = "public_source")
 	@Enumerated(EnumType.STRING)
 	private List<Source> publicSource;

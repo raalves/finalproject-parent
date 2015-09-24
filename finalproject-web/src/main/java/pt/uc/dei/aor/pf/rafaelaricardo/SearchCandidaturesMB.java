@@ -92,6 +92,12 @@ public class SearchCandidaturesMB implements Serializable {
 		Session session = manager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(CandidateEntity.class);
 
+		if (spontaneous) {
+
+			Criteria criteriaSP = criteria.createCriteria("candidatures");
+			criteriaSP.add(Restrictions.isNull("position"));
+
+		}
 		if (StringUtils.isNotBlank(firstName)) {
 			criteria.add(Restrictions.ilike("firstName", firstName,
 					MatchMode.ANYWHERE));

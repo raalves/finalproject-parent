@@ -25,6 +25,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
@@ -78,6 +81,7 @@ public class PositionEntity implements Serializable {
 	// @NotNull
 	// @NotBlank
 	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private List<Location> location;
@@ -111,6 +115,7 @@ public class PositionEntity implements Serializable {
 	// @NotNull
 	// @NotBlank
 	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private List<Source> source;
