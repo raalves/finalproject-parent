@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form >
+	<h:form id="frm2">
 		<p:messages id="msgSearchCandidates" severity="error,warn"
 			closable="true" style="text-align:left" />
 		<p:growl id="growlSearchCandidates" sticky="true" severity="info" />
@@ -16,52 +16,69 @@
 			style="float:right" />
 		<p:panel>
 			<p:panelGrid columns="4" styleClass="ui-noborder"
-				style="width: 100%; margin-top: 20px" columnClasses="label,field">
+				style="width: 100%; margin-top: 20px" columnClasses="label,field"
+				id="searchCandidateFields">
 				<p:outputLabel value="First Name" for="firstName" />
-				<p:inputText id="firstName" value="#{searchCandidaturesMB.firstName}"/>
+				<p:inputText id="firstName"
+					value="#{searchCandidaturesMB.firstName}" />
 
 				<p:outputLabel value="Last Name" for="lastName" />
-				<p:inputText id="lastName" value="#{searchCandidaturesMB.lastName}"/>
+				<p:inputText id="lastName" value="#{searchCandidaturesMB.lastName}" />
 				<p:outputLabel value="Email" for="email" />
-				<p:inputText id="email" value="#{searchCandidaturesMB.email}"/>
+				<p:inputText id="email" value="#{searchCandidaturesMB.email}" />
 				<p:outputLabel value="Address" for="address" />
-				<p:inputText id="address" value="#{searchCandidaturesMB.address}"/>
+				<p:inputText id="address" value="#{searchCandidaturesMB.address}" />
 
 				<p:outputLabel value="City" for="city" />
-				<p:inputText id="city" value="#{searchCandidaturesMB.city}"/>
+				<p:inputText id="city" value="#{searchCandidaturesMB.city}" />
 
 				<p:outputLabel value="Country" for="country" />
-				<p:inputText id="country" value="#{searchCandidaturesMB.country}"/>
+				<p:inputText id="country" value="#{searchCandidaturesMB.country}" />
 				<p:outputLabel value="Phone" for="phone" />
-				<p:inputText id="phone" maxlength="13" value="#{searchCandidaturesMB.phone}"/>
+				<p:inputText id="phone" maxlength="13"
+					value="#{searchCandidaturesMB.phone}" />
 
 				<p:outputLabel value="Mobile phone" for="mobilePhone" />
-				<p:inputText id="mobilePhone" maxlength="13"  value="#{searchCandidaturesMB.mobilePhone}"/>
+				<p:inputText id="mobilePhone" maxlength="13"
+					value="#{searchCandidaturesMB.mobilePhone}" />
 
 				<p:outputLabel value="Main Course" for="course" />
-				<p:inputText id="course" style="width:250px;" value="#{searchCandidaturesMB.course}"/>
+				<p:inputText id="course" style="width:250px;"
+					value="#{searchCandidaturesMB.course}" />
 
 				<p:outputLabel value="School" for="school" />
-				<p:inputText id="school" style="width:250px;" value="#{searchCandidaturesMB.school}"/>
+				<p:inputText id="school" style="width:250px;"
+					value="#{searchCandidaturesMB.school}" />
 				<p:spacer />
-				<p:selectBooleanCheckbox itemLabel="Only Spontaneous Candidatures" value="#{searchCandidaturesMB.spontaneous}"/>
-				<p:spacer/>
-				<p:commandButton value="Search" action="#{searchCandidaturesMB.search()}" update="@form"/>
+				<p:selectBooleanCheckbox itemLabel="Only Spontaneous Candidatures"
+					value="#{searchCandidaturesMB.spontaneous}" />
+				<p:spacer />
+				<p:columnGroup>
+					<p:commandButton value="Search"
+						action="#{searchCandidaturesMB.search()}" update="@form" />
+					<p:commandButton value="Clear" update="searchCandidateFields"
+						process="@this">
+						<p:resetInput target="searchCandidateFields" />
+					</p:commandButton>
+				</p:columnGroup>
 
 			</p:panelGrid>
 			<p:panelGrid id="freeSearch" columns="2" styleClass="ui-noborder"
 				style=" margin-top: 10px;align:right" columnClasses="label,field">
-				<p>Or do a free search</p><p:spacer/>
+				<p>Or do a free search</p>
+				<p:spacer />
 				<p:inputText value="#{searchCandidaturesMB.searchFree}" />
-				<p:commandButton value="Search" icon="ui-icon-search" action="#{searchCandidaturesMB.freeSearch()}" update="@form"/>
+				<p:commandButton value="Search" icon="ui-icon-search"
+					action="#{searchCandidaturesMB.freeSearch()}" update="@form" />
 			</p:panelGrid>
 		</p:panel>
 		<p:separator />
 
-		<p:dataTable id="searchResult"  style="margin-top:5px"
+		<p:dataTable id="searchResult" style="margin-top:5px"
 			emptyMessage="No records found" rows="15" paginator="true"
 			paginatorAlwaysVisible="false" paginatorPosition="bottom"
-			 value="#{searchCandidaturesMB.resultList}" var="candidate" sortOrder="#{candidate.id}">
+			value="#{searchCandidaturesMB.resultList}" var="candidate"
+			sortOrder="#{candidate.id}">
 
 			<p:column headerText="First Name" sortBy="#{candidate.firstName}">
 				<p:outputLabel value="#{candidate.firstName}" />
@@ -70,37 +87,186 @@
 				<p:outputLabel value="#{candidate.lastName}" />
 			</p:column>
 			<p:column headerText="Email" sortBy="#{candidate.email}">
-				<p:outputLabel value="#{candidate.email}"/>
-			</p:column>		
+				<p:outputLabel value="#{candidate.email}" />
+			</p:column>
 			<p:column headerText="City" sortBy="#{candidate.city}">
-				<p:outputLabel value="#{candidate.city}"/>
+				<p:outputLabel value="#{candidate.city}" />
 			</p:column>
 			<p:column headerText="Mobile phone" sortBy="#{candidate.mobilePhone}">
-				<p:outputLabel value="#{candidate.mobilePhone}"/>
+				<p:outputLabel value="#{candidate.mobilePhone}" />
 			</p:column>
 			<p:column headerText="Course" sortBy="#{candidate.course}">
 				<p:outputLabel value="#{candidate.course}" />
 			</p:column>
-			
+
 			<p:column headerText="Details" style="text-align:center;width:100px">
-				<p:commandButton icon="ui-icon-search"/>
-					
-			
+				<p:commandButton icon="ui-icon-search" title="See details"
+					oncomplete="PF('candidateDialog').show();return false;"
+					update=":tab:frm2:detailsSelectedCandidate">
+					<f:setPropertyActionListener value="#{candidate}"
+						target="#{searchCandidaturesMB.candidateSelect}" />
+				</p:commandButton>
 			</p:column>
+
 			<p:column headerText="Associate to a position"
 				style="text-align:center;width:80px">
-				<p:commandButton icon="ui-icon-help" title="See details"
-					onclick="PF('assocToPosition').show();return false">
+				<p:commandButton icon="ui-icon-help" title="Associate"
+					oncomplete="PF('positionDialog').show();return false;"
+					update=":tab:frm2:assocToPosition">
+					<f:setPropertyActionListener value="#{candidate}"
+						target="#{searchCandidaturesMB.candidateSelect}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
 
+		<p:dialog id="detailsSelectedCandidate" header="Candidate Details"
+			widgetVar="candidateDialog" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel id="candidateDialog" style="padding-left:15px">
+
+				<h3>#{searchCandidaturesMB.candidateSelect.firstName}
+					#{searchCandidaturesMB.candidateSelect.lastName}</h3>
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Email" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.email}" />
+					<p:outputLabel value="Birthdate" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.birthDate}" />
+					<p:outputLabel value="Address" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.address}" />
+					<p:outputLabel value="City" />
+					<p:outputLabel value="#{searchCandidaturesMB.candidateSelect.city}" />
+					<p:outputLabel value="Phone" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.phone}" />
+					<p:outputLabel value="Mobile Phone" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.mobilePhone}" />
+					<p:outputLabel value="Country" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.country}" />
+					<p:outputLabel value="Course" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.course}" />
+					<p:outputLabel value="School" />
+					<p:outputLabel
+						value="#{searchCandidaturesMB.candidateSelect.school}" />
+				</p:panelGrid>
+
+			</p:outputPanel>
+
+		</p:dialog>
 
 		<p:dialog id="assocToPosition" header="List of all positions"
 			widgetVar="positionDialog" modal="true" width="900" height="500"
 			resizable="false" closeOnEscape="true" position="center"
 			style="padding:10px;">
-			por lista das posiçoes em aberto
+
+			<h3>ASSOCIATE: #{searchCandidaturesMB.candidateSelect.firstName}
+				#{searchCandidaturesMB.candidateSelect.lastName}</h3>
+
+			<p:dataTable id="searchAllPositions" style="margin-top:5px"
+				emptyMessage="No records found" rows="15" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				value="#{positionsMB.positions}" var="position"
+				sortOrder="#{position.id}"
+				selection="#{searchCandidaturesMB.selectedPositions}"
+				rowKey="#{position.id}">
+
+				<p:column headerText="Title" style="text-align:left"
+					sortBy="#{position.title}">
+					<p:outputLabel value="#{position.title}" />
+				</p:column>
+				<p:column headerText="Technical area" style="text-align:center"
+					sortBy="#{position.technicalArea}">
+					<p:outputLabel value="#{position.technicalArea}" />
+				</p:column>
+				<p:column headerText="Location" style="text-align:right">
+					<p:outputLabel value="#{position.location}" />
+				</p:column>
+				<p:column headerText="Details" style="text-align:center;width:80px">
+					<p:commandButton icon="ui-icon-search"
+						oncomplete="PF('positionDialog').show();return false;"
+						update=":tab:frm2:detailsSelectedPosition">
+						<f:setPropertyActionListener value="#{position}"
+							target="#{positionsMB.positionSelect}" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Associate?" selectionMode="multiple"
+					style="text-align:center;width:80px" />
+				<f:facet name="footer">
+					<p:commandButton process="searchAllPositions"
+						update=":tab:frm2:multiPositionDetail" icon="ui-icon-check"
+						value="Confirm" oncomplete="PF('multiPositionDialog').show()" />
+				</f:facet>
+			</p:dataTable>
+			<div style="text-align: center;margin-top:15px">
+				<p:commandButton value="Close"
+					onclick="PF('positionDialog').hide();return false;" />
+			</div>
+		</p:dialog>
+
+		<p:dialog header="Selected Positions" widgetVar="multiPositionDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+			width="200">
+			<p:outputPanel id="multiPositionDetail" style="text-align:center;">
+				<ui:repeat value="#{searchCandidaturesMB.selectedPositions}"
+					var="position">
+					<h:outputText value="#{position.title} - #{position.technicalArea}"
+						style="display:block" />
+				</ui:repeat>
+			</p:outputPanel>
+			<div style="text-align: center">
+				<p:commandButton value="Close"
+					onclick="PF('multiPositionDialog').hide();return false;" />
+			</div>
+		</p:dialog>
+
+
+		<p:dialog id="detailsSelectedPosition" header="Position Details"
+			widgetVar="positionDialog" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel id="positionDialog" style="padding-left:15px">
+
+				<h3>#{positionsMB.positionSelect.title}</h3>
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Location" />
+					<p:outputLabel value="#{positionsMB.positionSelect.location}" />
+					<p:outputLabel value="Vacancie id" />
+					<p:outputLabel value="#{positionsMB.positionSelect.id}" />
+					<p:outputLabel value="#vacancies" />
+					<p:outputLabel value="#{positionsMB.positionSelect.quantity}" />
+				</p:panelGrid>
+				<div>
+					<h5 style="margin-top: 20px">Details</h5>
+					#{positionsMB.positionSelect.descriptionPosition.description}
+
+					<!-- 					<h:outputLabel -->
+					<!-- 						value="#{positionsMB.positionSelect.descriptionPosition.description}" -->
+					<!-- 						escape="false" style="white-space: pre-wrap; " /> -->
+
+
+					<h5 style="margin-top: 20px">KEY RESPONSIBILITIES</h5>
+					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}
+
+					<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
+
+					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
+				</div>
+				<div style="text-align: center">
+					<p:commandButton value="Close"
+						onclick="PF('positionDialog').hide();return false;" />
+				</div>
+			</p:outputPanel>
+
 		</p:dialog>
 	</h:form>
 

@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 
 @ManagedBean
 @ViewScoped
@@ -53,6 +54,7 @@ public class SearchCandidaturesMB implements Serializable {
 	private String searchFree;
 	private boolean spontaneous;
 	private CandidateEntity candidateSelect;
+	private List<PositionEntity> selectedPositions;
 
 	private List<CandidateEntity> resultList;
 
@@ -79,6 +81,7 @@ public class SearchCandidaturesMB implements Serializable {
 	public void search() {
 
 		resultList = filterCandidate();
+		cleanFields();
 	}
 
 	public void freeSearch() {
@@ -298,6 +301,18 @@ public class SearchCandidaturesMB implements Serializable {
 		this.searchFree = searchFree;
 	}
 
+	public void cleanFields() {
+		firstName = null;
+		lastName= null;
+		email= null;
+		address= null;
+		city= null;
+		country= null;
+		phone= null;
+		mobilePhone= null;
+		course= null;
+		school= null;
+	}
 	// public Boolean getSpontaneous() {
 	// return spontaneous;
 	// }
@@ -305,5 +320,13 @@ public class SearchCandidaturesMB implements Serializable {
 	// public void setSpontaneous(Boolean spontaneous) {
 	// this.spontaneous = spontaneous;
 	// }
+
+	public List<PositionEntity> getSelectedPositions() {
+		return selectedPositions;
+	}
+
+	public void setSelectedPositions(List<PositionEntity> selectedPositions) {
+		this.selectedPositions = selectedPositions;
+	}
 
 }
