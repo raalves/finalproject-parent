@@ -46,8 +46,7 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 		@NamedQuery(name = "PositionEntity.findPositionByQuantity", query = "SELECT p FROM PositionEntity p WHERE p.quantity = :quantity"),
 		@NamedQuery(name = "PositionEntity.findPositionByCompany", query = "SELECT p FROM PositionEntity p WHERE p.company = :company"),
 		@NamedQuery(name = "PositionEntity.findPositionByTechnicalArea", query = "SELECT p FROM PositionEntity p WHERE p.technicalArea = :technicalArea"),
-		// @NamedQuery(name = "PositionEntity.findPositionBySource", query =
-		// "SELECT p FROM PositionEntity p WHERE p.source = :source"),
+		@NamedQuery(name = "PositionEntity.findPositionBySource", query = "SELECT p FROM PositionEntity p WHERE p.source = :source"),
 		@NamedQuery(name = "PositionEntity.findPositionByOpenningDate", query = "SELECT p FROM PositionEntity p WHERE p.openningDate = :openningDate"),
 		@NamedQuery(name = "PositionEntity.findPositionByClosingDate", query = "SELECT p FROM PositionEntity p WHERE p.closingDate = :closingDate"),
 		@NamedQuery(name = "PositionEntity.findPositionBySLA", query = "SELECT p FROM PositionEntity p WHERE p.sla = :sla"),
@@ -80,11 +79,11 @@ public class PositionEntity implements Serializable {
 
 	// @NotNull
 	// @NotBlank
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(targetClass = Location.class, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private List<Location> location;
+	private List<Location> location = new ArrayList<Location>();
 
 	// @NotNull
 	// @NotBlank
@@ -114,11 +113,11 @@ public class PositionEntity implements Serializable {
 
 	// @NotNull
 	// @NotBlank
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(targetClass = Source.class, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	@Column(nullable = false)
+	@Column(name = "public_source", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private List<Source> source;
+	private List<Source> source = new ArrayList<Source>();
 
 	// @NotNull
 	// @NotBlank

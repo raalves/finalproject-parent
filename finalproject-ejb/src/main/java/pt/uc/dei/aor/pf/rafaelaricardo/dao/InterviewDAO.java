@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 
 @Stateless
@@ -63,6 +64,13 @@ public class InterviewDAO extends GenericDAO<InterviewEntity> {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("interviewStatus", interviewStatus);
 		return super.findSomeResults("InterviewEntity.findInterviewByStatus",
+				parameters);
+	}
+
+	public List<InterviewEntity> findInterviewByUser(UserEntity user) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("user", user);
+		return super.findSomeResults("InterviewEntity.findInterviewByUser",
 				parameters);
 	}
 

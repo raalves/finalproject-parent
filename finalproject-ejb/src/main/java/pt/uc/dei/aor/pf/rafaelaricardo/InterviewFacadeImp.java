@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import pt.uc.dei.aor.pf.rafaelaricardo.dao.InterviewDAO;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 
 @Stateless
@@ -52,6 +53,12 @@ public class InterviewFacadeImp implements InterviewFacade {
 			InterviewStatus interviewStatus) {
 		log.info("Finding interview by interviewStatus: " + interviewStatus);
 		return interviewDAO.findInterviewByStatus(interviewStatus);
+	}
+
+	@Override
+	public List<InterviewEntity> findInterviewByUser(UserEntity user) {
+		log.info("Finding interview by user/interviewer: " + user);
+		return interviewDAO.findInterviewByUser(user);
 	}
 
 }

@@ -21,8 +21,8 @@ public interface CandidatureFacade {
 	public abstract List<CandidatureEntity> findCandidatureByCandidate(
 			CandidateEntity candidate);
 
-	// public abstract List<CandidatureEntity> findCandidatureBySource(
-	// Source publicSource);
+	public abstract List<CandidatureEntity> findCandidatureBySource(
+			Source publicSource);
 
 	public abstract List<CandidatureEntity> findCandidatureByDate(
 			Date candidatureDate);

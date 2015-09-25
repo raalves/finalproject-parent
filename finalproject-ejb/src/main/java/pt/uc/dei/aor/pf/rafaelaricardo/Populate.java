@@ -20,10 +20,12 @@ import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.CandidatureStatus;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
@@ -32,8 +34,6 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
 @Startup
 @Singleton
-// @Stateless
-// @LocalBean
 public class Populate implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -45,44 +45,30 @@ public class Populate implements Serializable {
 	@Inject
 	private EncryptPass encPass;
 
-	// public Populate() {
-	// }
-
 	@PostConstruct
 	void populando() throws ParseException {
 
 		log.info("Populating the DB");
+
 		// Creating Roles
 		ArrayList<RoleEntity> rAdmin = new ArrayList<RoleEntity>();
 		rAdmin.add(new RoleEntity(Role.ADMIN));
 		ArrayList<RoleEntity> rInterv = new ArrayList<RoleEntity>();
 		rInterv.add(new RoleEntity(Role.INTERVIEWER));
-
 		ArrayList<RoleEntity> rManager = new ArrayList<RoleEntity>();
 		rManager.add(new RoleEntity(Role.MANAGER));
-		// ArrayList<RoleEntity> rCandidate = new ArrayList<RoleEntity>();
-		// rCandidate.add(new RoleEntity(Role.CANDIDATE));
-		// ArrayList<RoleEntity> rAdminMan = new ArrayList<RoleEntity>();
-		// rAdminMan.add(new RoleEntity(Role.ADMIN));
-		// rAdminMan.add(new RoleEntity(Role.MANAGER));
-		// rAdminMan.add(new RoleEntity(Role.INTERVIEWER));
-
 		RoleEntity rCAnd = new RoleEntity(Role.CANDIDATE);
+
 		// Creating Users
 		UserEntity[] users = {
 				new UserEntity("admin", "das couves", "admin@gmail.com",
 						encPass.encrypt("123"), rAdmin),
-				new UserEntity("interviewer", "das couves", "interv@gmail.com",
-						encPass.encrypt("123"), rInterv),
 				new UserEntity("manager", "das couves", "manager@gmail.com",
-						encPass.encrypt("123"), rManager) };
-		// new UserEntity("candidate", "das couves",
-		// "candidate@gmail.com", encPass.encrypt("123"),
-		// rCandidate),
-		// new UserEntity("adminMan", "das couves", "teste2@gmail.com",
-		// encPass.encrypt("abc"), rAdminMan) };
+						encPass.encrypt("123"), rManager),
+				new UserEntity("interviewer", "das couves", "interv@gmail.com",
+						encPass.encrypt("123"), rInterv) };
 
-		// Creating Posiitions
+		// Creating Positions
 		// Position1
 		DescriptionPosition dp = new DescriptionPosition();
 		dp.setDescription("Working for us is like nothing on earth. Every day, our teams across the globe challenge the limits of human achievement, engineering solutions for our planet and beyond.&lt;br/&gt; Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications. Now, we’re looking for talented Technical Managers for Embedded Systems to join our Systems and Software Engineering team in breaching the frontiers of space, aerospace and defence."
@@ -100,11 +86,11 @@ public class Populate implements Serializable {
 		generalGuide.setAuthor(users[0]);
 
 		List<Source> sourcesPos1 = new ArrayList<Source>();
-
 		sourcesPos1.add(Source.CRITICAL_SOFTWARE_WEBSITE);
 		sourcesPos1.add(Source.FACEBOOK);
 		sourcesPos1.add(Source.GLASSDOOR);
 		sourcesPos1.add(Source.LINKEDIN);
+
 		List<Location> localPos1 = new ArrayList<Location>();
 		localPos1.add(Location.COIMBRA);
 		localPos1.add(Location.OPORTO);
@@ -113,7 +99,6 @@ public class Populate implements Serializable {
 		position1.setAdminCreator(users[0]);
 		position1.setTitle("Technical manager for embedded systems");
 		position1.setLocation(localPos1);
-
 		position1.setPositionStatus(PositionStatus.OPEN);
 		position1.setQuantity(2);
 		position1.setCompany("Critical Software");
@@ -124,7 +109,7 @@ public class Populate implements Serializable {
 		position1.setClosingDate(ft.parse("2015-10-31"));
 		position1.setSla(8);
 		position1.setGuide(generalGuide);
-		position1.setManager(users[0]);
+		position1.setManager(users[1]);
 
 		// Position2
 		DescriptionPosition dp2 = new DescriptionPosition();
@@ -174,7 +159,6 @@ public class Populate implements Serializable {
 		position2.setAdminCreator(users[0]);
 		position2.setTitle(".NET SOFTWARE ENGINEER");
 		position2.setLocation(localPos2);
-
 		position2.setPositionStatus(PositionStatus.OPEN);
 		position2.setQuantity(1);
 		position2.setCompany("Critical Software");
@@ -185,7 +169,7 @@ public class Populate implements Serializable {
 		position2.setClosingDate(ft.parse("2015-11-31"));
 		position2.setSla(8);
 		position2.setGuide(generalGuide2);
-		position2.setManager(users[0]);
+		position2.setManager(users[1]);
 
 		// Create Candidate
 		// Candidate1
@@ -205,19 +189,9 @@ public class Populate implements Serializable {
 		candidate1.setSchool("FCUL");
 		candidate1.setCvPath("qqcoisa");
 		candidate1.setRole(rCAnd);
-		// candidate1.setCandidatures(candidatures);
 
 		List<Source> sourceCand1 = new ArrayList<Source>();
 		sourceCand1.add(sourcesPos1.get(1));
-
-		ArrayList<CandidatureEntity> candidatures = new ArrayList<CandidatureEntity>();
-		CandidatureEntity candidature1 = new CandidatureEntity("qqcoisaCV",
-				"qqCoisaCoverLetter", ft.parse("2015-08-31"),
-				CandidatureStatus.SUBMITTED);
-		candidature1.setPosition(position1);
-		candidature1.setPublicSource(sourceCand1);
-		candidature1.setCandidate(candidate1);
-		candidatures.add(candidature1);
 
 		// Candidate2
 		CandidateEntity candidate2 = new CandidateEntity();
@@ -235,59 +209,65 @@ public class Populate implements Serializable {
 		candidate2.setSchool("FCUL");
 		candidate2.setCvPath("qqcoisa");
 		candidate2.setRole(rCAnd);
-		// candidate1.setCandidatures();
 
-		// spontaneous
+		// Candidatures
+		// candidatures candidate1
+		ArrayList<CandidatureEntity> candidatures = new ArrayList<CandidatureEntity>();
+		CandidatureEntity candidature1 = new CandidatureEntity("qqcoisaCV",
+				"qqCoisaCoverLetter", ft.parse("2015-08-31"),
+				CandidatureStatus.SUBMITTED);
+		candidature1.setPosition(position1);
+		candidature1.setPublicSource(sourceCand1);
+		candidature1.setCandidate(candidate1);
+		candidatures.add(candidature1);
+
+		// spontaneous candidate2 (no position or source
 		List<CandidatureEntity> candSP = new ArrayList<CandidatureEntity>();
 		CandidatureEntity candidatureSP1 = new CandidatureEntity("spont",
 				"spont", ft.parse("2015-08-31"), CandidatureStatus.SUBMITTED);
-		// candidature1.setPosition(position1);
-		// candidature1.setPublicSource(sourceCand1);
 		candidatureSP1.setCandidate(candidate2);
 		candSP.add(candidatureSP1);
 
-		// List<Source> sourceCand2 = new ArrayList<Source>();
-		// sourceCand2.add(sourcesPos1.get(0));
-
-		// ArrayList<CandidatureEntity> candidatures = new
-		// ArrayList<CandidatureEntity>();
-		// CandidatureEntity candidature = new CandidatureEntity("qqcoisaCV",
-		// "qqCoisaCoverLetter", ft.parse("2015-08-31"),
-		// CandidatureStatus.SUBMITTED);
-		// candidature1.setPosition(position1);
-		// candidature1.setPublicSource(sourceCand1);
-		// candidature1.setCandidate(candidate1);
-
-		// candidatures.add(candidature1);
+		// creating interviews
+		// List<UserEntity> interviewers = new ArrayList<UserEntity>();
+		// interviewers.add(users[2]);
+		List<InterviewEntity> interviews = new ArrayList<InterviewEntity>();
+		InterviewEntity interv = new InterviewEntity(ft.parse("2015-12-31"),
+				InterviewStatus.SCHEDULED);
+		interv.setCandidature(candidature1);
+		// interv.setInterviewers(interviewers);
+		interviews.add(interv);
+		users[2].setInterviews(interviews);
 
 		// Persisting all creations
-
-		// for (RoleEntity rl : allRoles)
-		// em.persist(rl);
+		// persisting roles
 		for (RoleEntity rl : rAdmin)
 			em.persist(rl);
-		// for (RoleEntity rl : rCandidate)
-		// em.persist(rl);
 		for (RoleEntity rl : rInterv)
 			em.persist(rl);
 		for (RoleEntity rl : rManager)
 			em.persist(rl);
-
-		// for (RoleEntity rl : rAdminMan)
-		// em.persist(rl);
+		em.persist(rCAnd);
+		// persisting users
 		for (UserEntity uE : users)
 			em.persist(uE);
-		em.persist(rCAnd);
-		em.persist(generalGuide);
-		em.persist(position1);
+
+		// persisting candidates
 		em.persist(candidate1);
-		em.persist(generalGuide2);
-		em.persist(position2);
 		em.persist(candidate2);
+		// persisting guides
+		em.persist(generalGuide);
+		em.persist(generalGuide2);
+		// persisting positions
+		em.persist(position1);
+		em.persist(position2);
+		// persisting candidatures
 		for (CandidatureEntity c : candidatures)
 			em.persist(c);
 		for (CandidatureEntity c : candSP)
 			em.persist(c);
+		// persisting interviews
+		em.persist(interv);
 
 	}
 }

@@ -8,14 +8,10 @@ import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
 public interface PositionFacade {
-
-	// public abstract Lyric addLyric(String text, Song s);
-	// public abstract Lyric getLyricSongUser(User u, Song s);
-	// public abstract Lyric editLyric(User u, Lyric lyric);
-	// public abstract Lyric getLyricById(Long id);
 
 	public abstract PositionEntity findPositionById(Long id);
 
@@ -42,7 +38,7 @@ public interface PositionFacade {
 	public abstract List<PositionEntity> findPositionByTechnicalArea(
 			TechnicalArea technicalArea);
 
-	// public abstract List<PositionEntity> findPositionBySource(Source source);
+	public abstract List<PositionEntity> findPositionBySource(Source source);
 
 	public abstract List<PositionEntity> findPositionByOpenningDate(
 			Date openningDate);

@@ -4,34 +4,37 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
-
+<p:messages id="msgMyIntervews" severity="error,warn"
+			closable="true" style="text-align:left" />
+		<p:growl id="growlMyIntervews" sticky="true" severity="info" />
+		
 		<p:dataTable id="intervIntervew"
-			value="#{intervewerInterviewsBean.interviewsInterviewer}"
-			var="myInterv" style="margin-top:5px" emptyMessage="No records found"
+			value="#{interviewerMB.resultList}"
+			var="interv" style="margin-top:5px" emptyMessage="No records found"
 			rows="15" paginator="true" paginatorAlwaysVisible="false"
-			paginatorPosition="bottom" sortOrder="Id">
+			paginatorPosition="bottom" sortOrder="#{interv.id}">
 
-			<p:column headerText="Id" sortBy="orderById">
-				<p:outputLabel value="12345" />
+
+			<p:column headerText="Vacancie Title" sortBy="#{interv.candidature.position.title}">
+				<p:outputLabel value="#{interv.candidature.position.title}" />
 			</p:column>
-			<p:column headerText="Vacancie Title ?">
-				<p:outputLabel value="Java developer JR" />
+			<p:column headerText="Date" style="text-align:center" sortBy="#{interv.interviewDate}">
+				<p:outputLabel value="#{interv.interviewDate}" />
 			</p:column>
-			<p:column headerText="Date" style="text-align:center">
-				<p:outputLabel value="25/09/2015" />
+			<p:column headerText="Status" sortBy="#{interv.interviewStatus}">
+				<p:outputLabel value="#{interv.interviewStatus}" />
 			</p:column>
-			<p:column headerText="Status">
-				<p:outputLabel value="Schedlud?" />
-			</p:column>
-			<p:column headerText="Details " style="text-align:center">
-				<p:button value="Vancancie" title="See details" />
-				<p:button value="Candidate" title="See details" />
+			<p:column headerText="Details" style="text-align:center">
+				<p:button  icon="ui-icon-search"/>
 			</p:column>
 
 			<p:column headerText="Feedback" style="text-align:center">
-				<p:button value="Submit" title="See details" />
+				<p:button  icon="ui-icon-pencil"/>
+			</p:column>
+			<p:column headerText="Guide" style="text-align:center">
+				<p:button  icon="ui-icon-pencil" />
 			</p:column>
 		</p:dataTable>
-		<p:growl id="messages" showDetail="true" />
+		
 	</h:form>
 </ui:composition>

@@ -1,6 +1,7 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,12 +54,29 @@ public class ApplyMB implements Serializable {
 	private String motivationLetter;
 	private Date candidatureDate;
 	private PositionEntity positionSelect;
-	private List<Source> sourcesSelect;
+
+	private List<String> sourcesSelectWEB;
+	private List<Source> sourcesSelect = new ArrayList<Source>();
 
 	// private ArrayList<Source>
 
+	public void transformStringInSources() {
+		Source[] allSources = Source.values();
+
+		for (Source s : allSources) {
+			for (String sweb : sourcesSelectWEB) {
+				if (s.name().equals(sweb)) {
+					sourcesSelect.add(s);
+				}
+			}
+		}
+	}
+
 	public String submitCandidature(UploadFile uploadFile) {
 		this.candidatureDate = getCurrentTimeStamp();
+		System.out.println(positionSelect);
+		System.out.println(sourcesSelectWEB);
+		transformStringInSources();
 		// this.candidatureStatus=;
 
 		if (uploadFile != null) {
@@ -68,7 +86,8 @@ public class ApplyMB implements Serializable {
 				if (applicationMB.addCandidature(candLog, positionSelect,
 						cvPath, motivationLetter, candidatureDate,
 						sourcesSelect) == null) {
-					String errorMsg = "Erro during submition of candidature";
+
+					String errorMsg = "Erro during submition of candidature/Allready have a candidature for this position";
 					log.error(errorMsg);
 					FacesContext.getCurrentInstance().addMessage(
 							null,
@@ -87,7 +106,7 @@ public class ApplyMB implements Serializable {
 							new FacesMessage(FacesMessage.SEVERITY_INFO,
 									infoMsg, null));
 					// return "history.go(-1)";
-					return "/pages/candidate/myCandidatures";
+					return "/pages/candidate/CandidatePage.xhtml";
 				}
 
 			} else {
@@ -314,8 +333,16 @@ public class ApplyMB implements Serializable {
 		return sourcesSelect;
 	}
 
-	public void setSelectSources(List<Source> sourcesSelect) {
+	public void setSourcesSelect(List<Source> sourcesSelect) {
 		this.sourcesSelect = sourcesSelect;
+	}
+
+	public List<String> getSourcesSelectWEB() {
+		return sourcesSelectWEB;
+	}
+
+	public void setSourcesSelectWEB(List<String> sourcesSelectWEB) {
+		this.sourcesSelectWEB = sourcesSelectWEB;
 	}
 
 }

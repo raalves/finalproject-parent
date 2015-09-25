@@ -5,6 +5,7 @@ import java.util.List;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 
 public interface InterviewFacade {
@@ -20,5 +21,7 @@ public interface InterviewFacade {
 
 	public abstract List<InterviewEntity> findInterviewByStatus(
 			InterviewStatus interviewStatus);
+
+	public abstract List<InterviewEntity> findInterviewByUser(UserEntity user);
 
 }

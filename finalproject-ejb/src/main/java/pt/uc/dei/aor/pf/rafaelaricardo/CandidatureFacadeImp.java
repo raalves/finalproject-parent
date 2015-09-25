@@ -50,12 +50,11 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 		return candidatureDAO.findCandidatureByCandidate(candidate);
 	}
 
-	// @Override
-	// public List<CandidatureEntity> findCandidatureBySource(Source
-	// publicSource) {
-	// log.info("Finding candidature by last publicSource: " + publicSource);
-	// return candidatureDAO.findCandidatureBySource(publicSource);
-	// }
+	@Override
+	public List<CandidatureEntity> findCandidatureBySource(Source publicSource) {
+		log.info("Finding candidature by last publicSource: " + publicSource);
+		return candidatureDAO.findCandidatureBySource(publicSource);
+	}
 
 	@Override
 	public List<CandidatureEntity> findCandidatureByDate(Date candidatureDate) {
@@ -78,6 +77,8 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 			String motivationLetter, Date candidatureDate,
 			List<Source> sourcesSelect) {
 		if (hasAnotherCandidature(positionSelect, candLog)) {
+			log.error("Already have a candidature for this position");
+
 			return null;
 		} else {
 			log.info("Saving candidature in DB");
@@ -86,6 +87,8 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 					motivationLetter, candidatureDate,
 					CandidatureStatus.SUBMITTED);
 			cand.setPublicSource(sourcesSelect);
+			cand.setCandidate(candLog);
+			cand.setPosition(positionSelect);
 			candidatureDAO.save(cand);
 			return cand;
 
@@ -102,8 +105,6 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 		for (CandidatureEntity p : positionsArray) {
 			for (CandidatureEntity c : candidateArray) {
 				if (p.getId() == c.getId()) {
-					// break;
-
 					return true;
 				}
 			}

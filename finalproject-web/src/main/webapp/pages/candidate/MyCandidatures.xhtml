@@ -4,25 +4,25 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
-		<p:growl id="messages" showDetail="true" />
-
+		<p:messages id="msgMyCandidatures" severity="error,warn"
+			closable="true" style="text-align:left" />
+		<p:growl id="growlMyCandidatures" sticky="true" severity="info" />
+		
 		<p:dataTable id="candMyCand"
-			value="#{candidateCandidaturesBean.candidaturesCandidate}"
-			var="myCand" style="margin-top:5px" emptyMessage="No records found"
+			value="#{myCandidaturesMB.resultList}" 
+			var="candidature" style="margin-top:5px" emptyMessage="No records found"
 			rows="15" paginator="true" paginatorAlwaysVisible="false"
 			paginatorPosition="bottom" sortOrder="Id">
 
-			<p:column headerText="Id" sortBy="Id">
-				<p:outputLabel value="#{candidateCandidaturesBean.numb}" />
-			</p:column>
-			<p:column headerText="Vacancie Title ?">
-				<p:outputLabel value="Java developer JR" />
+			
+			<p:column headerText="Vacancie Title ">
+				<p:outputLabel value="#{candidature.position.title}" />
 			</p:column>
 			<p:column headerText="Location" style="text-align:center">
-				<p:outputLabel value="Porto" />
+				<p:outputLabel value="#{candidature.position.location}" />
 			</p:column>
 			<p:column headerText="Status">
-				<p:outputLabel value="Schedlud?" />
+				<p:outputLabel value="#{candidature.candidatureStatus}" />
 			</p:column>
 			<p:column headerText="Details" style="text-align:center;width:80px">
 				<p:commandButton icon="ui-icon-help" title="See details"

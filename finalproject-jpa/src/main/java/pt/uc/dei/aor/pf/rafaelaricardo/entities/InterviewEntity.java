@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,9 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 
@@ -33,10 +31,17 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 		@NamedQuery(name = "InterviewEntity.findInterviewByCandidature", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
 		@NamedQuery(name = "InterviewEntity.findInterviewByDate", query = "SELECT i FROM InterviewEntity i WHERE i.interviewDate = :interviewDate"),
 		@NamedQuery(name = "InterviewEntity.findInterviewByStatus", query = "SELECT i FROM InterviewEntity i WHERE i.interviewStatus = :interviewStatus"),
-		@NamedQuery(name = "InterviewEntity.findAllByIdOrder", query = "SELECT i FROM InterviewEntity i ORDER BY i.id") })
+		@NamedQuery(name = "InterviewEntity.findAllByIdOrder", query = "SELECT i FROM InterviewEntity i ORDER BY i.id"),
+// @NamedQuery(name = "InterviewEntity.findInterviewByUser", query =
+// "SELECT i FROM InterviewEntity i where i.interviewers = :user") })
+// @NamedQuery(name = "InterviewEntity.findInterviewByUser", query =
+// "SELECT i from InterviewEntity i INNER JOIN i.UserEntity u WHERE u.user IN :user")
+})
 public class InterviewEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@EJB
+	private UserEntity userEntity;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,8 +56,8 @@ public class InterviewEntity implements Serializable {
 	@Column(name = "interview_date", nullable = false)
 	private Date interviewDate;
 
-	@NotNull
-	@NotBlank
+	// @NotNull
+	// @NotBlank
 	@Column(name = "interview_status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private InterviewStatus interviewStatus;
@@ -129,7 +134,7 @@ public class InterviewEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = (prime * result) + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 

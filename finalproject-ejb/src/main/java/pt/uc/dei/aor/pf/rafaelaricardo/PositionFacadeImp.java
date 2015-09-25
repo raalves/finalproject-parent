@@ -15,6 +15,7 @@ import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
 @Stateless
@@ -89,11 +90,11 @@ public class PositionFacadeImp implements PositionFacade {
 		return positionDAO.findPositionByTechnicalArea(technicalArea);
 	}
 
-	// @Override
-	// public List<PositionEntity> findPositionBySource(Source source) {
-	// log.info("Finding position by source: " + source);
-	// return positionDAO.findPositionBySource(source);
-	// }
+	@Override
+	public List<PositionEntity> findPositionBySource(Source source) {
+		log.info("Finding position by source: " + source);
+		return positionDAO.findPositionBySource(source);
+	}
 
 	@Override
 	public List<PositionEntity> findPositionByOpenningDate(Date openningDate) {
