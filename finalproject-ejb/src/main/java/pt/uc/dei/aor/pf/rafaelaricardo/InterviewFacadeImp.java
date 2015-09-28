@@ -61,4 +61,21 @@ public class InterviewFacadeImp implements InterviewFacade {
 		return interviewDAO.findInterviewByUser(user);
 	}
 
+	@Override
+	public boolean updateFeedbackStatus(InterviewEntity interview,
+			String feedback, InterviewStatus status) {
+		log.info("Updating status and feedback of interview: "
+				+ interview.getId());
+		if (interview != null) {
+			interview.setInterviewStatus(status);
+			interview.setFeedback(feedback);
+			if (interviewDAO.update(interview) != null) {
+				return true;
+			}
+			return false;
+		}
+
+		return false;
+	}
+
 }

@@ -12,8 +12,6 @@
 			var="interv" style="margin-top:5px" emptyMessage="No records found"
 			rows="15" paginator="true" paginatorAlwaysVisible="false"
 			paginatorPosition="bottom" sortOrder="#{interv.id}">
-
-
 			<p:column headerText="Position Title"
 				sortBy="#{interv.candidature.position.title}">
 				<p:outputLabel value="#{interv.candidature.position.title}" />
@@ -55,11 +53,11 @@
 			<p:outputPanel>
 				<h4>Status of the interview</h4>
 				<p:selectOneRadio id="status" value="#{interviewerMB.statusSelect}"
-					layout="grid" columns="3" style="margin-bottom:20px;margin-left:280px">
+					layout="grid" columns="3"
+					style="margin-bottom:20px;margin-left:280px">
 					<f:selectItems value="#{interviewerMB.statusInterview}"
 						var="status" itemLabel="#{status}" itemValue="#{status}" />
 				</p:selectOneRadio>
-
 				<h4>Insert your feedback about the interview</h4>
 				<p:inputTextarea id="feedback" value="#{interviewerMB.feedback}"
 					rows="10" cols="80" autoResize="false" />
@@ -70,8 +68,7 @@
 				<p:commandButton value="Clear" update="feedback" process="@this">
 					<p:resetInput target="feedback" />
 				</p:commandButton>
-
-				<p:commandButton value="Submit feedback" ajax="false" />
+				<p:commandButton value="Submit feedback" ajax="false" action="#{interviewerMB.submitFeedback()}"/>
 			</p:outputPanel>
 		</p:dialog>
 
@@ -79,10 +76,43 @@
 			widgetVar="detailsDialog" modal="true" width="700" height="500"
 			resizable="false" closeOnEscape="true" position="center"
 			style="padding:10px;">
-
 			<p:outputPanel id="candidateDetails"
 				style="padding-left:15px;margin-top:10px">
 				<h3>Details of the candidate</h3>
+
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Name" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.firstName} 
+					#{interviewerMB.interviewSelect.candidature.candidate.lastName}"/>
+					<p:outputLabel value="Email" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.email}" />
+					<p:outputLabel value="Birthdate" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.birthDate}" />
+					<p:outputLabel value="Address" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.address}" />
+					<p:outputLabel value="City" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.city}" />
+					<p:outputLabel value="Phone" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.phone}" />
+					<p:outputLabel value="Mobile Phone" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.mobilePhone}" />
+					<p:outputLabel value="Country" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.country}" />
+					<p:outputLabel value="Course" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.course}" />
+					<p:outputLabel value="School" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.candidate.school}" />
+				</p:panelGrid>
 			</p:outputPanel>
 			<p:separator />
 			<p:outputPanel id="postionDetails" style="padding-left:15px">
@@ -117,5 +147,7 @@
 					onclick="PF('detailsDialog').hide();return false;" />
 			</p:outputPanel>
 		</p:dialog>
+
+
 	</h:form>
 </ui:composition>

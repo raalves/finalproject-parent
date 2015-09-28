@@ -60,6 +60,26 @@ public class InterviewerMB implements Serializable {
 		}
 	}
 
+	public void submitFeedback() {
+		log.info("Submit feedback for position: "
+				+ interviewSelect.getCandidature().getPosition().getTitle()
+				+ " from interviewer " + actUser.getEmail());
+		if (interviewFacade.updateFeedbackStatus(interviewSelect, feedback,
+				statusSelect)) {
+			String msg = "Interviw feedback and status update";
+			log.info(msg);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null));
+		} else {
+			String errorMsg = "An error ocurred when updating feedback/status.";
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+		}
+	}
+
 	// Getters and Setters
 	public InterviewStatus[] getStatusInterview() {
 		return InterviewStatus.values();

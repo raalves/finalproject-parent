@@ -24,4 +24,7 @@ public interface InterviewFacade {
 
 	public abstract List<InterviewEntity> findInterviewByUser(UserEntity user);
 
+	public abstract boolean updateFeedbackStatus(InterviewEntity interview,
+			String feedbakc, InterviewStatus status);
+
 }
