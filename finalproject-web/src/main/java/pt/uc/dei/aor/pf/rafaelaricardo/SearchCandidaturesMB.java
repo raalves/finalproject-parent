@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 
 @ManagedBean
@@ -55,8 +57,13 @@ public class SearchCandidaturesMB implements Serializable {
 	private boolean spontaneous;
 	private CandidateEntity candidateSelect;
 	private List<PositionEntity> selectedPositions;
-
+	@Inject
+	private ApplicationMB applicationMB;
+	@Inject
+	private ActiveUserMB activeUserMB;
+	
 	private List<CandidateEntity> resultList;
+	private CandidatureEntity candidature;
 
 	// public SearchCandidatures() {
 	// candidateFacade.findAllByOrder();
@@ -170,6 +177,30 @@ public class SearchCandidaturesMB implements Serializable {
 							MatchMode.ANYWHERE)));
 		}
 		return criteria2.addOrder(Order.asc("firstName")).list();
+	}
+
+	public void associateCandidateToSelectedPositions() {
+		for (PositionEntity p : selectedPositions) {
+			log.info("Associating candidate "+candidateSelect.getEmail() + " to Position: " + p.getTitle());
+			candidature = applicationMB.addCandidature(candidateSelect, p,
+					candidateSelect.getCvPath(),
+					"Candidature done by: "+ activeUserMB.getCurrentUser().getEmail(), new Date(), null);
+			if(candidature == null){
+				String errorMsg = "Already have a candidature for the position: " + p.getTitle();
+				log.error(errorMsg);
+				FacesContext.getCurrentInstance().addMessage(
+						"msgAllPositionsList",
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+								null));
+			}else{
+				String infoMsg = "Success on association of candidature for the position: " + p.getTitle();
+				log.info(infoMsg);
+				FacesContext.getCurrentInstance().addMessage(
+						"msgAllPositionsList",
+						new FacesMessage(FacesMessage.SEVERITY_INFO, infoMsg,
+								null));
+			}
+		}
 	}
 
 	// Getters and Setters
@@ -303,16 +334,17 @@ public class SearchCandidaturesMB implements Serializable {
 
 	public void cleanFields() {
 		firstName = null;
-		lastName= null;
-		email= null;
-		address= null;
-		city= null;
-		country= null;
-		phone= null;
-		mobilePhone= null;
-		course= null;
-		school= null;
+		lastName = null;
+		email = null;
+		address = null;
+		city = null;
+		country = null;
+		phone = null;
+		mobilePhone = null;
+		course = null;
+		school = null;
 	}
+
 	// public Boolean getSpontaneous() {
 	// return spontaneous;
 	// }
