@@ -32,11 +32,7 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 		@NamedQuery(name = "InterviewEntity.findInterviewByDate", query = "SELECT i FROM InterviewEntity i WHERE i.interviewDate = :interviewDate"),
 		@NamedQuery(name = "InterviewEntity.findInterviewByStatus", query = "SELECT i FROM InterviewEntity i WHERE i.interviewStatus = :interviewStatus"),
 		@NamedQuery(name = "InterviewEntity.findAllByIdOrder", query = "SELECT i FROM InterviewEntity i ORDER BY i.id"),
-// @NamedQuery(name = "InterviewEntity.findInterviewByUser", query =
-// "SELECT i FROM InterviewEntity i where i.interviewers = :user") })
-// @NamedQuery(name = "InterviewEntity.findInterviewByUser", query =
-// "SELECT i from InterviewEntity i INNER JOIN i.UserEntity u WHERE u.user IN :user")
-})
+		@NamedQuery(name = "InterviewEntity.findInterviewByUser", query = "SELECT i FROM InterviewEntity i INNER JOIN i.interviewers intvs WHERE intvs = :user") })
 public class InterviewEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

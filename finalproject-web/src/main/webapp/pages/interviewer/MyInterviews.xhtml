@@ -1,40 +1,121 @@
-<ui:composition xmln="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form>
-<p:messages id="msgMyIntervews" severity="error,warn"
-			closable="true" style="text-align:left" />
+	<h:form id="frm3">
+		<p:messages id="msgMyIntervews" severity="error,warn" closable="true"
+			style="text-align:left" />
 		<p:growl id="growlMyIntervews" sticky="true" severity="info" />
-		
-		<p:dataTable id="intervIntervew"
-			value="#{interviewerMB.resultList}"
+
+		<p:dataTable id="intervIntervew" value="#{interviewerMB.resultList}"
 			var="interv" style="margin-top:5px" emptyMessage="No records found"
 			rows="15" paginator="true" paginatorAlwaysVisible="false"
 			paginatorPosition="bottom" sortOrder="#{interv.id}">
 
 
-			<p:column headerText="Vacancie Title" sortBy="#{interv.candidature.position.title}">
+			<p:column headerText="Position Title"
+				sortBy="#{interv.candidature.position.title}">
 				<p:outputLabel value="#{interv.candidature.position.title}" />
 			</p:column>
-			<p:column headerText="Date" style="text-align:center" sortBy="#{interv.interviewDate}">
+			<p:column headerText="Candidate"
+				sortBy="#{interv.candidature.candidate.firstName}">
+				<p:outputLabel
+					value="#{interv.candidature.candidate.firstName} #{interv.candidature.candidate.lastName}" />
+			</p:column>
+			<p:column headerText="Date" style="text-align:center;width:80px"
+				sortBy="#{interv.interviewDate}">
 				<p:outputLabel value="#{interv.interviewDate}" />
 			</p:column>
 			<p:column headerText="Status" sortBy="#{interv.interviewStatus}">
 				<p:outputLabel value="#{interv.interviewStatus}" />
 			</p:column>
-			<p:column headerText="Details" style="text-align:center">
-				<p:button  icon="ui-icon-search"/>
+			<p:column headerText="Details" style="text-align:center;width:45px">
+				<p:commandButton icon="ui-icon-search"
+					oncomplete="PF('detailsDialog').show();return false;"
+					update=":tab:frm3:detailsSelectedInterview">
+					<f:setPropertyActionListener value="#{interv}"
+						target="#{interviewerMB.interviewSelect}" />
+				</p:commandButton>
 			</p:column>
-
-			<p:column headerText="Feedback" style="text-align:center">
-				<p:button  icon="ui-icon-pencil"/>
+			<p:column headerText="Feedback" style="text-align:center;width:55px">
+				<p:commandButton update=":tab:frm3:feedbackInterview"
+					oncomplete="PF('feedbackDialog').show();return false;"
+					icon="ui-icon-pencil" />
 			</p:column>
-			<p:column headerText="Guide" style="text-align:center">
-				<p:button  icon="ui-icon-pencil" />
+			<p:column headerText="Guide" style="text-align:center;;width:40px">
+				<p:button icon="ui-icon-pencil" />
 			</p:column>
 		</p:dataTable>
-		
+
+		<p:dialog id="feedbackInterview" header="Insert feedback"
+			widgetVar="feedbackDialog" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;text-align:center">
+			<p:outputPanel>
+				<h4>Status of the interview</h4>
+				<p:selectOneRadio id="status" value="#{interviewerMB.statusSelect}"
+					layout="grid" columns="3" style="margin-bottom:20px;margin-left:280px">
+					<f:selectItems value="#{interviewerMB.statusInterview}"
+						var="status" itemLabel="#{status}" itemValue="#{status}" />
+				</p:selectOneRadio>
+
+				<h4>Insert your feedback about the interview</h4>
+				<p:inputTextarea id="feedback" value="#{interviewerMB.feedback}"
+					rows="10" cols="80" autoResize="false" />
+			</p:outputPanel>
+			<p:outputPanel style="text-align:center">
+				<p:commandButton value="Close"
+					onclick="PF('feedbackDialog').hide();return false;" />
+				<p:commandButton value="Clear" update="feedback" process="@this">
+					<p:resetInput target="feedback" />
+				</p:commandButton>
+
+				<p:commandButton value="Submit feedback" ajax="false" />
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:dialog id="detailsSelectedInterview" header="Interview Details"
+			widgetVar="detailsDialog" modal="true" width="700" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+
+			<p:outputPanel id="candidateDetails"
+				style="padding-left:15px;margin-top:10px">
+				<h3>Details of the candidate</h3>
+			</p:outputPanel>
+			<p:separator />
+			<p:outputPanel id="postionDetails" style="padding-left:15px">
+				<h3>Details of the position</h3>
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Title" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.position.title}" />
+					<p:outputLabel value="Location" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.position.location}" />
+					<p:outputLabel value="Vacancie id" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.position.id}" />
+					<p:outputLabel value="#vacancies" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.position.quantity}" />
+					<p:outputLabel value="Technical area" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.position.technicalArea}"></p:outputLabel>
+
+				</p:panelGrid>
+				<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
+					AND EXPERIENCE</h5>
+					#{interviewerMB.interviewSelect.candidature.position.descriptionPosition.requiredQualifications}
+					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
+					AND EXPERIENCE</h5>
+					#{interviewerMB.interviewSelect.candidature.position.descriptionPosition.desiredQualifications}	
+			</p:outputPanel>
+			<p:outputPanel style="text-align:center">
+				<p:commandButton value="Close"
+					onclick="PF('detailsDialog').hide();return false;" />
+			</p:outputPanel>
+		</p:dialog>
 	</h:form>
 </ui:composition>

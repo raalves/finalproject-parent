@@ -67,9 +67,14 @@ public class InterviewDAO extends GenericDAO<InterviewEntity> {
 				parameters);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<InterviewEntity> findInterviewByUser(UserEntity user) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("user", user);
+		// Query q = em
+		// .createQuery("select i from InterviewEntity i inner join i.interviewers intvs where intvs = :user");
+		// q.setParameter("user", user);
+		// return q.getResultList();
 		return super.findSomeResults("InterviewEntity.findInterviewByUser",
 				parameters);
 	}

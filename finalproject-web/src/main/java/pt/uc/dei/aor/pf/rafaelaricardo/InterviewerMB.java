@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 
 @ManagedBean
 @ViewScoped
@@ -36,6 +37,9 @@ public class InterviewerMB implements Serializable {
 	private UserEntity actUser;
 	private List<InterviewEntity> resultList;
 	private InterviewEntity interviewSelect;
+	private String feedback;
+
+	private InterviewStatus statusSelect;
 
 	@PostConstruct
 	public void listMyInterviewers() {
@@ -45,6 +49,7 @@ public class InterviewerMB implements Serializable {
 
 		try {
 			resultList = interviewFacade.findInterviewByUser(actUser);
+			System.out.println(resultList);
 		} catch (EJBException e) {
 			String errorMsg = "Error gettin interviews: " + e.getMessage();
 			log.error(errorMsg);
@@ -56,6 +61,9 @@ public class InterviewerMB implements Serializable {
 	}
 
 	// Getters and Setters
+	public InterviewStatus[] getStatusInterview() {
+		return InterviewStatus.values();
+	}
 
 	public List<InterviewEntity> getResultList() {
 		return resultList;
@@ -71,6 +79,22 @@ public class InterviewerMB implements Serializable {
 
 	public void setInterviewSelect(InterviewEntity interviewSelect) {
 		this.interviewSelect = interviewSelect;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+	public InterviewStatus getStatusSelect() {
+		return statusSelect;
+	}
+
+	public void setStatusSelect(InterviewStatus statusSelect) {
+		this.statusSelect = statusSelect;
 	}
 
 }
