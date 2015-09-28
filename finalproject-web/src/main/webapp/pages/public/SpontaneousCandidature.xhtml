@@ -5,100 +5,121 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="content">
-		<h:form>
+		<h:form enctype="multipart/form-data">
 
-			<p:messages id="messages" showDetail="true" autoUpdate="true"
-				closable="true" />
+			<p:messages id="msgNewCandSpont" severity="error,warn"
+				closable="true" style="text-align:left" />
+			<p:growl id="growlNewCandSpont" sticky="true" severity="info" />
 
 			<p:panel>
-				<p:outputLabel>
+				<p:outputLabel style="position:absolute">
 					<h2>Spontaneous candidature area</h2>
-				</p:outputLabel>
-
+					</p:outputLabel>
+					<p:button outcome="/pages/candidate/CandidatePage.xhtml"
+						value="Return to candidate page" style="float:right;position:relative" />
+				
 				<p:panelGrid id="newSpontCandForm" columns="2"
-					styleClass="ui-noborder" style="width: 100%; margin-top: 20px"
+					styleClass="ui-noborder" style="width: 100%; margin-top: 60px"
 					columnClasses="label,field">
 
 					<p:outputLabel value="First Name" for="firstName" />
-					<p:inputText id="firstName" size="80" required="true" />
+					<p:inputText id="firstName" size="80" required="true"
+						requiredMessage="Please fill in the first name field!"
+						value="#{activeUserMB.currentCandidate.firstName}" />
 
 					<p:outputLabel value="Last Name" for="lastName" />
-					<p:inputText id="lastName" size="80" required="true" />
+					<p:inputText id="lastName" size="80" required="true"
+						requiredMessage="Please fill in the last name field!"
+						value="#{activeUserMB.currentCandidate.lastName}" />
 
 					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" size="80" required="true" />
-
-					<p:outputLabel for="password1" value="Password" />
-					<p:password id="password1" match="password2" feedback="true"
-						size="80" required="true" />
-
-					<p:outputLabel for="password2" value="Repeat password" />
-					<p:password id="password2" size="80" required="true" />
+					<p:inputText id="email" size="80" required="true" disabled="true"
+						requiredMessage="Please fill in the email field!"
+						value="#{activeUserMB.currentCandidate.email}" />
 
 					<p:outputLabel value="Birthdate" for="birthdate" />
-					<p:calendar id="birthdate" size="10" pattern="dd/MM/yyyy"
-						mask="true" maxdate="31/12/1997" readonly="true" required="true" />
+					<p:calendar id="birthdate" size="10" pattern="yyyy-MM-dd"
+						mask="true" required="true" disabled="true"
+						requiredMessage="Please fill in the birthdate field!"
+						value="#{activeUserMB.currentCandidate.birthDate}" />
 
 					<p:outputLabel value="Adress" for="address" />
-					<p:inputText id="address" size="80" required="true" />
+					<p:inputText id="address" size="80" required="true"
+						requiredMessage="Please fill in the address field!"
+						value="#{activeUserMB.currentCandidate.address}" />
 
 					<p:outputLabel value="City" for="city" />
-					<p:inputText id="city" size="80" required="true" />
+					<p:inputText id="city" size="80" required="true"
+						requiredMessage="Please fill in the City field!"
+						value="#{activeUserMB.currentCandidate.city}" />
 
 					<p:outputLabel value="Country" for="country" />
-					<p:inputText id="country" size="80" required="true" />
+					<p:inputText id="country" size="80" required="true"
+						requiredMessage="Please fill in the Country field!"
+						value="#{activeUserMB.currentCandidate.country}" />
 
 					<p:outputLabel value="Phone" for="phone" />
-					<p:inputText id="phone" size="13" required="true" />
+					<p:inputText id="phone" maxlength="13" size="13"
+						value="#{activeUserMB.currentCandidate.phone}" />
 
 					<p:outputLabel value="Mobile phone" for="mobilePhone" />
-					<p:inputText id="mobilePhone" size="13" required="true" />
+					<p:inputText id="mobilePhone" maxlength="13" size="13"
+						required="true"
+						requiredMessage="Please fill in the mobile phone field!"
+						value="#{activeUserMB.currentCandidate.mobilePhone}" />
 
-					<p:outputLabel value="Main Course" for="mainCourse" />
-					<p:inputText id="mainCourse" size="80" required="true"
-						style="width:250px;" />
+					<p:outputLabel value="Main Course" for="course" />
+					<p:inputText id="course" size="80" required="true"
+						style="width:250px;"
+						requiredMessage="Please fill in the course field!"
+						value="#{activeUserMB.currentCandidate.course}" />
 
 					<p:outputLabel value="School" for="school" />
 					<p:inputText id="school" size="80" required="true"
-						style="width:250px;" />
+						style="width:250px;"
+						requiredMessage="Please fill in the school field!"
+						value="#{activeUserMB.currentCandidate.school}" />
+
+					<p:outputLabel value="Upload CV/Resume (only in pdf format)"
+						for="uploadCV" />
+					<h:inputFile id="uploadCV" class="buttons"
+						value="#{uploadFile.cvFile}" required="true"
+						requiredMessage="Please upload your CV/Resume!" />
+					<p:outputLabel
+						value="Motivation Letter - tell us why you should be choosen for this position"
+						for="motivationLetter" />
+					<p:inputTextarea id="motivationLetter"
+						value="#{applyMB.motivationLetter}" rows="10" cols="100"
+						counter="display" counterTemplate="{0} characters remaining"
+						autoResize="false" maxlength="5000" />
+					<p:spacer />
+					<h:outputText id="display" />
 
 					<p:outputLabel value="Select city/cities of your preference"
 						for="selectCity" />
 					<p:selectManyCheckbox id="selectCity"
-						value="#{spontaneousBean.selectCities}" layout="grid" columns="3">
-						<f:selectItems value="#{spontaneousBean.cities}" var="city"
+						value="#{applyMB.selectCities}" layout="grid" columns="4">
+						<f:selectItems value="#{applyMB.cities}" var="city"
 							itemLabel="#{city}" itemValue="#{city}" />
 					</p:selectManyCheckbox>
-
 					<p:outputLabel value="Select technical areas" for="selectArea" />
 					<p:selectManyCheckbox id="selectArea"
-						value="#{spontaneousBean.selectAreaTech}" layout="grid"
-						columns="3">
-						<f:selectItems value="#{spontaneousBean.areasTech}" var="area"
+						value="#{applyMB.selectTechAreas}" layout="grid" columns="3">
+						<f:selectItems value="#{applyMB.tecAreas}" var="area"
 							itemLabel="#{area}" itemValue="#{area}" />
 					</p:selectManyCheckbox>
-
-
-					<p:outputLabel value="Upload CV/Resume" />
-					<p:fileUpload skinSimple="true" update="messages"
-						sizeLimit="100000" allowTypes="/(\.|\/)(pdf|doc|docx)$/"
-						invalidFileMessage="The format of the file must be pdf, doc or docx"
-						style="width:400px" required="true" />
 					<p:spacer />
 					<p:columnGroup>
-
-						<p:commandButton value="Back" onclick="history.go(-1)" />
+						<p:commandButton value="Cancel" onclick="history.go(-1)" />
 						<p:commandButton value="Clear" update="newSpontCandForm"
 							process="@this">
 							<p:resetInput target="newSpontCandForm" />
 						</p:commandButton>
-						<p:commandButton value="Submit" ajax="false" />
+						<p:commandButton value="Submit" ajax="false"
+							action="#{applyMB.submitSpontCandidature(uploadFile)}" />
 					</p:columnGroup>
 				</p:panelGrid>
-
 			</p:panel>
-
-
 		</h:form>
 	</ui:define>
 </ui:composition>

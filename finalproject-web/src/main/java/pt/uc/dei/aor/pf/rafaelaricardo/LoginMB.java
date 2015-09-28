@@ -34,6 +34,8 @@ public class LoginMB implements Serializable {
 	private ActiveUserMB actUser;
 	@Inject
 	private AreaNameMB areaName;
+	@Inject
+	private ApplyMB applyMB;
 
 	public LoginMB() {
 	}
@@ -70,6 +72,7 @@ public class LoginMB implements Serializable {
 			String path = actUser.searchUserRoles().get(0).getRole().toString();
 			String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
 			actUser.showTabs();
+			actUser.seeIfIsAdmin();
 			return "/pages/" + path.toLowerCase() + "/" + pagePath
 					+ "Page?faces-redirect=true";
 		}
@@ -111,6 +114,7 @@ public class LoginMB implements Serializable {
 			actUser.setFullName(c.getFirstName() + " " + c.getLastName());
 			areaName.setAreaName("Candidate");
 			actUser.showCandTabs();
+
 			return "/pages/candidate/CandidatePage?faces-redirect=true";
 		}
 		FacesContext.getCurrentInstance().addMessage(

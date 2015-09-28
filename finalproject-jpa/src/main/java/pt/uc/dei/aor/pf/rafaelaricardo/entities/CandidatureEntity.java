@@ -2,6 +2,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -73,9 +75,10 @@ public class CandidatureEntity implements Serializable {
 	// @NotBlank
 	@ElementCollection(targetClass = Source.class, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@OrderColumn
 	@Column(name = "public_source")
 	@Enumerated(EnumType.STRING)
-	private List<Source> publicSource = new ArrayList<Source>();
+	private Collection<Source> publicSource = new ArrayList<Source>();
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "candidature_date", nullable = false)
@@ -147,11 +150,11 @@ public class CandidatureEntity implements Serializable {
 		this.motivationLetter = motivationLetter;
 	}
 
-	public List<Source> getPublicSource() {
+	public Collection<Source> getPublicSource() {
 		return publicSource;
 	}
 
-	public void setPublicSource(List<Source> publicSource) {
+	public void setPublicSource(Collection<Source> publicSource) {
 		this.publicSource = publicSource;
 	}
 

@@ -15,10 +15,10 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
-import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
 @Named
 @SessionScoped
@@ -30,39 +30,26 @@ public class ApplyMB implements Serializable {
 
 	@Inject
 	private ActiveUserMB actUserMB;
-	@Inject
-	private PositionsMB positionMB;
+
 	@Inject
 	private ApplicationMB applicationMB;
 	@EJB
 	private CandidatureFacade candidatureFacade;
-	private UserEntity userLog;
-	private CandidateEntity candLog;
-	private String firstName;
-	private String lastName;
-	private String email;
-	// private String candidatureStatus;
-	private Date birthdate;
-	private String address;
-	private String city;
-	private String country;
-	private String phone;
-	private String mobilePhone;
-	private String course;
-	private String school;
+
 	private String cvPath;
 	private String motivationLetter;
 	private Date candidatureDate;
+
 	private PositionEntity positionSelect;
 
 	private List<String> sourcesSelectWEB;
 	private List<Source> sourcesSelect = new ArrayList<Source>();
 
-	// private ArrayList<Source>
+	private List<Location> selectCities;
+	private List<TechnicalArea> selectTechAreas;
 
 	public void transformStringInSources() {
 		Source[] allSources = Source.values();
-
 		for (Source s : allSources) {
 			for (String sweb : sourcesSelectWEB) {
 				if (s.name().equals(sweb)) {
@@ -72,18 +59,26 @@ public class ApplyMB implements Serializable {
 		}
 	}
 
+	public String submitSpontCandidature(UploadFile uploadFile) {
+		log.info("Creating a spontaneous candidature");
+		this.positionSelect = null;
+		this.sourcesSelectWEB = null;
+		return submitCandidature(uploadFile);
+	}
+
 	public String submitCandidature(UploadFile uploadFile) {
-		this.candidatureDate = getCurrentTimeStamp();
-		System.out.println(positionSelect);
-		System.out.println(sourcesSelectWEB);
-		transformStringInSources();
-		// this.candidatureStatus=;
+		this.candidatureDate = new Date();
+
+		if (sourcesSelectWEB != null) {
+			transformStringInSources();
+		}
 
 		if (uploadFile != null) {
-			cvPath = uploadFile.generatePath(email);
-			System.out.println("cvpath" + cvPath);
+			cvPath = uploadFile.generatePath(actUserMB.getCurrentCandidate()
+					.getEmail());
 			if (motivationLetter != null) {
-				if (applicationMB.addCandidature(candLog, positionSelect,
+				if (applicationMB.addCandidature(
+						actUserMB.getCurrentCandidate(), positionSelect,
 						cvPath, motivationLetter, candidatureDate,
 						sourcesSelect) == null) {
 
@@ -93,19 +88,17 @@ public class ApplyMB implements Serializable {
 							null,
 							new FacesMessage(FacesMessage.SEVERITY_ERROR,
 									errorMsg, null));
-
 					return "/pages/candidate/NewCandidature";
 				} else {
-
-					uploadFile.upload(email);
-
+					uploadFile.upload(actUserMB.getCurrentCandidate()
+							.getEmail());
+					cleanFields();
 					String infoMsg = "Successfully created candidature";
 					log.info(infoMsg);
 					FacesContext.getCurrentInstance().addMessage(
 							null,
 							new FacesMessage(FacesMessage.SEVERITY_INFO,
 									infoMsg, null));
-					// return "history.go(-1)";
 					return "/pages/candidate/CandidatePage.xhtml";
 				}
 
@@ -128,34 +121,18 @@ public class ApplyMB implements Serializable {
 			return "/pages/public/NewCandidateRegister";
 		}
 
-		// return null;
 	}
 
-	// public void findSourceSelect() {
-	// ArrayList<Source> allSources=candidatureFacade.fin
-	// }
-
 	public String applyToPosition() {
-		System.out.println("applytoposition");
-		System.out.println(positionSelect.getTitle());
-		// System.out.println(positionMB.getPositionSelect());
-		// this.positionSelect=positionMB.getPositionSelect();
-
 		if (actUserMB.getCurrentUser() != null) {
-
-			this.userLog = actUserMB.getCurrentUser();
 			String errorMsg = "Please do login in or create a new  candidate profile!";
 			log.error(errorMsg);
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
-			// System.out.println(actUserMB.getCurrentUser().getEmail());
 			return "/LoginCandidates";
 		} else if (actUserMB.getCurrentCandidate() != null) {
-			this.candLog = actUserMB.getCurrentCandidate();
-			// System.out.println(actUserMB.getCurrentCandidate().getEmail());
-
 			return "/pages/candidate/NewCandidature.xhtml?faces-redirect=true";
 		} else {
 			String errorMsg = "Please do login in or create a new  candidate profile!";
@@ -164,25 +141,28 @@ public class ApplyMB implements Serializable {
 					"msgNewCandRegister",
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
-
 			return "/LoginCandidates";
-
 		}
-
 	}
 
-	public static Date getCurrentTimeStamp() {
-		// SimpleDateFormat sdfDate = new
-		// SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-		Date now = new Date();
-		// String strDate = sdfDate.format(now);
-		// return strDate;
-		return now;
+	public void cleanFields() {
+		motivationLetter = null;
+		selectCities = null;
+		selectTechAreas = null;
+		cvPath = null;
 	}
 
 	// Getters and Setters
 	public List<Source> getSources() {
 		return positionSelect.getSource();
+	}
+
+	public Location[] getCities() {
+		return Location.values();
+	}
+
+	public TechnicalArea[] getTecAreas() {
+		return TechnicalArea.values();
 	}
 
 	public ActiveUserMB getActUserMB() {
@@ -191,110 +171,6 @@ public class ApplyMB implements Serializable {
 
 	public void setActUserMB(ActiveUserMB actUserMB) {
 		this.actUserMB = actUserMB;
-	}
-
-	public UserEntity getUserLog() {
-		return userLog;
-	}
-
-	public void setUserLog(UserEntity userLog) {
-		this.userLog = userLog;
-	}
-
-	public CandidateEntity getCandLog() {
-		return candLog;
-	}
-
-	public void setCandLog(CandidateEntity candLog) {
-		this.candLog = candLog;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getMobilePhone() {
-		return mobilePhone;
-	}
-
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
-	}
-
-	public String getCourse() {
-		return course;
-	}
-
-	public void setCourse(String course) {
-		this.course = course;
-	}
-
-	public String getSchool() {
-		return school;
-	}
-
-	public void setSchool(String school) {
-		this.school = school;
 	}
 
 	public String getCvPath() {
@@ -343,6 +219,22 @@ public class ApplyMB implements Serializable {
 
 	public void setSourcesSelectWEB(List<String> sourcesSelectWEB) {
 		this.sourcesSelectWEB = sourcesSelectWEB;
+	}
+
+	public List<Location> getSelectCities() {
+		return selectCities;
+	}
+
+	public void setSelectCities(List<Location> selectCities) {
+		this.selectCities = selectCities;
+	}
+
+	public List<TechnicalArea> getSelectTechAreas() {
+		return selectTechAreas;
+	}
+
+	public void setSelectTechAreas(List<TechnicalArea> selectTechAreas) {
+		this.selectTechAreas = selectTechAreas;
 	}
 
 }

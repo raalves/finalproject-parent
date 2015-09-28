@@ -8,9 +8,12 @@
 			style="text-align:left" autoUpdate="true" />
 		<p:growl id="growlPosiitions" sticky="true" severity="info" />
 
+		<p:button value="Create new position" style="float:right"
+			rendered="#{activeUserMB.createNewPosition}" />
+
 		<p:button value="Spontaneous Candidature"
 			outcome="/pages/public/SpontaneousCandidature.xhtml"
-			style="float:right" />
+			style="float:right" rendered="#{activeUserMB.candidateTab}" />
 
 		<h1 id="titleCareers">Open Positions</h1>
 		<p:dataTable id="positions" value="#{positionsMB.positions}"

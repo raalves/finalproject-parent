@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -81,6 +82,7 @@ public class PositionEntity implements Serializable {
 	// @NotBlank
 	@ElementCollection(targetClass = Location.class, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@OrderColumn
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private List<Location> location = new ArrayList<Location>();
@@ -115,6 +117,7 @@ public class PositionEntity implements Serializable {
 	// @NotBlank
 	@ElementCollection(targetClass = Source.class, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
+	@OrderColumn
 	@Column(name = "public_source", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private List<Source> source = new ArrayList<Source>();
