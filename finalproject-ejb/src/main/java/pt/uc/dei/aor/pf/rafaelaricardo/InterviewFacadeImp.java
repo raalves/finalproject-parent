@@ -78,4 +78,11 @@ public class InterviewFacadeImp implements InterviewFacade {
 		return false;
 	}
 
+	@Override
+	public List<InterviewEntity> findInterviewsByCandidatures(
+			List<CandidatureEntity> candidatures) {
+		log.info("Finding interviews by candidatures: " + candidatures.toString());
+		return interviewDAO.findInterviewsByCandidatures(candidatures);
+	}
+
 }

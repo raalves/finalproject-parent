@@ -22,7 +22,7 @@ public class AdminMB implements Serializable {
 
 	private static final long serialVersionUID = 8666955892442985554L;
 	private static final Logger log = LoggerFactory
-			.getLogger(SearchCandidaturesMB.class);
+			.getLogger(AdminMB.class);
 	
 	
 	@EJB
@@ -33,7 +33,7 @@ public class AdminMB implements Serializable {
 	
 	
 	@PostConstruct
-	public void listAllCandidates() {
+	public void listAllInterviews() {
 		log.info("Search for all Interviews");
 		try {
 			allInterviewsList = interviewFacade.findAllByOrder();

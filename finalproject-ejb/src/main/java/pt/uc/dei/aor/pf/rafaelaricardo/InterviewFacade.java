@@ -16,6 +16,9 @@ public interface InterviewFacade {
 
 	public abstract List<InterviewEntity> findInterviewByCandidature(
 			CandidatureEntity candidature);
+	
+	public abstract List<InterviewEntity> findInterviewsByCandidatures(
+			List<CandidatureEntity> candidatures);
 
 	public abstract List<InterviewEntity> findInterviewByDate(Date interviewDate);
 

@@ -51,6 +51,14 @@ public class InterviewDAO extends GenericDAO<InterviewEntity> {
 				"InterviewEntity.findInterviewByCandidature", parameters);
 	}
 
+	public List<InterviewEntity> findInterviewsByCandidatures(
+			List<CandidatureEntity> candidatures) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("candidature", candidatures);
+		return super.findSomeResults(
+				"InterviewEntity.findInterviewsByCandidatures", parameters);
+	}
+
 	public List<InterviewEntity> findInterviewByDate(Date interviewDate) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("interviewDate", interviewDate);

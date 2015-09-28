@@ -29,6 +29,7 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 @NamedQueries({
 		@NamedQuery(name = "InterviewEntity.findInterviewById", query = "SELECT i FROM InterviewEntity i WHERE i.id = :id"),
 		@NamedQuery(name = "InterviewEntity.findInterviewByCandidature", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
+		@NamedQuery(name = "InterviewEntity.findInterviewsByCandidatures", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
 		@NamedQuery(name = "InterviewEntity.findInterviewByDate", query = "SELECT i FROM InterviewEntity i WHERE i.interviewDate = :interviewDate"),
 		@NamedQuery(name = "InterviewEntity.findInterviewByStatus", query = "SELECT i FROM InterviewEntity i WHERE i.interviewStatus = :interviewStatus"),
 		@NamedQuery(name = "InterviewEntity.findAllByIdOrder", query = "SELECT i FROM InterviewEntity i ORDER BY i.id"),
