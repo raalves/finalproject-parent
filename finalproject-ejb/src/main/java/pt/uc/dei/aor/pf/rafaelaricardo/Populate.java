@@ -82,7 +82,8 @@ public class Populate implements Serializable {
 		GuideEntity generalGuide = new GuideEntity();
 		generalGuide.setGuideTitle("guide position1");
 		generalGuide.setGuideDate(ft.parse("2015-05-01"));
-		generalGuide.setFilePath("qqcoisa");
+		generalGuide
+				.setFilePath("C:/Program Files/wildfly-8.2.0.Final/wildfly-8.2.0.Final/ProjFinalUploadedFiles/GuideComplete/GeneralData.xlsx");
 		generalGuide.setAuthor(users[0]);
 
 		List<Source> sourcesPos1 = new ArrayList<Source>();

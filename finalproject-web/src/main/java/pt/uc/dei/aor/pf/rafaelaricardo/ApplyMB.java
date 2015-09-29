@@ -68,14 +68,15 @@ public class ApplyMB implements Serializable {
 
 	public String submitCandidature(UploadFile uploadFile) {
 		this.candidatureDate = new Date();
-
+		String fileType = "CV";
+		String userType = "candidate";
 		if (sourcesSelectWEB != null) {
 			transformStringInSources();
 		}
 
 		if (uploadFile != null) {
 			cvPath = uploadFile.generatePath(actUserMB.getCurrentCandidate()
-					.getEmail());
+					.getEmail(), fileType);
 			if (motivationLetter != null) {
 				if (applicationMB.addCandidature(
 						actUserMB.getCurrentCandidate(), positionSelect,
@@ -91,7 +92,7 @@ public class ApplyMB implements Serializable {
 					return "/pages/candidate/NewCandidature";
 				} else {
 					uploadFile.upload(actUserMB.getCurrentCandidate()
-							.getEmail());
+							.getEmail(), fileType, userType);
 					cleanFields();
 					String infoMsg = "Successfully created candidature";
 					log.info(infoMsg);

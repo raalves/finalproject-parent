@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.dao.InterviewDAO;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
@@ -72,17 +73,42 @@ public class InterviewFacadeImp implements InterviewFacade {
 			if (interviewDAO.update(interview) != null) {
 				return true;
 			}
-			return false;
 		}
+		return false;
 
+	}
+
+	@Override
+	public boolean updateGuideCompletePath(InterviewEntity interview,
+			GuideEntity guideComplete) {
+		log.info("Updating path of guide completed of interview: "
+				+ interview.getId());
+		if (interview != null) {
+			interview.setGuideComplete(guideComplete);
+			if (interviewDAO.update(interview) != null) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public List<InterviewEntity> findInterviewsByCandidatures(
 			List<CandidatureEntity> candidatures) {
-		log.info("Finding interviews by candidatures: " + candidatures.toString());
+		log.info("Finding interviews by candidatures: "
+				+ candidatures.toString());
 		return interviewDAO.findInterviewsByCandidatures(candidatures);
+	}
+
+	@Override
+	public InterviewEntity addInterview(CandidatureEntity candidature,
+			Date interviewDate, InterviewStatus interviewStatus) {
+		log.info("Saving interview in DB");
+		InterviewEntity i = new InterviewEntity(interviewDate, interviewStatus);
+		i.setCandidature(candidature);
+		interviewDAO.save(i);
+		return i;
+
 	}
 
 }

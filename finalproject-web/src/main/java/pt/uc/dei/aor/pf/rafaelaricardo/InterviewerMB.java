@@ -1,6 +1,7 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
@@ -33,12 +35,16 @@ public class InterviewerMB implements Serializable {
 	private InterviewFacade interviewFacade;
 	@EJB
 	private UserFacade userFacade;
+	// @Inject
+	// private DownloadFile downloadFile;
+	@EJB
+	private GuideFacade guideFacade;
+	private DownloadFile dwnlFile;
 
 	private UserEntity actUser;
 	private List<InterviewEntity> resultList;
 	private InterviewEntity interviewSelect;
 	private String feedback;
-
 	private InterviewStatus statusSelect;
 
 	@PostConstruct
@@ -57,6 +63,60 @@ public class InterviewerMB implements Serializable {
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
+		}
+	}
+
+	public String downloadGuide(InterviewEntity interviewSelect) {
+		this.interviewSelect = interviewSelect;
+		String downloadName = "Guide Complete_"
+				+ this.interviewSelect.getCandidature().getCandidate()
+						.getFirstName()
+				+ this.interviewSelect.getCandidature().getCandidate()
+						.getLastName() + ".xlsx";
+		String path = interviewSelect.getCandidature().getPosition().getGuide()
+				.getFilePath();
+		dwnlFile = new DownloadFile(downloadName, path);
+
+		// downloadFile.prepareFile(path, downloadName);
+		return null;
+	}
+
+	public void uploadGuideComplete(UploadFile file) {
+		System.out.println(interviewSelect);
+		log.info("Uploading guide complete for interview of the candidate: "
+				+ interviewSelect.getCandidature().getCandidate().getEmail());
+		String fileType = "GuideComplete";
+		String userType = "interviewer";
+		String candidateName = interviewSelect.getCandidature().getCandidate()
+				.getFirstName()
+				+ interviewSelect.getCandidature().getCandidate().getLastName();
+		if (file != null) {
+			String guidePath = file.generatePath(candidateName, fileType);
+
+			GuideEntity guideComplete = guideFacade.addGuide(
+					actUserMB.getCurrentUser(), "Guide for interview: "
+							+ interviewSelect.getId(), new Date(), guidePath);
+			if (guideComplete != null) {
+
+				if (interviewFacade.updateGuideCompletePath(interviewSelect,
+						guideComplete)) {
+					file.upload(candidateName, fileType, userType);
+
+					String infoMsg = "Guide complete upload with sucess";
+					log.info(infoMsg);
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO,
+									infoMsg, null));
+				}
+			} else {
+				String errorMsg = "Error uploading the guide complete!";
+				log.error(errorMsg);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+								null));
+			}
 		}
 	}
 
@@ -115,6 +175,22 @@ public class InterviewerMB implements Serializable {
 
 	public void setStatusSelect(InterviewStatus statusSelect) {
 		this.statusSelect = statusSelect;
+	}
+
+	public UserEntity getActUser() {
+		return actUser;
+	}
+
+	public void setActUser(UserEntity actUser) {
+		this.actUser = actUser;
+	}
+
+	public DownloadFile getDwnlFile() {
+		return dwnlFile;
+	}
+
+	public void setDwnlFile(DownloadFile dwnlFile) {
+		this.dwnlFile = dwnlFile;
 	}
 
 }

@@ -17,4 +17,7 @@ public interface GuideFacade {
 	public abstract List<GuideEntity> findGuideByTitle(String guideTitle);
 
 	public abstract List<GuideEntity> findGuideByDate(Date guideDate);
+
+	public abstract GuideEntity addGuide(UserEntity author, String guideTitle,
+			Date guideDate, String filePath);
 }

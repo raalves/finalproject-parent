@@ -113,17 +113,20 @@ public class ActiveUserMB implements Serializable {
 	}
 
 	public void submitChanges(UploadFile uploadFile) {
+		String fileType = "CV";
+		String userType = "candidate";
 		System.out.println(uploadFile);
 		if (uploadFile == null) {
 			currentCandidate.setCvPath(currentCandidate.getCvPath());
 		} else {
-			currentCandidate.setCvPath(uploadFile.generatePath(currentCandidate
-					.getEmail()));
+			currentCandidate.setCvPath(uploadFile.generatePath(
+					currentCandidate.getEmail(), fileType));
 		}
 		if (candidateFacade.updateCandidateProfile(currentCandidate)) {
 			String infomsg = "Profile successfully changed";
 			if (uploadFile != null)
-				uploadFile.upload(currentCandidate.getEmail());
+				uploadFile.upload(currentCandidate.getEmail(), fileType,
+						userType);
 			log.info(infomsg);
 			FacesContext.getCurrentInstance()
 					.addMessage(

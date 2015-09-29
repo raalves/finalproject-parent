@@ -22,27 +22,27 @@ public class UploadFile implements Serializable {
 
 	private static final Logger log = LoggerFactory.getLogger(UploadFile.class);
 
-	private Part cvFile;
-
-	private String cvPath;
-	private Part coverLetterFile;
-
-	private String coverLetterPath;
+	private Part file;
+	private String path;
 	private String localPath;
-	private String typeFile = "CV";
+	private String fileType;
+	private String email;
+	private String typeUser;
 
-	public String upload(String email) {
-		log.info("Uploading CV file");
+	public String upload(String email, String fileType, String typeUser) {
+		this.email = email;
+		this.fileType = fileType;
+		this.typeUser = typeUser;
+		this.localPath = generatePath(email, fileType);
+		log.info("Uploading file: " + fileType);
 
 		try {
 			if (validExtension(localPath)) {
-				cvFile.write(localPath);
-				cvPath = generateServerPath(email, typeFile);
+				file.write(localPath);
+				path = generateServerPath(this.email, this.fileType,
+						this.typeUser);
 				System.out.println(localPath + "  Localpath");
 				return localPath;
-				// if (coverLetterFile.getSize()!=0) {
-				// uploadCoverLetter()
-				// }
 			} else {
 				String errorMsg = "The format of file is not valid!";
 				log.error(errorMsg);
@@ -61,42 +61,32 @@ public class UploadFile implements Serializable {
 							null));
 			return null;
 		}
-
 	}
-
-	// public String deleteUploadedFile() {
-	// try {
-	// cvFile.delete();
-	// return "file deleted";
-	// } catch (IOException ie) {
-	// ie.getMessage();
-	// return "error while deleting file " + ie.getMessage();
-	// }
-	//
-	// }
 
 	private boolean validExtension(String path) {
 
-		String extension = path.substring(path.length() - 3);
-
-		if (extension.equals("pdf") || extension.equals("doc")
-				|| extension.equals("docx"))
+		if (path.substring(path.length() - 3).equals("pdf")) {
 			return true;
-
-		return false;
+		} else if (path.substring(path.length() - 4).equals("xlsx")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public String generatePath(String email) {
-		System.out.println(typeFile + " typefile");
+	public String generatePath(String email, String fileType) {
+		System.out.println(fileType + " typefile");
 		localPath = System.getProperty("jboss.home.dir")
-				+ "\\ProjFinalUploadedFiles\\" + typeFile + "_" + email + "_"
-				+ getCurrentTimeStamp() + "_" + getFilename(cvFile);
+				+ "\\ProjFinalUploadedFiles\\" + fileType + "\\" + fileType
+				+ "_" + email + "_" + getCurrentTimeStamp() + "_"
+				+ getFilename(file);
 		return localPath;
 	}
 
-	private String generateServerPath(String email, String typeFile) {
-		return "\\candidate\\" + typeFile + "_" + email + "_"
-				+ getCurrentTimeStamp() + "_" + getFilename(cvFile);
+	private String generateServerPath(String email, String fileType,
+			String tipeUser) {
+		return "\\" + tipeUser + "\\" + fileType + "_" + email + "_"
+				+ getCurrentTimeStamp() + "_" + getFilename(file);
 	}
 
 	private static String getFilename(Part part) {
@@ -118,36 +108,60 @@ public class UploadFile implements Serializable {
 		return strDate;
 	}
 
-	public Part getCvFile() {
-		return cvFile;
+	public Part getFile() {
+		return file;
 	}
 
-	public void setCvFile(Part cvFile) {
-		this.cvFile = cvFile;
+	public void setFile(Part file) {
+		this.file = file;
 	}
 
-	public String getCvPath() {
-		return cvPath;
+	public String getPath() {
+		return path;
 	}
 
-	public void setCvPath(String cvPath) {
-		this.cvPath = cvPath;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
-	public Part getCoverLetterFile() {
-		return coverLetterFile;
+	public String getLocalPath() {
+		return localPath;
 	}
 
-	public void setCoverLetterFile(Part coverLetterFile) {
-		this.coverLetterFile = coverLetterFile;
+	public void setLocalPath(String localPath) {
+		this.localPath = localPath;
 	}
 
-	public String getCoverLetterPath() {
-		return coverLetterPath;
+	public String getTypeFile() {
+		return fileType;
 	}
 
-	public void setCoverLetterPath(String coverLetterPath) {
-		this.coverLetterPath = coverLetterPath;
+	public void setTypeFile(String typeFile) {
+		this.fileType = typeFile;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTipeUser() {
+		return typeUser;
+	}
+
+	public void setTipeUser(String tipeUser) {
+		this.typeUser = tipeUser;
 	}
 
 }

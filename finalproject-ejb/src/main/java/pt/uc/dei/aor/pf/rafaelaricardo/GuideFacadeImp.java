@@ -51,4 +51,14 @@ public class GuideFacadeImp implements GuideFacade {
 		return guideDAO.findGuideByDate(guideDate);
 	}
 
+	@Override
+	public GuideEntity addGuide(UserEntity author, String guideTitle,
+			Date guideDate, String filePath) {
+		log.info("Saving guide in DB");
+		GuideEntity g = new GuideEntity(guideTitle, guideDate, filePath);
+		g.setAuthor(author);
+		guideDAO.save(g);
+		return g;
+	}
+
 }

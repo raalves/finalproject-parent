@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -64,6 +65,9 @@ public class InterviewEntity implements Serializable {
 
 	@ManyToMany(mappedBy = "interviews")
 	private List<UserEntity> interviewers = new ArrayList<>();
+
+	@OneToOne
+	private GuideEntity guideComplete;
 
 	// ************************ CONSTRUCTORS *************************
 
@@ -125,6 +129,14 @@ public class InterviewEntity implements Serializable {
 
 	public void setInterviewers(List<UserEntity> interviewers) {
 		this.interviewers = interviewers;
+	}
+
+	public GuideEntity getGuideComplete() {
+		return guideComplete;
+	}
+
+	public void setGuideComplete(GuideEntity guideComplete) {
+		this.guideComplete = guideComplete;
 	}
 
 	@Override

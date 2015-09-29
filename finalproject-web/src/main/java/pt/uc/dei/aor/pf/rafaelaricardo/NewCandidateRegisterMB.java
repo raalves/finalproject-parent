@@ -46,14 +46,15 @@ public class NewCandidateRegisterMB implements Serializable {
 	}
 
 	public String newCandidate(UploadFile cvFile) {
-
+		String fileType = "CV";
+		String userType = "candidate";
 		log.info("Registering new Candidate");
 		System.out.println("regist candidate" + birthdate);
 		if (email
 				.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
 			if (password.equals(repeatPassword)) {
 				if (cvFile != null) {
-					cvPath = cvFile.generatePath(email);
+					cvPath = cvFile.generatePath(email, fileType);
 					System.out.println("cvpath" + cvPath);
 
 					if (applicationMB.addCandidate(firstName, lastName, email,
@@ -70,7 +71,7 @@ public class NewCandidateRegisterMB implements Serializable {
 						return "/pages/public/NewCandidateRegister";
 					} else {
 
-						cvFile.upload(email);
+						cvFile.upload(email, fileType, userType);
 
 						String infoMsg = "Successfully created candidate";
 						log.info(infoMsg);

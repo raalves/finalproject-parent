@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,11 +25,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "guide")
 @NamedQueries({
-	@NamedQuery(name = "GuideEntity.findGuideById", query = "SELECT g FROM GuideEntity g WHERE g.id = :id"),
-	@NamedQuery(name = "GuideEntity.findGuideByAuthor", query = "SELECT g FROM GuideEntity g WHERE g.author = :author"),
-	@NamedQuery(name = "GuideEntity.findGuideByTitle", query = "SELECT g FROM GuideEntity g WHERE g.guideTitle = :guideTitle"),
-	@NamedQuery(name = "GuideEntity.findGuideByDate", query = "SELECT g FROM GuideEntity g WHERE g.guideDate = :guideDate"),
-	@NamedQuery(name = "GuideEntity.findAllByIdOrder", query = "SELECT g FROM GuideEntity g ORDER BY g.id") })
+		@NamedQuery(name = "GuideEntity.findGuideById", query = "SELECT g FROM GuideEntity g WHERE g.id = :id"),
+		@NamedQuery(name = "GuideEntity.findGuideByAuthor", query = "SELECT g FROM GuideEntity g WHERE g.author = :author"),
+		@NamedQuery(name = "GuideEntity.findGuideByTitle", query = "SELECT g FROM GuideEntity g WHERE g.guideTitle = :guideTitle"),
+		@NamedQuery(name = "GuideEntity.findGuideByDate", query = "SELECT g FROM GuideEntity g WHERE g.guideDate = :guideDate"),
+		@NamedQuery(name = "GuideEntity.findAllByIdOrder", query = "SELECT g FROM GuideEntity g ORDER BY g.id") })
 public class GuideEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -59,6 +61,10 @@ public class GuideEntity implements Serializable {
 
 	@OneToMany(mappedBy = "guide", cascade = CascadeType.ALL)
 	private List<PositionEntity> positions = new ArrayList<>();
+
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private InterviewEntity interviewGuide;
 
 	// ************************ CONSTRUCTORS *************************
 
@@ -121,6 +127,14 @@ public class GuideEntity implements Serializable {
 
 	public void setPositions(List<PositionEntity> positions) {
 		this.positions = positions;
+	}
+
+	public InterviewEntity getInterview() {
+		return interviewGuide;
+	}
+
+	public void setInterview(InterviewEntity interviewGuide) {
+		this.interviewGuide = interviewGuide;
 	}
 
 	@Override

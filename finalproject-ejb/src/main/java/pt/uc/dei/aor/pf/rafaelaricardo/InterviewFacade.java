@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
@@ -16,7 +17,7 @@ public interface InterviewFacade {
 
 	public abstract List<InterviewEntity> findInterviewByCandidature(
 			CandidatureEntity candidature);
-	
+
 	public abstract List<InterviewEntity> findInterviewsByCandidatures(
 			List<CandidatureEntity> candidatures);
 
@@ -28,6 +29,12 @@ public interface InterviewFacade {
 	public abstract List<InterviewEntity> findInterviewByUser(UserEntity user);
 
 	public abstract boolean updateFeedbackStatus(InterviewEntity interview,
-			String feedbakc, InterviewStatus status);
+			String feedback, InterviewStatus status);
+
+	public abstract boolean updateGuideCompletePath(InterviewEntity interview,
+			GuideEntity guideComplete);
+
+	public abstract InterviewEntity addInterview(CandidatureEntity candidature,
+			Date interviewDate, InterviewStatus interviewStatus);
 
 }
