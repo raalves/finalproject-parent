@@ -12,15 +12,23 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
-import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
-import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
 @ManagedBean
 @ViewScoped
@@ -30,17 +38,23 @@ public class PositionsMB implements Serializable {
 	private static final Logger log = LoggerFactory
 			.getLogger(PositionsMB.class);
 
+	@PersistenceContext(unitName = "FinalProject")
+	protected EntityManager manager;
+
 	@EJB
 	private PositionFacade positionFacade;
 	@Inject
 	private ApplyMB applyMB;
-	private int id;
+	@Inject
+	private ActiveUserMB activeUserMB;
+
+	private String id;
 	private String title;
 	private String location;
-	private PositionStatus positionStatus;
+	private String positionStatus;
 	private int quantity;
 	private String company;
-	private TechnicalArea technicalArea;
+	private String technicalArea;
 	private DescriptionPosition descriptionPosition;
 	private String desiredQualifications;
 	private String description;
@@ -51,8 +65,10 @@ public class PositionsMB implements Serializable {
 	private Date closingDate;
 	private int sla;
 	private PositionEntity positionSelect;
+	private String searchFree;
 
 	private List<PositionEntity> positions;
+	private List<PositionEntity> openPositions;
 
 	// public PositionsMB() {
 	// // String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
@@ -63,8 +79,65 @@ public class PositionsMB implements Serializable {
 
 	@PostConstruct
 	public void listAllPositions() {
+
+		listOpenPositions();
+
+		if (activeUserMB.getCurrentUser() == null) {
+			try {
+				positions = positionFacade.findAllByOrder();
+			} catch (EJBException e) {
+				String errorMessage = "Error getting positions"
+						+ e.getMessage();
+				log.error(errorMessage);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								errorMessage, null));
+			}
+		} else {
+			List<RoleEntity> roles = activeUserMB.getCurrentUser().getRoles();
+			boolean var = false;
+
+			for (RoleEntity r : roles) {
+				if (r.getRole().equals(Role.ADMIN)) {
+					var = true;
+				}
+			}
+
+			if (var) {
+				try {
+					positions = positionFacade.findAllByOrder();
+				} catch (EJBException e) {
+					String errorMessage = "Error getting positions"
+							+ e.getMessage();
+					log.error(errorMessage);
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									errorMessage, null));
+				}
+			} else {
+				try {
+					positions = positionFacade
+							.findPositionByManager(activeUserMB
+									.getCurrentUser());
+				} catch (EJBException e) {
+					String errorMessage = "Error getting positions"
+							+ e.getMessage();
+					log.error(errorMessage);
+					FacesContext.getCurrentInstance().addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_ERROR,
+									errorMessage, null));
+				}
+			}
+		}
+
+	}
+
+	public void listOpenPositions() {
 		try {
-			positions = positionFacade.findAllByOrder();
+			openPositions = positionFacade.findAllByOrder();
 		} catch (EJBException e) {
 			String errorMessage = "Error getting positions" + e.getMessage();
 			log.error(errorMessage);
@@ -73,7 +146,92 @@ public class PositionsMB implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage,
 							null));
 		}
-		// return null;
+	}
+
+	public void search() {
+
+		openPositions = filterPosition();
+		cleanFields();
+	}
+	
+	public void freeSearch() {
+		openPositions = filterPositionFreeSearch();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<PositionEntity> filterPosition() {
+
+		log.info("Filtering positions");
+		Session session = manager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(PositionEntity.class);
+
+//		if (StringUtils.isNotBlank(openningDate.toString())) {
+//			criteria.add(Restrictions.eq("openningDate", openningDate));
+//		}
+//		if (StringUtils.isNotBlank(closingDate.toString())) {
+//			criteria.add(Restrictions.eq("closingDate", closingDate));
+//		}
+		if (StringUtils.isNotBlank(id)) {
+			criteria.add(Restrictions.eq("id", Long.parseLong(id)));
+		}
+		if (StringUtils.isNotBlank(title)) {
+			criteria.add(Restrictions.ilike("title", title, MatchMode.ANYWHERE));
+		}
+		if (StringUtils.isNotBlank(location)) {
+			criteria.add(Restrictions.ilike("location", location,
+					MatchMode.ANYWHERE));
+		}
+		if (StringUtils.isNotBlank(positionStatus)) {
+			criteria.add(Restrictions.ilike("positionStatus", positionStatus,
+					MatchMode.ANYWHERE));
+		}
+		if (StringUtils.isNotBlank(company)) {
+			criteria.add(Restrictions.ilike("company", company,
+					MatchMode.ANYWHERE));
+		}
+		if (StringUtils.isNotBlank(technicalArea)) {
+			criteria.add(Restrictions.ilike("technicalArea", technicalArea,
+					MatchMode.ANYWHERE));
+		}
+ 
+		return criteria.list();
+//				.addOrder(Order.asc("openningDate")).list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<PositionEntity> filterPositionFreeSearch() {
+
+		log.info("Filtering positions by free search");
+
+		Session session2 = manager.unwrap(Session.class);
+		Criteria criteria2 = session2.createCriteria(PositionEntity.class);
+
+		if (StringUtils.isNotBlank(searchFree)) {
+			criteria2.add(Restrictions
+					.disjunction()
+					.add(Restrictions.ilike("title", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("location", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("positionStatus", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("company", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("technicalArea", searchFree,
+							MatchMode.ANYWHERE)));
+		}
+		return criteria2.addOrder(Order.asc("openningDate")).list();
+	}
+
+	public void cleanFields() {
+		openningDate = null;
+		closingDate = null;
+		id = null;
+		title = null;
+		location = null;
+		positionStatus = null;
+		company = null;
+		technicalArea = null;
 	}
 
 	// public void searchPosition()
@@ -115,11 +273,11 @@ public class PositionsMB implements Serializable {
 		this.location = location;
 	}
 
-	public PositionStatus getPositionStatus() {
+	public String getPositionStatus() {
 		return positionStatus;
 	}
 
-	public void setPositionStatus(PositionStatus positionStatus) {
+	public void setPositionStatus(String positionStatus) {
 		this.positionStatus = positionStatus;
 	}
 
@@ -139,11 +297,11 @@ public class PositionsMB implements Serializable {
 		this.company = company;
 	}
 
-	public TechnicalArea getTechnicalArea() {
+	public String getTechnicalArea() {
 		return technicalArea;
 	}
 
-	public void setTechnicalArea(TechnicalArea technicalArea) {
+	public void setTechnicalArea(String technicalArea) {
 		this.technicalArea = technicalArea;
 	}
 
@@ -227,12 +385,28 @@ public class PositionsMB implements Serializable {
 		return positions;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
+	}
+
+	public List<PositionEntity> getOpenPositions() {
+		return openPositions;
+	}
+
+	public void setOpenPositions(List<PositionEntity> openPositions) {
+		this.openPositions = openPositions;
+	}
+
+	public String getSearchFree() {
+		return searchFree;
+	}
+
+	public void setSearchFree(String searchFree) {
+		this.searchFree = searchFree;
 	}
 
 }

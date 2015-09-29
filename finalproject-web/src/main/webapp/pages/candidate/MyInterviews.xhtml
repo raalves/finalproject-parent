@@ -3,54 +3,124 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form>
-		<p:messages id="messages" showDetail="true" />
+	<h:form id="frm3">
+		<p:messages id="msgMyIntervews" severity="error,warn" closable="true"
+			style="text-align:left" />
+		<p:growl id="growlMyIntervews" sticky="true" severity="info" />
+		<p:outputLabel>
+			<h3>#{candidateMB.activeUser.currentCandidate.firstName}
+				#{candidateMB.activeUser.currentCandidate.lastName} Interviews</h3>
+		</p:outputLabel>
 
-		<p:dataTable id="candMyInterv"
-			value="#{candidateInterviewsBean.interviewsCandidate}" var="myInterv"
+		<p:dataTable id="intervIntervew"
+			value="#{candidateMB.allInterviewsList}" var="interv"
 			style="margin-top:5px" emptyMessage="No records found" rows="15"
 			paginator="true" paginatorAlwaysVisible="false"
-			paginatorPosition="bottom" sortOrder="Id" resizableColumns="true">
+			paginatorPosition="bottom" sortOrder="#{interv.id}">
 
-			<p:column headerText="Id" sortBy="orderById">
-				<p:outputLabel value="12345" />
+			<p:column headerText="Interview Id" sortBy="#{interv.id}">
+				<p:outputLabel value="#{interv.id}" />
 			</p:column>
-			<p:column headerText="Vacancie Title ?">
-				<p:outputLabel value="Java developer JR" />
+			<p:column headerText="Vacancie Title"
+				sortBy="#{interv.candidature.position.title}">
+				<p:outputLabel value="#{interv.candidature.position.title}" />
 			</p:column>
-			<p:column headerText="Date" style="text-align:center">
-				<p:outputLabel value="25/09/2015" />
+			<p:column headerText="Date" style="text-align:center"
+				sortBy="#{interv.interviewDate}">
+				<p:outputLabel value="#{interv.interviewDate}" />
 			</p:column>
-			<p:column headerText="Status">
-				<p:outputLabel value="Schedlud?" />
+			<p:column headerText="Status" sortBy="#{interv.interviewStatus}">
+				<p:outputLabel value="#{interv.interviewStatus}" />
 			</p:column>
-			<p:column headerText="Details" style="text-align:center;width:80px">
-				<p:commandButton icon="ui-icon-help" title="See details"
-					onclick="PF('intervDialog').show();return false">
-					<f:setPropertyActionListener value="#{myInterv}"
-						target="#{candidateInterviewsBean.interviewSelect}"></f:setPropertyActionListener>
+			<p:column headerText="Details" style="text-align:center;width:45px">
+				<p:commandButton icon="ui-icon-search"
+					oncomplete="PF('detailsDialog').show();return false;"
+					update=":tab:frm3:detailsSelectedInterview">
+					<f:setPropertyActionListener value="#{interv}"
+						target="#{interviewerMB.interviewSelect}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
-		<p:dialog header="Interview Details" widgetVar="intervDialog"
-			modal="true" width="900" height="500" resizable="false"
-			closeOnEscape="true" position="center" style="padding:10px;">
-			<p:outputPanel id="intervDialog" style="padding-left:15px">
 
-				<h3>Title</h3>
+		<p:dialog id="detailsSelectedInterview" header="Interview Details"
+			widgetVar="detailsDialog" modal="true" width="700" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel id="candidateDetails"
+				style="padding-left:15px;margin-top:10px">
+				<h3>Interview for the position:
+					#{interviewerMB.interviewSelect.candidature.position.title}</h3>
 
-ver o que por..tabela?
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Interview Id" />
+					<p:outputLabel value="#{interviewerMB.interviewSelect.id}" />
+					<p:outputLabel value="Candidature Id" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.candidature.id}" />
+					<p:outputLabel value="Date" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.interviewDate}" />
+					<p:outputLabel value="Status" />
+					<p:outputLabel
+						value="#{interviewerMB.interviewSelect.interviewStatus}" />
+					<p:outputLabel value="Position Details" />
+					<p:commandButton icon="ui-icon-search"
+						oncomplete="PF('positionDialog').show();return false;"
+						update=":tab:frm3:detailsSelectedPosition">
+						<f:setPropertyActionListener
+							value="#{interviewerMB.interviewSelect.candidature.position}"
+							target="#{positionsMB.positionSelect}" />
+					</p:commandButton>
+				</p:panelGrid>
+			</p:outputPanel>
+			<p:separator />
 
-topicos??
-por detalhes da posiçao?!?!
-<div style="text-align: center">
-
-					<p:button value="Close"
-						onclick="PF('intervDialog').hide();return false;" />
-				</div>
-
+			<p:outputPanel style="text-align:center">
+				<p:commandButton value="Close"
+					onclick="PF('detailsDialog').hide();return false;" />
 			</p:outputPanel>
 		</p:dialog>
 
+		<p:dialog id="detailsSelectedPosition" header="Position Details"
+			widgetVar="positionDialog" modal="true" width="700" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel id="positionDialog" style="padding-left:15px">
+
+				<h3>#{positionsMB.positionSelect.title}</h3>
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Location" />
+					<p:outputLabel value="#{positionsMB.positionSelect.location}" />
+					<p:outputLabel value="Vacancie id" />
+					<p:outputLabel value="#{positionsMB.positionSelect.id}" />
+					<p:outputLabel value="#vacancies" />
+					<p:outputLabel value="#{positionsMB.positionSelect.quantity}" />
+				</p:panelGrid>
+				<div>
+					<h5 style="margin-top: 20px">Details</h5>
+					#{positionsMB.positionSelect.descriptionPosition.description}
+
+					<!-- 					<h:outputLabel -->
+					<!-- 						value="#{positionsMB.positionSelect.descriptionPosition.description}" -->
+					<!-- 						escape="false" style="white-space: pre-wrap; " /> -->
+
+
+					<h5 style="margin-top: 20px">KEY RESPONSIBILITIES</h5>
+					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}
+
+					<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
+
+					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
+				</div>
+				<div style="text-align: center">
+					<p:commandButton value="Close"
+						onclick="PF('positionDialog').hide();return false;" />
+				</div>
+			</p:outputPanel>
+		</p:dialog>
 	</h:form>
 </ui:composition>

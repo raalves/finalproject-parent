@@ -1,0 +1,153 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="frm5">
+		<p:messages id="msgSearchAllPositions" severity="error,warn"
+			closable="true" style="text-align:left" />
+		<p:growl id="growlSearchAllPositions" sticky="true" severity="info" />
+		<p:outputLabel>
+			<h3>Search for positions</h3>
+		</p:outputLabel>
+		<p:button value="Create new position" style="float:right"
+			rendered="#{activeUserMB.createNewPosition}" />
+		<p:panel>
+			<p:panelGrid columns="4" styleClass="ui-noborder"
+				style="width: 100%; margin-top: 20px" columnClasses="label,field"
+				id="searchPositionFields">
+
+				<p:outputLabel value="Openning Date" for="openningDate" />
+				<p:calendar id="openningDate" size="10" pattern="yyyy-MM-dd"
+					mask="true" value="#{positionsMB.openningDate}" />
+
+				<p:outputLabel value="Closing Date" for="closingDate" />
+				<p:calendar id="closingDate" size="10" pattern="yyyy-MM-dd"
+					mask="true" value="#{positionsMB.closingDate}" />
+
+				<p:outputLabel value="Id" for="positionId" />
+				<p:inputText id="positionId" value="#{positionsMB.id}" />
+
+				<p:outputLabel value="Title" for="positionTitle" />
+				<p:inputText id="positionTitle" value="#{positionsMB.title}" />
+
+				<p:outputLabel value="Location" for="positionLocation" />
+				<p:inputText id="positionLocation" value="#{positionsMB.location}" />
+
+				<p:outputLabel value="Status" for="positionStatus" />
+				<p:inputText id="positionStatus"
+					value="#{positionsMB.positionStatus}" />
+
+				<p:outputLabel value="Company" for="positionCompany" />
+				<p:inputText id="positionCompany" value="#{positionsMB.company}" />
+
+				<p:outputLabel value="Technical Area" for="positionTechnicalArea" />
+				<p:inputText id="positionTechnicalArea"
+					value="#{positionsMB.technicalArea}" />
+				<p:spacer />
+				<p:columnGroup>
+					<p:commandButton value="Search" action="#{positionsMB.search()}"
+						update="@form" />
+					<p:commandButton value="Clear" update="searchPositionFields"
+						process="@this">
+						<p:resetInput target="searchPositionFields" />
+					</p:commandButton>
+				</p:columnGroup>
+
+			</p:panelGrid>
+			<p:panelGrid id="freeSearchPositions" columns="2"
+				styleClass="ui-noborder" style=" margin-top: 10px;align:right"
+				columnClasses="label,field">
+				<p>Or do a free search</p>
+				<p:spacer />
+				<p:inputText value="#{positionsMB.searchFree}" />
+				<p:commandButton value="Search" icon="ui-icon-search"
+					action="#{positionsMB.freeSearch()}" update="@form" />
+			</p:panelGrid>
+		</p:panel>
+
+		<p:separator />
+
+		<p:dataTable id="searchResult" style="margin-top:5px"
+			emptyMessage="No records found" rows="15" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom"
+			value="#{positionsMB.openPositions}" var="position"
+			sortOrder="#{position.id}">
+
+			<p:column headerText="Openning Date"
+				sortBy="#{position.openningDate}">
+				<p:outputLabel value="#{position.openningDate}" />
+			</p:column>
+			<p:column headerText="Closing Date" sortBy="#{position.closingDate}">
+				<p:outputLabel value="#{position.closingDate}" />
+			</p:column>
+			<p:column headerText="Id" sortBy="#{position.id}">
+				<p:outputLabel value="#{position.id}" />
+			</p:column>
+			<p:column headerText="Title" sortBy="#{position.title}">
+				<p:outputLabel value="#{position.title}" />
+			</p:column>
+			<p:column headerText="Location">
+				<p:outputLabel value="#{position.location}" />
+			</p:column>
+			<p:column headerText="Status" sortBy="#{position.positionStatus}">
+				<p:outputLabel value="#{position.positionStatus}" />
+			</p:column>
+			<p:column headerText="Company" sortBy="#{position.company}">
+				<p:outputLabel value="#{position.company}" />
+			</p:column>
+			<p:column headerText="Technical Area"
+				sortBy="#{position.technicalArea}">
+				<p:outputLabel value="#{position.technicalArea}" />
+			</p:column>
+
+			<p:column headerText="Details" style="text-align:center;width:100px">
+				<p:commandButton icon="ui-icon-search" title="See details"
+					oncomplete="PF('positionDialog').show();return false;"
+					update=":tab:frm5:detailsSelectedPosition">
+					<f:setPropertyActionListener value="#{position}"
+						target="#{positionsMB.positionSelect}" />
+				</p:commandButton>
+			</p:column>
+
+
+		</p:dataTable>
+
+		<p:dialog id="detailsSelectedPosition" header="Position Details"
+			widgetVar="positionDialog" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel id="positionDialog" style="padding-left:15px">
+
+				<h3>#{positionsMB.positionSelect.title}</h3>
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Location" />
+					<p:outputLabel value="#{positionsMB.positionSelect.location}" />
+					<p:outputLabel value="Vacancie id" />
+					<p:outputLabel value="#{positionsMB.positionSelect.id}" />
+					<p:outputLabel value="#vacancies" />
+					<p:outputLabel value="#{positionsMB.positionSelect.quantity}" />
+				</p:panelGrid>
+				<div>
+					<h5 style="margin-top: 20px">Details</h5>
+					#{positionsMB.positionSelect.descriptionPosition.description}
+
+					<h5 style="margin-top: 20px">KEY RESPONSIBILITIES</h5>
+					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}
+
+					<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
+
+					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
+						AND EXPERIENCE</h5>
+					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
+				</div>
+				<div style="text-align: center">
+					<p:commandButton value="Close"
+						onclick="PF('positionDialog').hide();return false;" />
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+	</h:form>
+</ui:composition>
