@@ -4,20 +4,22 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<div
-		style="float: right; padding: 12px 20px 0px 0px; ">
+	<div style="float: right; padding: 12px 20px 0px 0px;">
 		<p:outputLabel>
 			<h3>interviewer area</h3>
 		</p:outputLabel>
 	</div>
 	<p:tabView id="tab" style="position:inherit">
 		<p:tab id="careers" title="Careers">
-<!-- 			<ui:include src="/pages/public/DescriptionPublic.xhtml" /> -->
-				<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
-		
+			<!-- 			<ui:include src="/pages/public/DescriptionPublic.xhtml" /> -->
+			<ui:include src="/template/commonElements/DescriptionCompany.xhtml" />
+
 		</p:tab>
-		<p:tab id="vac" title="Vacancies" >
-								<ui:include src="/template/commonElements/Positions.xhtml" />
+		<p:tab id="vac" title="Vacancies">
+			<ui:include src="/template/commonElements/Positions.xhtml" />
+		</p:tab>
+		<p:tab id="allVac" title="All Positions">
+			<ui:include src="/template/commonElements/AllPositions.xhtml" />
 		</p:tab>
 		<p:tab id="myIntervInterv" title="Interviews">
 			<ui:include src="/pages/interviewer/MyInterviews.xhtml" />

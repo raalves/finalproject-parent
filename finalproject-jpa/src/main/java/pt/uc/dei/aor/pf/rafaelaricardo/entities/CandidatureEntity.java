@@ -78,7 +78,7 @@ public class CandidatureEntity implements Serializable {
 	@OrderColumn
 	@Column(name = "public_source")
 	@Enumerated(EnumType.STRING)
-	private Collection<Source> publicSource = new ArrayList<Source>();
+	private List<Source> publicSource = new ArrayList<Source>();
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "candidature_date", nullable = false)
@@ -150,11 +150,11 @@ public class CandidatureEntity implements Serializable {
 		this.motivationLetter = motivationLetter;
 	}
 
-	public Collection<Source> getPublicSource() {
+	public List<Source> getPublicSource() {
 		return publicSource;
 	}
 
-	public void setPublicSource(Collection<Source> publicSource) {
+	public void setPublicSource(List<Source> publicSource) {
 		this.publicSource = publicSource;
 	}
 

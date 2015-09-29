@@ -4,8 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<div
-		style="float: right; padding: 12px 20px 0px 0px;">
+	<div style="float: right; padding: 12px 20px 0px 0px;">
 		<p:outputLabel>
 			<h3>Administrator area</h3>
 		</p:outputLabel>
@@ -16,6 +15,9 @@
 		</p:tab>
 		<p:tab id="vac" title="Positions">
 			<ui:include src="/template/commonElements/Positions.xhtml" />
+		</p:tab>
+		<p:tab id="allVac" title="All Positions">
+			<ui:include src="/template/commonElements/AllPositions.xhtml" />
 		</p:tab>
 		<p:tab id="intervAdmin" title="Interviews">
 			<ui:include src="/pages/admin/Interviews.xhtml" />
