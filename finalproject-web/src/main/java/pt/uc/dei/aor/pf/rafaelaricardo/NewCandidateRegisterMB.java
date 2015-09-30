@@ -1,6 +1,5 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
-import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,18 +48,16 @@ public class NewCandidateRegisterMB implements Serializable {
 		String fileType = "CV";
 		String userType = "candidate";
 		log.info("Registering new Candidate");
-		System.out.println("regist candidate" + birthdate);
 		if (email
 				.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
 			if (password.equals(repeatPassword)) {
 				if (cvFile != null) {
 					cvPath = cvFile.generatePath(email, fileType);
-					System.out.println("cvpath" + cvPath);
 
 					if (applicationMB.addCandidate(firstName, lastName, email,
 							password, birthdate, address, city,
-							Long.parseLong(mobilePhone), country, course,
-							school, cvPath, coverLetter) == null) {
+							Long.parseLong(phone), Long.parseLong(mobilePhone),
+							country, course, school, cvPath, coverLetter) == null) {
 						String errorMsg = "This email already exists!";
 						log.error(errorMsg);
 						FacesContext.getCurrentInstance().addMessage(
@@ -76,11 +73,11 @@ public class NewCandidateRegisterMB implements Serializable {
 						String infoMsg = "Successfully created candidate";
 						log.info(infoMsg);
 						FacesContext.getCurrentInstance().addMessage(
-								null,
+								"messagesLoginCand",
 								new FacesMessage(FacesMessage.SEVERITY_INFO,
 										infoMsg, null));
-						// return "history.go(-1)";
-						return "/LoginCandidates";
+						cleanFields();
+						return "/LoginCandidates?faces-redirect=true";
 
 					}
 
@@ -114,22 +111,22 @@ public class NewCandidateRegisterMB implements Serializable {
 		}
 	}
 
-	public void deleteUploadedFile(String filePath) {
-		try {
-
-			System.out.println(filePath + "filePath");
-			String path = System.getProperty("jboss.home.dir")
-					+ "\\ProjFinalUploadedFiles\\" + filePath;
-			File file = new File(path);
-			file.delete();
-
-			System.out.println(file.getName() + " is deleted!");
-		} catch (Exception e) {
-			System.out.println("Delete operation is failed.");
-
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
+	private void cleanFields() {
+		firstName = null;
+		lastName = null;
+		email = null;
+		password = null;
+		repeatPassword = null;
+		birthdate = null;
+		address = null;
+		city = null;
+		country = null;
+		phone = null;
+		mobilePhone = null;
+		course = null;
+		school = null;
+		cvPath = null;
+		coverLetter = null;
 	}
 
 	// Getters and Setters

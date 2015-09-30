@@ -16,8 +16,9 @@ public interface CandidateFacade {
 
 	public abstract CandidateEntity addCandidate(String firstName,
 			String lastName, String email, String password, Date birthdate,
-			String address, String city, Long mobilePhone, String country,
-			String course, String school, String cvPath, String coverLetter);
+			String address, String city, Long phone, Long mobilePhone,
+			String country, String course, String school, String cvPath,
+			String coverLetter);
 
 	public abstract List<CandidateEntity> findCandidateByRole(RoleEntity role);
 
@@ -43,13 +44,10 @@ public interface CandidateFacade {
 
 	public abstract List<CandidateEntity> findCandidateBySchool(String school);
 
-	public abstract void addPhone(CandidateEntity candidate, Long phone);
-
 	public abstract boolean updateCandidatePass(CandidateEntity c,
 			String newPass);
 
 	public abstract boolean updateCandidateProfile(CandidateEntity candidate);
 
-	public abstract boolean updateCandidatePass(CandidateEntity c,
-			String password, String password2);
+	
 }

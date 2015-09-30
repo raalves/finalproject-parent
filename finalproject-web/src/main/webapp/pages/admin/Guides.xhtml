@@ -1,36 +1,39 @@
-<ui:composition xmln="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form>
-
+	<h:form id="frm6">
 		<p:messages id="msgGuides" severity="error,warn" closable="true"
 			style="text-align:left" />
 		<p:growl id="growlGuides" sticky="true" severity="info" />
-		<p:outputLabel style="position:absolute">
+		<p:button value="Create new Guide"
+			onclick="PF('newGuideDialog').show();return false;"
+			style="float:right;" />
+		<p:outputLabel>
 			<h2>All guides</h2>
 		</p:outputLabel>
-		<p:button value="Create new Guide" style="float:right" />
-		<p:panel>
-			<p:dataTable id="searchResult" style="margin-top:5px"
-				emptyMessage="No records found" rows="15" paginator="true"
-				paginatorAlwaysVisible="false" paginatorPosition="bottom"
-				value="#{guidesMB.resultList}" var="guide" sortOrder="#{guide.id}">
-				<p:column headerText="Title" sortBy="#{guide.guideTitle}">
-					<p:outputLabel value="#{guide.guideTitle}"></p:outputLabel>
-				</p:column>
-				<p:column headerText="Date" sortBy="#{guide.guideDate}">
-					<p:outputLabel value="#{guide.guideDate}" />
-				</p:column>
-				<p:column headerText="Download">
+
+		<p:dataTable id="searchGuidesResult" style="margin-top:5px"
+			emptyMessage="No records found" rows="15" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom"
+			value="#{guidesMB.resultList}" var="guide" sortOrder="#{guide.id}">
+			<p:column headerText="Title" sortBy="#{guide.guideTitle}">
+				<p:outputLabel value="#{guide.guideTitle}" />
+			</p:column>
+			<p:column headerText="Date" sortBy="#{guide.guideDate}"
+				style="text-align:center;">
+				<p:outputLabel value="#{guide.guideDate}" />
+			</p:column>
+			<p:column headerText="Download" style="text-align:center;">
 				<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
 					label="Download guide file"
 					actionListener="#{downloadFile.prepare(guide.filePath)}">
 					<p:fileDownload value="#{downloadFile.file}" />
 				</p:commandButton>
-				</p:column>
-				<p:column headerText="Upload New File Guide">
+			</p:column>
+			<p:column headerText="Upload New File Guide"
+				style="text-align:center;">
 				<p:commandButton icon="ui-icon-arrowthick-1-n"
 					label="Upload guide file"
 					oncomplete="PF('uploadDialog').show();return false;"
@@ -38,29 +41,54 @@
 					<f:setPropertyActionListener value="#{guide}"
 						target="#{guidesMB.selectGuide}" />
 				</p:commandButton>
-				</p:column>
-				</p:dataTable>
-				</p:panel>
-				
+			</p:column>
+		</p:dataTable>
+
 	</h:form>
 	<p:dialog id="uploadNewGuide" header="Upload New File Guide"
 		widgetVar="uploadDialog" modal="true" resizable="false"
 		closeOnEscape="true" position="center" style="padding:10px;">
 		<h:form enctype="multipart/form-data">
-		
-		If you upload a new Guide, the previous became ina
-		
-		<p:outputLabel value="Select guide to upload" for="uploadGuide" />
+
+			<h4 style="text-align: center; margin-top: 15px">If you upload a
+				new Guide, the previous file became inaccessible</h4>
+			<p:spacer />
+			<p:panelGrid columns="2" columnClasses="label, value"
+				styleClass="ui-noborder">
+				<p:outputLabel value="Select guide to upload" for="uploadGuide" />
 				<h:inputFile id="uploadGuide" class="buttons"
 					value="#{uploadFile.file}" />
-					<p:outputPanel style="text-align:center;margin-top:20px">
+			</p:panelGrid>
+			<p:outputPanel style="text-align:center;margin-top:20px">
 				<p:commandButton value="Close"
 					onclick="PF('uploadDialog').hide();return false;" />
 				<p:commandButton value="Upload"
-					action="#{guideMB.uploadNewGuide(uploadFile)}"
-					ajax="false" />
+					action="#{guidesMB.uploadNewFileGuide(uploadFile)}" ajax="false" />
 			</p:outputPanel>
 		</h:form>
-		</p:dialog>
-	
+	</p:dialog>
+	<p:dialog id="newGuideCreate" header="Create New  Guide"
+		widgetVar="newGuideDialog" modal="true" resizable="false"
+		closeOnEscape="true" position="center" style="padding:10px;">
+		<h:form enctype="multipart/form-data">
+			<p:panelGrid columns="2" columnClasses="label, value"
+				styleClass="ui-noborder">
+				<p:outputLabel value="Name of the guide" for="guideName"/>
+				<p:inputText id="guideName" value="#{guidesMB.guideName}" rendered="true"
+					requiredMessage="Please insert the title of the guide" />
+				<p:spacer />
+				<p:spacer />
+				<p:outputLabel value="Select guide to upload" for="uploadGuide" />
+				<h:inputFile id="uploadGuide" class="buttons"
+					value="#{uploadFile.file}" />
+			</p:panelGrid>
+			<p:outputPanel style="text-align:center;margin-top:20px">
+				<p:commandButton value="Close"
+					onclick="PF('newGuideDialog').hide();return false;" />
+				<p:commandButton value="Upload"
+					action="#{guidesMB.addGuide(uploadFile)}" ajax="false"
+					update=":tab:frm6:searchGuidesResult" />
+			</p:outputPanel>
+		</h:form>
+	</p:dialog>
 </ui:composition>

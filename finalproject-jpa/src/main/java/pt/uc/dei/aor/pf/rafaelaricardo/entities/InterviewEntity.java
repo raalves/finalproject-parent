@@ -28,13 +28,13 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.InterviewStatus;
 @Entity
 @Table(name = "interview")
 @NamedQueries({
-		@NamedQuery(name = "InterviewEntity.findInterviewById", query = "SELECT i FROM InterviewEntity i WHERE i.id = :id"),
-		@NamedQuery(name = "InterviewEntity.findInterviewByCandidature", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
-		@NamedQuery(name = "InterviewEntity.findInterviewsByCandidatures", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
-		@NamedQuery(name = "InterviewEntity.findInterviewByDate", query = "SELECT i FROM InterviewEntity i WHERE i.interviewDate = :interviewDate"),
-		@NamedQuery(name = "InterviewEntity.findInterviewByStatus", query = "SELECT i FROM InterviewEntity i WHERE i.interviewStatus = :interviewStatus"),
-		@NamedQuery(name = "InterviewEntity.findAllByIdOrder", query = "SELECT i FROM InterviewEntity i ORDER BY i.id"),
-		@NamedQuery(name = "InterviewEntity.findInterviewByUser", query = "SELECT i FROM InterviewEntity i INNER JOIN i.interviewers intvs WHERE intvs = :user") })
+	@NamedQuery(name = "InterviewEntity.findInterviewById", query = "SELECT i FROM InterviewEntity i WHERE i.id = :id"),
+	@NamedQuery(name = "InterviewEntity.findInterviewByCandidature", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
+	@NamedQuery(name = "InterviewEntity.findInterviewsByCandidatures", query = "SELECT i FROM InterviewEntity i WHERE i.candidature = :candidature"),
+	@NamedQuery(name = "InterviewEntity.findInterviewByDate", query = "SELECT i FROM InterviewEntity i WHERE i.interviewDate = :interviewDate"),
+	@NamedQuery(name = "InterviewEntity.findInterviewByStatus", query = "SELECT i FROM InterviewEntity i WHERE i.interviewStatus = :interviewStatus"),
+	@NamedQuery(name = "InterviewEntity.findAllByIdOrder", query = "SELECT i FROM InterviewEntity i ORDER BY i.id"),
+	@NamedQuery(name = "InterviewEntity.findInterviewByUser", query = "SELECT i FROM InterviewEntity i INNER JOIN i.interviewers intvs WHERE intvs = :user") })
 public class InterviewEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -54,8 +54,6 @@ public class InterviewEntity implements Serializable {
 	@Column(name = "interview_date", nullable = false)
 	private Date interviewDate;
 
-	// @NotNull
-	// @NotBlank
 	@Column(name = "interview_status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private InterviewStatus interviewStatus;

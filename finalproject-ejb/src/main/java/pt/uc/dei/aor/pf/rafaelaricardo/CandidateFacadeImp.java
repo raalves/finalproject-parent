@@ -108,16 +108,15 @@ public class CandidateFacadeImp implements CandidateFacade {
 	@Override
 	public CandidateEntity addCandidate(String firstName, String lastName,
 			String email, String password, Date birthdate, String address,
-			String city, Long mobilePhone, String country, String course,
-			String school, String cvPath, String coverLetter) {
+			String city, Long phone, Long mobilePhone, String country,
+			String course, String school, String cvPath, String coverLetter) {
 		log.info("Saving candidate in DB");
 
 		if (candidateDao.findCandidateByEmail(email) == null) {
 			CandidateEntity c = new CandidateEntity(firstName, lastName, email,
 					encryptPass.encrypt(password), birthdate, address, city,
-					mobilePhone, country, course, school, cvPath);
-			// RoleEntity rc = new RoleEntity(Role.CANDIDATE);
-			// roleDao.save(rc);
+					phone, mobilePhone, country, course, school, cvPath);
+
 			if (coverLetter != null) {
 				c.setCoverLetter(coverLetter);
 			}
@@ -130,18 +129,12 @@ public class CandidateFacadeImp implements CandidateFacade {
 	}
 
 	@Override
-	public void addPhone(CandidateEntity candidate, Long phone) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean updateCandidatePass(CandidateEntity c, String newPass) {
 		log.info("Update password from candidate: " + c.getEmail());
 		if (c != null) {
 			c.setPassword(encryptPass.encrypt(newPass));
 			isCandidateWithAllData(c);
-			if(candidateDao.update(c) != null){
+			if (candidateDao.update(c) != null) {
 				return true;
 			}
 		}
@@ -174,69 +167,5 @@ public class CandidateFacadeImp implements CandidateFacade {
 		}
 		return false;
 	}
-
-	@Override
-	public boolean updateCandidatePass(CandidateEntity c, String password,
-			String password2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	// @EJB
-	// private LyricDAO lyrDAO;
-	//
-	// @EJB
-	// private UserDAO userDAO;
-	//
-	// @EJB
-	// private SongDAO songDAO;
-	//
-	// // first time that someone click on Get Lyrics
-	// public Lyric addLyric(String text, Song s) {
-	//
-	// // update song attibute hasLyrics
-	// log.info("Updating song hasLyric to true");
-	// s.setHasLyric(true);
-	// songDAO.update(s);
-	//
-	// log.info("Adding lyric to DB (owner = ADMIN)");
-	// User admin = userDAO.findUserByEmail("admin@admin.com");
-	// Lyric l = new Lyric(text, admin, s);
-	// lyrDAO.save(l);
-	// return l;
-	// }
-	//
-	// // if hasLyrics!!! (to pop-up)
-	// public Lyric getLyricSongUser(User u, Song s) {
-	// log.info("Getting lyric of DB (for a particular user)");
-	// Lyric l = lyrDAO.findLyricByUserAndSong(u, s);
-	// if (l == null) {
-	// User admin = userDAO.findUserByEmail("admin@admin.com");
-	// l = lyrDAO.findLyricByUserAndSong(admin, s);
-	// }
-	//
-	// return l;
-	// }
-	//
-	// // if hasLyrics and already in the pop-up (we know the Lyrics)
-	// public Lyric editLyric(User u, Lyric lyric) {
-	// log.info("Editing lyric of DB (for a particular user)");
-	// User admin = userDAO.findUserByEmail("admin@admin.com");
-	// if (lyric.getOwner().equals(admin)) { // create new lyric
-	// Lyric l = new Lyric(lyric.getLyric(), u, lyric.getMusic());
-	// lyrDAO.save(l);
-	// return l;
-	// } else {
-	// lyrDAO.update(lyric);
-	// return lyric;
-	// }
-	//
-	// }
-	//
-	// public Lyric getLyricById(Long id) {
-	// log.info("Getting lyric of DB by id");
-	// Lyric l = lyrDAO.findLyricById(id);
-	// return l;
-	// }
 
 }

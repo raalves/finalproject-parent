@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -86,13 +88,13 @@ public class Populate implements Serializable {
 				.setFilePath("C:/Program Files/wildfly-8.2.0.Final/wildfly-8.2.0.Final/ProjFinalUploadedFiles/GuideComplete/GeneralData.xlsx");
 		generalGuide.setAuthor(users[0]);
 
-		List<Source> sourcesPos1 = new ArrayList<Source>();
+		Set<Source> sourcesPos1 = new HashSet<Source>();
 		sourcesPos1.add(Source.CRITICAL_SOFTWARE_WEBSITE);
 		sourcesPos1.add(Source.FACEBOOK);
 		sourcesPos1.add(Source.GLASSDOOR);
 		sourcesPos1.add(Source.LINKEDIN);
 
-		List<Location> localPos1 = new ArrayList<Location>();
+		Set<Location> localPos1 = new HashSet<Location>();
 		localPos1.add(Location.COIMBRA);
 		localPos1.add(Location.OPORTO);
 
@@ -147,11 +149,11 @@ public class Populate implements Serializable {
 		generalGuide2.setFilePath("qqcoisa2");
 		generalGuide2.setAuthor(users[0]);
 
-		List<Source> sourcesPos2 = new ArrayList<Source>();
+		Set<Source> sourcesPos2 = new HashSet<Source>();
 		sourcesPos2.add(Source.CRITICAL_SOFTWARE_WEBSITE);
 		sourcesPos2.add(Source.LINKEDIN);
 
-		List<Location> localPos2 = new ArrayList<Location>();
+		Set<Location> localPos2 = new HashSet<Location>();
 		localPos2.add(Location.COIMBRA);
 		localPos2.add(Location.CLIENT);
 		localPos2.add(Location.OPORTO);
@@ -191,8 +193,8 @@ public class Populate implements Serializable {
 		candidate1.setCvPath("qqcoisa");
 		candidate1.setRole(rCAnd);
 
-		List<Source> sourceCand1 = new ArrayList<Source>();
-		sourceCand1.add(sourcesPos1.get(1));
+		Set<Source> sourceCand1 = new HashSet<Source>();
+		sourceCand1.add(Source.FACEBOOK);
 
 		// Candidate2
 		CandidateEntity candidate2 = new CandidateEntity();

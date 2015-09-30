@@ -20,4 +20,7 @@ public interface GuideFacade {
 
 	public abstract GuideEntity addGuide(UserEntity author, String guideTitle,
 			Date guideDate, String filePath);
+
+	public abstract boolean updateFileGuide(GuideEntity guide, String filePath,
+			UserEntity author, Date guideDate);
 }

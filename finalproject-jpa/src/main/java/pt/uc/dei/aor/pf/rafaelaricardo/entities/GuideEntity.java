@@ -43,19 +43,13 @@ public class GuideEntity implements Serializable {
 	@JoinColumn(name = "author_id", nullable = false)
 	private UserEntity author;
 
-	// @NotNull
-	// @NotBlank
 	@Column(name = "guide_title", nullable = false)
 	private String guideTitle;
 
-	// @NotNull
-	// @NotBlank
 	@Temporal(TemporalType.DATE)
 	@Column(name = "guide_date", nullable = false)
 	private Date guideDate;
 
-	// @NotNull
-	// @NotBlank
 	@Column(name = "file_path", nullable = false)
 	private String filePath;
 
@@ -164,8 +158,7 @@ public class GuideEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "GuideEntity [id=" + id + ", author=" + author + ", guideTitle="
-				+ guideTitle + ", guideDate=" + guideDate + "]";
+		return Long.toString(id);
 	}
 
 }

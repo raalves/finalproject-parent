@@ -61,4 +61,21 @@ public class GuideFacadeImp implements GuideFacade {
 		return g;
 	}
 
+	@Override
+	public boolean updateFileGuide(GuideEntity guide, String filePath,
+			UserEntity author, Date guideDate) {
+		log.info("Updating the file guide for guide: " + guide.getGuideTitle());
+		if (guide != null && filePath != null && author != null) {
+			guide.setFilePath(filePath);
+			guide.setAuthor(author);
+			guide.setGuideDate(guideDate);
+			if (guideDAO.update(guide) != null) {
+				return true;
+			}
+
+		}
+
+		return false;
+	}
+
 }

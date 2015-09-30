@@ -52,8 +52,87 @@ public class GuidesMB implements Serializable {
 		}
 	}
 
-	public void uploadNewGuide(UploadFile file) {
+	public void addGuide(UploadFile file) {
+		String fileType = "Guide";
+		String userType = "admin";
+		this.guideDate = new Date();
+		this.guideAuthor = actUserMB.getCurrentUser();
+		log.info("Add new Guide: " + guideName);
+		if (file != null) {
+			guidePath = file.generatePath(guideName, fileType);
 
+			if (guideFacade.addGuide(guideAuthor, guideName, guideDate,
+					guidePath) != null) {
+				file.upload(guideName, fileType, userType);
+				String infoMsg = "Successfully created guide";
+				log.info(infoMsg);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, infoMsg,
+								null));
+				cleanFields();
+				listAllGuides();
+			} else {
+				String errorMsg = "Error adding Guide";
+				log.error(errorMsg);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+								null));
+			}
+		} else {
+			String errorMsg = "Please choose a guide for upload!";
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+		}
+	}
+
+	public void uploadNewFileGuide(UploadFile file) {
+		log.info("Upload new file for guide: " + selectGuide.getGuideTitle());
+		this.guideDate = new Date();
+		this.guideAuthor = actUserMB.getCurrentUser();
+		String fileType = "Guide";
+		String userType = "admin";
+		if (file != null) {
+			String guidePath = file.generatePath(selectGuide.getGuideTitle(),
+					fileType);
+			if (guideFacade.updateFileGuide(selectGuide, guidePath,
+					guideAuthor, guideDate)) {
+				file.upload(selectGuide.getGuideTitle(), fileType, userType);
+				String msg = "File guide update";
+				log.info(msg);
+				FacesContext.getCurrentInstance()
+						.addMessage(
+								null,
+								new FacesMessage(FacesMessage.SEVERITY_INFO,
+										msg, null));
+
+			} else {
+				String errorMsg = "An error ocurred when updating file guide.";
+				log.error(errorMsg);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+								null));
+			}
+		} else {
+			String errorMsg = "Error uploading the new guide file!";
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+		}
+	}
+
+	public void cleanFields() {
+		guideAuthor = null;
+		guideDate = null;
+		guideName = null;
+		guidePath = null;
 	}
 
 	// Getters and Setters

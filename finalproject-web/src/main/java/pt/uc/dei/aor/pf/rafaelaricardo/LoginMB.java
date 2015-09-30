@@ -128,6 +128,8 @@ public class LoginMB implements Serializable {
 	public String doLogout() {
 		System.out.println("dologout");
 		actUser.hideTabs();
+		email = null;
+
 		return "/Home.xhtml?faces-redirect=true";
 	}
 

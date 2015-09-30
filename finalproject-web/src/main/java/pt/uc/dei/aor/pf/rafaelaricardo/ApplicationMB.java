@@ -3,7 +3,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -81,7 +81,7 @@ public class ApplicationMB implements Serializable {
 	public CandidatureEntity addCandidature(CandidateEntity candLog,
 			PositionEntity positionSelect, String cvPath,
 			String motivationLetter, Date candidatureDate,
-			List<Source> sourcesSelect) {
+			Set<Source> sourcesSelect) {
 
 		try {
 			CandidatureEntity cand = candidatureFacade.addCandidature(candLog,
@@ -103,12 +103,12 @@ public class ApplicationMB implements Serializable {
 
 	public CandidateEntity addCandidate(String firstName, String lastName,
 			String email, String password, Date birthdate, String address,
-			String city, Long mobilePhone, String country, String course,
-			String school, String cvPath, String coverLetter) {
+			String city, Long phone, Long mobilePhone, String country,
+			String course, String school, String cvPath, String coverLetter) {
 
 		try {
 			CandidateEntity c = candidateFacade.addCandidate(firstName,
-					lastName, email, password, birthdate, address, city,
+					lastName, email, password, birthdate, address, city, phone,
 					mobilePhone, country, course, school, cvPath, coverLetter);
 			return c;
 		} catch (EJBException e) {
@@ -121,56 +121,6 @@ public class ApplicationMB implements Serializable {
 			return null;
 		}
 
-	}
-
-	public void addCandidatePhone(CandidateEntity candidate, Long phone) {
-		try {
-			candidateFacade.addPhone(candidate, phone);
-		} catch (EJBException e) {
-			String errorMsg = "Error adding phone candidate";
-			log.error(errorMsg);
-			FacesContext.getCurrentInstance().addMessage(
-					"msgNewCand",
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
-							null));
-
-		}
-	}
-
-	public void updatePassCandidate(ActiveUserMB actCandidate) {
-		CandidateEntity c = actCandidate.getCurrentCandidate();
-		log.info("Updating password for candidate "
-				+ actCandidate.getCurrentCandidate().getEmail());
-
-		if (password.equals(repeatPassword)) {
-			if (candidateFacade.updateCandidatePass(c, actCandidate
-					.getCurrentCandidate().getPassword(), password)) {
-				String msg = "Candidate password update";
-				log.info(msg);
-				FacesContext.getCurrentInstance()
-						.addMessage(
-								null,
-								new FacesMessage(FacesMessage.SEVERITY_INFO,
-										msg, null));
-
-			} else {
-				String errorMsg = "Wrong old password.";
-				log.error(errorMsg);
-				FacesContext.getCurrentInstance().addMessage(
-						null,
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
-								null));
-
-			}
-		} else {
-			String errorMsg = "Passwords don't match.";
-			log.error(errorMsg);
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
-							null));
-
-		}
 	}
 
 	public UserEntity findUserByEmail(String email) {
@@ -191,7 +141,6 @@ public class ApplicationMB implements Serializable {
 	public CandidateEntity findCandidateByEmail(String email) {
 		System.out.println("find candidate by email");
 		try {
-			// return userFacade.findUserByEmail(email);
 			return candidateFacade.findCandidateByEmail(email);
 		} catch (EJBException e) {
 			String errorMsg = "Error finding user by email: " + e.getMessage();
