@@ -19,16 +19,18 @@
 			paginatorAlwaysVisible="false" paginatorPosition="bottom"
 			sortOrder="#{candidature.id}">
 
-			<p:column headerText="Candidature Id">
+			<p:column headerText="Candidature Id" sortBy="#{candidature.id}">
 				<p:outputLabel value="#{candidature.id}" />
 			</p:column>
-			<p:column headerText="Vacancie Title">
+			<p:column headerText="Vacancie Title"
+				sortBy="#{candidature.position.title}">
 				<p:outputLabel value="#{candidature.position.title}" />
 			</p:column>
 			<p:column headerText="Location" style="text-align:center">
 				<p:outputLabel value="#{candidature.position.location}" />
 			</p:column>
-			<p:column headerText="Status">
+			<p:column headerText="Status"
+				sortBy="#{candidature.candidatureStatus}">
 				<p:outputLabel value="#{candidature.candidatureStatus}" />
 			</p:column>
 			<p:column headerText="Details" style="text-align:center;width:80px">

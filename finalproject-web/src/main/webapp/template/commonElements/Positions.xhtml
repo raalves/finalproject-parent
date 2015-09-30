@@ -31,6 +31,10 @@
 			<p:column headerText="Location" style="text-align:right">
 				<p:outputLabel value="#{position.location}" />
 			</p:column>
+			<p:column headerText="Status" style="text-align:center"
+				sortBy="#{position.positionStatus}">
+				<p:outputLabel value="#{position.positionStatus}" />
+			</p:column>
 			<p:column headerText="Details" style="text-align:center;width:100px">
 				<p:commandButton icon="ui-icon-search"
 					oncomplete="PF('positionDialog').show();return false;"

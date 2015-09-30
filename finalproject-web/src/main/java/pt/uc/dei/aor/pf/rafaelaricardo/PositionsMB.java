@@ -1,6 +1,7 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 
@@ -67,8 +69,10 @@ public class PositionsMB implements Serializable {
 	private PositionEntity positionSelect;
 	private String searchFree;
 
-	private List<PositionEntity> positions;
-	private List<PositionEntity> openPositions;
+	private List<PositionEntity> positions = new ArrayList<PositionEntity>();
+	private List<PositionEntity> openPositions = new ArrayList<PositionEntity>();
+	private List<PositionEntity> allPositions = new ArrayList<PositionEntity>();
+	private List<PositionEntity> associatePositions = new ArrayList<PositionEntity>();
 
 	// public PositionsMB() {
 	// // String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
@@ -78,11 +82,15 @@ public class PositionsMB implements Serializable {
 	// }
 
 	@PostConstruct
-	public void listAllPositions() {
+	public void listPositions() {
+
+		log.info("Listing positions");
 
 		listOpenPositions();
+		listAllPositions();
 
 		if (activeUserMB.getCurrentUser() == null) {
+			log.info("Candidate positions");
 			try {
 				positions = positionFacade.findAllByOrder();
 			} catch (EJBException e) {
@@ -95,6 +103,7 @@ public class PositionsMB implements Serializable {
 								errorMessage, null));
 			}
 		} else {
+			log.info("User positions");
 			List<RoleEntity> roles = activeUserMB.getCurrentUser().getRoles();
 			boolean var = false;
 
@@ -105,8 +114,11 @@ public class PositionsMB implements Serializable {
 			}
 
 			if (var) {
+				log.info("Admin positions");
 				try {
 					positions = positionFacade.findAllByOrder();
+					associatePositions = positionFacade
+							.findPositionByPositionStatus(PositionStatus.OPEN);
 				} catch (EJBException e) {
 					String errorMessage = "Error getting positions"
 							+ e.getMessage();
@@ -117,10 +129,20 @@ public class PositionsMB implements Serializable {
 									errorMessage, null));
 				}
 			} else {
+				log.info("Manager positions");
 				try {
 					positions = positionFacade
 							.findPositionByManager(activeUserMB
 									.getCurrentUser());
+
+					List<PositionEntity> managedPositions = positions;
+
+					for (PositionEntity p : managedPositions) {
+						if (p.getPositionStatus().equals(PositionStatus.OPEN)) {
+							associatePositions.add(p);
+						}
+					}
+
 				} catch (EJBException e) {
 					String errorMessage = "Error getting positions"
 							+ e.getMessage();
@@ -136,8 +158,24 @@ public class PositionsMB implements Serializable {
 	}
 
 	public void listOpenPositions() {
+		log.info("Listing open positions");
 		try {
-			openPositions = positionFacade.findAllByOrder();
+			openPositions = positionFacade
+					.findPositionByPositionStatus(PositionStatus.OPEN);
+		} catch (EJBException e) {
+			String errorMessage = "Error getting positions" + e.getMessage();
+			log.error(errorMessage);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage,
+							null));
+		}
+	}
+
+	public void listAllPositions() {
+		log.info("listing all positions");
+		try {
+			allPositions = positionFacade.findAllByOrder();
 		} catch (EJBException e) {
 			String errorMessage = "Error getting positions" + e.getMessage();
 			log.error(errorMessage);
@@ -149,13 +187,14 @@ public class PositionsMB implements Serializable {
 	}
 
 	public void search() {
-
-		openPositions = filterPosition();
+		log.info("Searching positions");
+		allPositions = filterPosition();
 		cleanFields();
 	}
-	
+
 	public void freeSearch() {
-		openPositions = filterPositionFreeSearch();
+		log.info("Free searching positions");
+		allPositions = filterPositionFreeSearch();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -165,12 +204,12 @@ public class PositionsMB implements Serializable {
 		Session session = manager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(PositionEntity.class);
 
-//		if (StringUtils.isNotBlank(openningDate.toString())) {
-//			criteria.add(Restrictions.eq("openningDate", openningDate));
-//		}
-//		if (StringUtils.isNotBlank(closingDate.toString())) {
-//			criteria.add(Restrictions.eq("closingDate", closingDate));
-//		}
+		// if (StringUtils.isNotBlank(openningDate.toString())) {
+		// criteria.add(Restrictions.eq("openningDate", openningDate));
+		// }
+		// if (StringUtils.isNotBlank(closingDate.toString())) {
+		// criteria.add(Restrictions.eq("closingDate", closingDate));
+		// }
 		if (StringUtils.isNotBlank(id)) {
 			criteria.add(Restrictions.eq("id", Long.parseLong(id)));
 		}
@@ -193,9 +232,8 @@ public class PositionsMB implements Serializable {
 			criteria.add(Restrictions.ilike("technicalArea", technicalArea,
 					MatchMode.ANYWHERE));
 		}
- 
-		return criteria.list();
-//				.addOrder(Order.asc("openningDate")).list();
+
+		return criteria.addOrder(Order.asc("openningDate")).list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -224,6 +262,8 @@ public class PositionsMB implements Serializable {
 	}
 
 	public void cleanFields() {
+		log.info("Cleaning fields");
+
 		openningDate = null;
 		closingDate = null;
 		id = null;
@@ -233,8 +273,6 @@ public class PositionsMB implements Serializable {
 		company = null;
 		technicalArea = null;
 	}
-
-	// public void searchPosition()
 
 	// Getters and Setters
 	public PositionEntity getPositionSelect() {
@@ -407,6 +445,22 @@ public class PositionsMB implements Serializable {
 
 	public void setSearchFree(String searchFree) {
 		this.searchFree = searchFree;
+	}
+
+	public List<PositionEntity> getAllPositions() {
+		return allPositions;
+	}
+
+	public void setAllPositions(List<PositionEntity> allPositions) {
+		this.allPositions = allPositions;
+	}
+
+	public List<PositionEntity> getAssociatePositions() {
+		return associatePositions;
+	}
+
+	public void setAssociatePositions(List<PositionEntity> associatePositions) {
+		this.associatePositions = associatePositions;
 	}
 
 }

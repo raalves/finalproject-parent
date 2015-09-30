@@ -178,7 +178,7 @@
 			<p:dataTable id="searchAllPositions" style="margin-top:5px"
 				emptyMessage="No records found" rows="15" paginator="true"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom"
-				value="#{positionsMB.positions}" var="position"
+				value="#{positionsMB.associatePositions}" var="position"
 				sortOrder="#{position.id}"
 				selection="#{searchCandidaturesMB.selectedPositions}"
 				rowKey="#{position.id}">
