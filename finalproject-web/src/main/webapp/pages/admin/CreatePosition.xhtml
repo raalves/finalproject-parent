@@ -1,0 +1,139 @@
+<ui:composition template="/template/commonLayout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h:form id="formNewPosition">
+			<p:messages id="msgNewPosition" severity="error,warn" closable="true"
+				style="text-align:left" autoUpdate="true" />
+			<p:growl id="growlNewPosition" sticky="true" severity="info" />
+			<p:panel>
+				<p:outputLabel>
+					<h2>Create new position area</h2>
+				</p:outputLabel>
+
+				<p:panelGrid columns="2" style="margin-top:20px;"
+					columnClasses="label,field" styleClass="ui-noborder"
+					id="createNewPosition">
+
+					<p:outputLabel value="Title" for="title" />
+					<p:inputText id="title" size="80" value="#{adminMB.title}"
+						required="true" requiredMessage="Please fill in the Title field!" />
+
+					<p:outputLabel value="Technical Area" for="technicalArea" />
+					<p:selectOneMenu id="technicalArea"
+						value="#{adminMB.technicalArea}" panelStyle="width:500px"
+						effect="fade" var="t" style="width:500px" label="width:500px"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItems value="#{adminMB.technicalAreas}"
+							var="technicalArea" itemLabel="#{technicalArea}"
+							itemValue="#{technicalArea}" />
+						<p:column>
+							<h:outputText value="#{t}" />
+						</p:column>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Description" for="description" />
+					<p:editor id="description" required="true"
+						requiredMessage="Please fill in the Description field!"
+						value="#{adminMB.description}" width="500" />
+
+					<p:outputLabel value="Desired Qualifications"
+						for="desiredQualifications" />
+					<p:editor id="desiredQualifications" required="true"
+						requiredMessage="Please fill in the Desired Qualifications field!"
+						value="#{adminMB.desiredQualifications}" width="500" />
+
+					<p:outputLabel value="Key Responsabilities"
+						for="keyResponsabilities" />
+					<p:editor id="keyResponsabilities" required="true"
+						requiredMessage="Please fill in the Key Responsabilities field!"
+						value="#{adminMB.keyResponsabilities}" width="500" />
+
+					<p:outputLabel value="Required Qualifications"
+						for="requiredQualifications" />
+					<p:editor id="requiredQualifications" required="true"
+						requiredMessage="Please fill in the Required Qualifications field!"
+						value="#{adminMB.requiredQualifications}" width="500" />
+
+					<p:outputLabel value="Company" for="company" />
+					<p:inputText id="company" size="80" value="#{adminMB.company}"
+						required="true"
+						requiredMessage="Please fill in the Company field!" />
+
+					<p:outputLabel value="Location" for="location" />
+					<p:selectManyCheckbox id="location"
+						value="#{adminMB.selectedLocation}" layout="grid" columns="4"
+						required="true"
+						requiredMessage="Please select at least one checkbox!">
+						<f:selectItems value="#{adminMB.locations}" var="location"
+							itemLabel="#{location}" itemValue="#{location}" />
+					</p:selectManyCheckbox>
+
+					<p:outputLabel value="Quantity #" for="quantity" />
+					<p:spinner id="quantity" value="#{adminMB.quantity}" min="1"
+						max="10" required="true"
+						requiredMessage="Please fill in the Quantity field!" />
+
+					<p:outputLabel value="Closing Date" for="closingDate" />
+					<p:calendar id="closingDate" pattern="yyyy-MM-dd" mask="true"
+						value="#{adminMB.closingDate}" required="true"
+						requiredMessage="Please fill in the Closing Date field!" />
+
+					<p:outputLabel value="SLA (days)" for="sla" />
+					<p:spinner id="sla" value="#{adminMB.sla}" min="1" max="300"
+						required="true" requiredMessage="Please fill in the SLA field!" />
+
+					<p:outputLabel value="Responsible Manager" for="manager" />
+					<p:selectOneMenu id="manager" value="#{adminMB.manager}"
+						panelStyle="width:500px" effect="fade" var="t" style="width:500px"
+						label="width:500px" filter="true" filterMatchMode="startsWith">
+						<f:selectItems value="#{adminMB.allManagers}" var="manager"
+							itemLabel="#{manager.firstName} #{manager.lastName} - #{manager.email}"
+							itemValue="#{manager}" />
+						<p:column>
+							<h:outputText value="#{t.firstName} #{t.lastName} - #{t.email}" />
+						</p:column>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Guide" for="guide" />
+					<p:selectOneMenu id="guide" value="#{adminMB.guide}"
+						panelStyle="width:500px" effect="fade" var="t" style="width:500px"
+						label="width:500px" filter="true" filterMatchMode="startsWith">
+						<f:selectItems value="#{adminMB.allGuides}" var="guide"
+							itemLabel="#{guide.guideTitle} - #{guide.guideDate} - #{guide.author.firstName} #{guide.author.lastName}"
+							itemValue="#{guide}" />
+						<p:column>
+							<h:outputText
+								value="#{t.guideTitle} - #{t.guideDate} - #{t.author.firstName} #{t.author.lastName}" />
+						</p:column>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Public Source" for="source" />
+					<p:selectManyCheckbox id="source" value="#{adminMB.selectedSource}"
+						layout="grid" columns="4" required="true"
+						requiredMessage="Please select at least one checkbox!">
+						<f:selectItems value="#{adminMB.sources}" var="source"
+							itemLabel="#{source}" itemValue="#{source}" />
+					</p:selectManyCheckbox>
+
+					<p:spacer />
+
+					<p:columnGroup>
+						<p:commandButton value="Cancel" onclick="history.go(-1)" />
+						<p:commandButton value="Clear" update="formNewPosition"
+							process="@this">
+							<p:resetInput target="formNewPosition" />
+						</p:commandButton>
+						<p:commandButton value="Create new Position"
+							action="#{adminMB.createNewPosition()}" ajax="false" />
+					</p:columnGroup>
+
+				</p:panelGrid>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -9,7 +9,8 @@
 		<p:growl id="growlPosiitions" sticky="true" severity="info" />
 
 		<p:button value="Create new position" style="float:right"
-			rendered="#{activeUserMB.createNewPosition}" />
+			rendered="#{activeUserMB.createNewPosition}"
+			outcome="/pages/admin/CreatePosition.xhtml" />
 
 		<p:button value="Spontaneous Candidature"
 			outcome="/pages/public/SpontaneousCandidature.xhtml"

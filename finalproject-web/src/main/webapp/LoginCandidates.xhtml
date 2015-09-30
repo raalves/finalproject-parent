@@ -7,7 +7,9 @@
 	<ui:define name="content">
 		<div id="loginPage" style="text-align: -webkit-center !important;">
 			<h:form>
-				<p:messages id="messagesLoginCand" closable="true" severity="error,warn" autoUpdate="true"/>
+				<p:messages id="messagesLoginCand" closable="true"
+					severity="error,warn,info" autoUpdate="true"
+					for="messagesLoginCand" />
 				<p:panel>
 					<p:outputLabel>
 						<h2>Login candidate area</h2>
@@ -18,11 +20,11 @@
 						<p:outputLabel value="Username" />
 						<p:inputText value="#{loginMB.email}" required="true"
 							requiredMessage="Please insert an email" id="email" />
-						
+
 						<p:outputLabel value="Password" />
 						<p:password value="#{loginMB.password}" required="true"
 							requiredMessage="Please insert a password" id="password" />
-						
+
 						<p:commandButton value="login" ajax="false"
 							action="#{loginMB.loginCandidates()}" />
 					</p:panelGrid>

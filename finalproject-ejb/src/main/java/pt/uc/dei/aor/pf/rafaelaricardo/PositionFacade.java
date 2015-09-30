@@ -1,8 +1,10 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
@@ -49,4 +51,11 @@ public interface PositionFacade {
 	public abstract List<PositionEntity> findPositionBySLA(int sla);
 
 	public abstract List<PositionEntity> findAllByOrder();
+
+	public abstract PositionEntity addPosition(UserEntity adminCreator,
+			UserEntity manager, GuideEntity guide, String title,
+			List<Location> location, int quantity, String company,
+			TechnicalArea technicalArea, DescriptionPosition description,
+			ArrayList<Source> source, Date openningDate, Date closingDate,
+			int sla);
 }

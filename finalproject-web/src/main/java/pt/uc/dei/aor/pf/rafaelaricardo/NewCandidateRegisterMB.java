@@ -76,12 +76,13 @@ public class NewCandidateRegisterMB implements Serializable {
 						String infoMsg = "Successfully created candidate";
 						log.info(infoMsg);
 						FacesContext.getCurrentInstance().addMessage(
-								null,
+								"messagesLoginCand",
 								new FacesMessage(FacesMessage.SEVERITY_INFO,
 										infoMsg, null));
-						// return "history.go(-1)";
-						return "/LoginCandidates";
 
+						cleanFields();
+						// return "history.go(-1)";
+						return "/LoginCandidates?faces-redirect=true";
 					}
 
 				} else {
@@ -130,6 +131,24 @@ public class NewCandidateRegisterMB implements Serializable {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public void cleanFields() {
+		firstName = null;
+		lastName = null;
+		email = null;
+		password = null;
+		repeatPassword = null;
+		birthdate = null;
+		address = null;
+		city = null;
+		country = null;
+		phone = null;
+		mobilePhone = null;
+		course = null;
+		school = null;
+		cvPath = null;
+		coverLetter = null;
 	}
 
 	// Getters and Setters

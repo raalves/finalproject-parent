@@ -126,7 +126,7 @@ public class NewUserRegisterMB implements Serializable {
 	public List<Role> getRoles() {
 		List<Role> newR = new ArrayList<Role>();
 		for (Role r : Role.values()) {
-			if (!r.equals("CANDIDATE")) {
+			if (!r.equals(Role.CANDIDATE)) {
 				newR.add(r);
 			}
 		}

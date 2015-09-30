@@ -1,5 +1,6 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.dao.PositionDAO;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
@@ -120,4 +122,24 @@ public class PositionFacadeImp implements PositionFacade {
 		return positionDAO.findAllByOrder();
 	}
 
+	@Override
+	public PositionEntity addPosition(UserEntity adminCreator,
+			UserEntity manager, GuideEntity guide, String title,
+			List<Location> location,
+			int quantity, String company, TechnicalArea technicalArea,
+			DescriptionPosition description, ArrayList<Source> source,
+			Date openningDate, Date closingDate, int sla) {
+		
+		log.info("Saving position in DB");
+
+		PositionEntity p = new PositionEntity(title, location, PositionStatus.OPEN,
+				quantity, company, technicalArea, description, source,
+				openningDate, closingDate, sla);
+		p.setAdminCreator(adminCreator);
+		p.setManager(manager);
+		p.setGuide(guide);
+		positionDAO.save(p);
+
+		return p;
+	}
 }

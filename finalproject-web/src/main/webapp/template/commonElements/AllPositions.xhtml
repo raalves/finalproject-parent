@@ -11,7 +11,9 @@
 			<h3>Search for positions</h3>
 		</p:outputLabel>
 		<p:button value="Create new position" style="float:right"
-			rendered="#{activeUserMB.createNewPosition}" />
+			rendered="#{activeUserMB.createNewPosition}"
+			outcome="/pages/admin/CreatePosition.xhtml" />
+
 		<p:panel>
 			<p:panelGrid columns="4" styleClass="ui-noborder"
 				style="width: 100%; margin-top: 20px" columnClasses="label,field"
