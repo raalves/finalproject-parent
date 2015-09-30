@@ -4,15 +4,15 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Named
+@ManagedBean
 @RequestScoped
 public class DownloadFile implements Serializable {
 
@@ -40,33 +40,23 @@ public class DownloadFile implements Serializable {
 
 	}
 
-	// public void prepareFile(String path, String downloadName) {
-	// this.path = path;
-	// this.downloadName = downloadName;
-	//
-	// System.out.println(path);
-	// System.out.println(" mm " + mimeType + " down " + downloadName);
-	// }
+	public void prepare(String path) {
 
-	public DownloadFile(String downloadName, String path) {
-		this.downloadName = downloadName;
 		this.path = path;
 		this.mimeType = generateMimeType(this.path);
-		log.info("Downloading: " + downloadName);
+		this.downloadName = "Guide.xlsx";
+
 		try {
-			// System.out.println(file.getName());
-			System.out.println(" mm " + mimeType + " down " + downloadName);
+			log.info("Downloading file: " + downloadName);
 			InputStream stream = new FileInputStream(this.path);
+
 			file = new DefaultStreamedContent(stream, this.mimeType,
 					this.downloadName);
-			System.out.println(file.getName());
-			System.out.println(stream.toString() + " mm " + mimeType + " down "
-					+ downloadName);
+
 		} catch (Exception e) {
 			log.error("File not found: " + e.getMessage());
 			e.printStackTrace();
 		}
-
 	}
 
 	public StreamedContent getFile() {

@@ -3,22 +3,6 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<p:dialog modal="true" widgetVar="statusDialog" header="Status"
-		draggable="false" closable="false" resizable="false">
-		<h:graphicImage
-			value="/finalproject-web/src/main/webapp/resources/images/ajaxloadingbar.gif" />
-
-
-	</p:dialog>
-	<script type="text/javascript">
-function start() {
-    PF('statusDialog').show();
-}
- 
-function stop() {
-    PF('statusDialog').hide();
-}
-</script>
 
 	<h:form id="frm3" enctype="multipart/form-data">
 		<p:messages id="msgMyIntervews" severity="error,warn" closable="true"
@@ -61,22 +45,19 @@ function stop() {
 			</p:column>
 			<p:column headerText="Guide" style="text-align:center;width:80px">
 				<p:commandButton icon="ui-icon-arrowthick-1-s"
-					label="Download guide file" ajax="false"
-					actionListener="#{interviewerMB.downloadGuide(interview)}"
-					onclick="PrimeFaces.monitorDownload(start, stop);">
-
-					<p:fileDownload value="#{downloadFile.file}" />
-				</p:commandButton>
-				<p:commandButton icon="ui-icon-arrowthick-1-n"
-					label="Upload guide file"
-					oncomplete="PF('uploadDialog').show();return false;"
-					update=":tab:uploadGuideComplete">
-					<f:setPropertyActionListener value="#{interview}"
-						target="#{interviewerMB.interviewSelect}" />
-				</p:commandButton>
+					ajax="false" label="Download guide file"
+					actionListener="#{downloadFile.prepare(interview.candidature.position.guide.filePath)}">
+						<p:fileDownload value="#{downloadFile.file}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-arrowthick-1-n"
+						label="Upload guide file"
+						oncomplete="PF('uploadDialog').show();return false;"
+						update=":tab:uploadGuideComplete">
+						<f:setPropertyActionListener value="#{interview}"
+							target="#{interviewerMB.interviewSelect}" />
+					</p:commandButton>
 			</p:column>
 		</p:dataTable>
-
 		<p:dialog id="feedbackInterview" header="Insert feedback"
 			widgetVar="feedbackDialog" modal="true" width="900" height="500"
 			resizable="false" closeOnEscape="true" position="center"
@@ -187,21 +168,23 @@ function stop() {
 		style="padding:10px;">
 		<h:form enctype="multipart/form-data">
 			<h3>Upload Guide complete</h3>
-			<h4>Position title:
-				"#{interviewerMB.interviewSelect.candidature.position.title}"</h4>
-			<h4>Candidate Name:
+			<p:outputPanel style="text-align:center">
+				<h2>Position title:</h2>
+				"#{interviewerMB.interviewSelect.candidature.position.title}"
+				<h2>Candidate Name:</h2>
 				"#{interviewerMB.interviewSelect.candidature.candidate.firstName}
-				#{interviewerMB.interviewSelect.candidature.candidate.lastName}"</h4>
+				#{interviewerMB.interviewSelect.candidature.candidate.lastName}"
 			<p:outputLabel value="Select guide to upload" for="uploadGuide" />
-			<h:inputFile id="uploadGuide" class="buttons"
-				value="#{uploadFile.file}" />
-			<p:commandButton value="Close"
-				onclick="PF('uploadDialog').hide();return false;" />
-			<p:commandButton value="Upload"
-				action="#{interviewerMB.uploadGuideComplete(uploadFile)}"
-				ajax="false" />
+				<h:inputFile id="uploadGuide" class="buttons"
+					value="#{uploadFile.file}" />
+			</p:outputPanel>
+			<p:outputPanel style="text-align:center">
+				<p:commandButton value="Close"
+					onclick="PF('uploadDialog').hide();return false;" />
+				<p:commandButton value="Upload"
+					action="#{interviewerMB.uploadGuideComplete(uploadFile)}"
+					ajax="false" />
+			</p:outputPanel>
 		</h:form>
 	</p:dialog>
-
-
 </ui:composition>

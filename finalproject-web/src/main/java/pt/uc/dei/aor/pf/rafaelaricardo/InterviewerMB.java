@@ -35,8 +35,7 @@ public class InterviewerMB implements Serializable {
 	private InterviewFacade interviewFacade;
 	@EJB
 	private UserFacade userFacade;
-	// @Inject
-	// private DownloadFile downloadFile;
+	
 	@EJB
 	private GuideFacade guideFacade;
 	private DownloadFile dwnlFile;
@@ -46,6 +45,8 @@ public class InterviewerMB implements Serializable {
 	private InterviewEntity interviewSelect;
 	private String feedback;
 	private InterviewStatus statusSelect;
+	private String downloadName;
+	private String path;
 
 	@PostConstruct
 	public void listMyInterviewers() {
@@ -66,23 +67,19 @@ public class InterviewerMB implements Serializable {
 		}
 	}
 
-	public String downloadGuide(InterviewEntity interviewSelect) {
+	public void downloadGuide(InterviewEntity interviewSelect) {
 		this.interviewSelect = interviewSelect;
-		String downloadName = "Guide Complete_"
+		this.downloadName = "Guide Complete_"
 				+ this.interviewSelect.getCandidature().getCandidate()
 						.getFirstName()
 				+ this.interviewSelect.getCandidature().getCandidate()
 						.getLastName() + ".xlsx";
-		String path = interviewSelect.getCandidature().getPosition().getGuide()
+		this.path = interviewSelect.getCandidature().getPosition().getGuide()
 				.getFilePath();
-		dwnlFile = new DownloadFile(downloadName, path);
-
-		// downloadFile.prepareFile(path, downloadName);
-		return null;
-	}
+		 System.out.println(downloadName+" "+path);
+		 	}
 
 	public void uploadGuideComplete(UploadFile file) {
-		System.out.println(interviewSelect);
 		log.info("Uploading guide complete for interview of the candidate: "
 				+ interviewSelect.getCandidature().getCandidate().getEmail());
 		String fileType = "GuideComplete";
@@ -191,6 +188,22 @@ public class InterviewerMB implements Serializable {
 
 	public void setDwnlFile(DownloadFile dwnlFile) {
 		this.dwnlFile = dwnlFile;
+	}
+
+	public String getDownloadName() {
+		return downloadName;
+	}
+
+	public void setDownloadName(String downloadName) {
+		this.downloadName = downloadName;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }
