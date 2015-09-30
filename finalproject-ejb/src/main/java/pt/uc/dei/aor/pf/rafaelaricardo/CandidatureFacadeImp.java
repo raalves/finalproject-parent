@@ -2,6 +2,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -75,7 +76,7 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 	public CandidatureEntity addCandidature(CandidateEntity candLog,
 			PositionEntity positionSelect, String cvPath,
 			String motivationLetter, Date candidatureDate,
-			List<Source> sourcesSelect) {
+			Set<Source> sourcesSelect) {
 		if (hasAnotherCandidature(positionSelect, candLog)) {
 			log.error("Already have a candidature for this position");
 

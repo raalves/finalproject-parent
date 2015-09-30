@@ -20,10 +20,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-// @Table(name = "\"user\"")
 @Entity
 @Table(name = "utilizador")
 @NamedQueries({
@@ -71,6 +72,7 @@ public class UserEntity implements Serializable {
 	private List<InterviewEntity> interviews = new ArrayList<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	@JoinTable(name = "user_acts_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles = new ArrayList<>();
 
@@ -216,8 +218,7 @@ public class UserEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserEntity [id=" + id + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + "]";
+		return email;
 	}
 
 }

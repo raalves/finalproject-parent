@@ -3,7 +3,9 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -42,11 +44,11 @@ public class ApplyMB implements Serializable {
 
 	private PositionEntity positionSelect;
 
-	private List<String> sourcesSelectWEB;
-	private List<Source> sourcesSelect = new ArrayList<Source>();
+	private List<String> sourcesSelectWEB = new ArrayList<String>();
+	private Set<Source> sourcesSelect = new HashSet<Source>();
 
-	private List<Location> selectCities;
-	private List<TechnicalArea> selectTechAreas;
+	private List<Location> selectCities = new ArrayList<Location>();
+	private List<TechnicalArea> selectTechAreas = new ArrayList<TechnicalArea>();
 
 	public void transformStringInSources() {
 		Source[] allSources = Source.values();
@@ -62,7 +64,7 @@ public class ApplyMB implements Serializable {
 	public String submitSpontCandidature(UploadFile uploadFile) {
 		log.info("Creating a spontaneous candidature");
 		this.positionSelect = null;
-		this.sourcesSelectWEB = null;
+		this.sourcesSelectWEB.clear();
 		return submitCandidature(uploadFile);
 	}
 
@@ -83,7 +85,7 @@ public class ApplyMB implements Serializable {
 						cvPath, motivationLetter, candidatureDate,
 						sourcesSelect) == null) {
 
-					String errorMsg = "Erro during submition of candidature/Allready have a candidature for this position";
+					String errorMsg = "Error during submition of candidature/Allready have a candidature for this position";
 					log.error(errorMsg);
 					FacesContext.getCurrentInstance().addMessage(
 							null,
@@ -148,13 +150,13 @@ public class ApplyMB implements Serializable {
 
 	public void cleanFields() {
 		motivationLetter = null;
-		selectCities = null;
-		selectTechAreas = null;
+		selectCities.clear();
+		selectTechAreas.clear();
 		cvPath = null;
 	}
 
 	// Getters and Setters
-	public List<Source> getSources() {
+	public Set<Source> getSources() {
 		return positionSelect.getSource();
 	}
 
@@ -206,11 +208,11 @@ public class ApplyMB implements Serializable {
 		this.candidatureDate = candidatureDate;
 	}
 
-	public List<Source> getSourcesSelect() {
+	public Set<Source> getSourcesSelect() {
 		return sourcesSelect;
 	}
 
-	public void setSourcesSelect(List<Source> sourcesSelect) {
+	public void setSourcesSelect(Set<Source> sourcesSelect) {
 		this.sourcesSelect = sourcesSelect;
 	}
 

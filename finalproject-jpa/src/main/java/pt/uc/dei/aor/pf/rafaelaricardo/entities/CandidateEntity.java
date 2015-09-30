@@ -91,13 +91,8 @@ public class CandidateEntity implements Serializable {
 	@Column(nullable = false)
 	private String city;
 
-	// @NotBlank
-	// @NotBlank
-	// @Column(nullable = false)
 	private Long phone;
 
-	// @NotNull
-	// @NotBlank
 	@Column(name = "mobile_phone", nullable = false)
 	private Long mobilePhone;
 
@@ -135,8 +130,8 @@ public class CandidateEntity implements Serializable {
 
 	public CandidateEntity(String firstName, String lastName, String email,
 			String password, Date birthDate, String address, String city,
-			Long mobilePhone, String country, String course, String school,
-			String cvPath) {
+			Long phone, Long mobilePhone, String country, String course,
+			String school, String cvPath) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -145,6 +140,7 @@ public class CandidateEntity implements Serializable {
 		this.birthDate = birthDate;
 		this.address = address;
 		this.city = city;
+		this.phone = phone;
 		this.mobilePhone = mobilePhone;
 		this.country = country;
 		this.course = course;

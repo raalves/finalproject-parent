@@ -2,6 +2,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
@@ -33,6 +34,6 @@ public interface CandidatureFacade {
 	public abstract CandidatureEntity addCandidature(CandidateEntity candLog,
 			PositionEntity positionSelect, String cvPath,
 			String motivationLetter, Date candidatureDate,
-			List<Source> sourcesSelect);
+			Set<Source> sourcesSelect);
 
 }
