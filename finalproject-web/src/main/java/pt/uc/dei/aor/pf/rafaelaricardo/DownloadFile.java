@@ -27,15 +27,17 @@ public class DownloadFile implements Serializable {
 	public DownloadFile() {
 	}
 
-	public String generateMimeType(String path) {
+	public void generateMimeType(String path) {
 
 		if ((path.substring(path.length() - 4).equalsIgnoreCase("xlsx"))) {
-			return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+			this.mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+			this.downloadName = "guide.xlsx";
 		} else if ((path.substring(path.length() - 3).equalsIgnoreCase("pdf"))) {
-			return "application/pdf";
+			this.mimeType = "application/pdf";
+			this.downloadName = "cv.pdf";
 		} else {
 			log.error("This file type is not correct");
-			return null;
+
 		}
 
 	}
@@ -43,8 +45,8 @@ public class DownloadFile implements Serializable {
 	public void prepare(String path) {
 
 		this.path = path;
-		this.mimeType = generateMimeType(this.path);
-		this.downloadName = "Guide.xlsx";
+		generateMimeType(this.path);
+		// this.downloadName = downloadName;
 
 		try {
 			log.info("Downloading file: " + downloadName);

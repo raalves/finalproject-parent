@@ -2,6 +2,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -40,7 +41,7 @@ public class NewUserRegisterMB implements Serializable {
 	private String repeatPassword;
 	private UserEntity creator;
 
-	private ArrayList<String> selectedRoles;
+	private ArrayList<String> selectedRoles = new ArrayList<String>();
 	private ArrayList<RoleEntity> idSelectedRoles = new ArrayList<RoleEntity>();
 
 	public NewUserRegisterMB() {
@@ -67,11 +68,12 @@ public class NewUserRegisterMB implements Serializable {
 									errorMsg, null));
 				} else {
 					String infoMsg = "Successfully created user";
-					log.error(infoMsg);
+					log.info(infoMsg);
 					FacesContext.getCurrentInstance().addMessage(
 							"growlNewUser",
 							new FacesMessage(FacesMessage.SEVERITY_INFO,
 									infoMsg, null));
+					clearFields();
 				}
 			} else {
 				String errorMsg = "Passwords don't macth";
@@ -89,6 +91,15 @@ public class NewUserRegisterMB implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
 		}
+
+	}
+
+	public void clearFields() {
+		idSelectedRoles.clear();
+		selectedRoles.clear();
+		email = null;
+		firstName = null;
+		lastName = null;
 	}
 
 	public void findIdSelectRoles() {
@@ -96,9 +107,7 @@ public class NewUserRegisterMB implements Serializable {
 				.findAllByIdOrder();
 
 		for (RoleEntity re : allRoles) {
-
 			for (String r : selectedRoles) {
-
 				if (re.getRole().toString().equals(r)) {
 					System.out.println(re + " " + r);
 					idSelectedRoles.add(re);
@@ -107,11 +116,22 @@ public class NewUserRegisterMB implements Serializable {
 			}
 		}
 
+		for (RoleEntity re : idSelectedRoles) {
+			System.out.println("idSelectRoles" + re);
+		}
+
 	}
 
 	// Getters and Setters
-	public Role[] getRoles() {
-		return Role.values();
+	public List<Role> getRoles() {
+		List<Role> newR = new ArrayList<Role>();
+		for (Role r : Role.values()) {
+			if (!r.equals("CANDIDATE")) {
+				newR.add(r);
+			}
+		}
+		return newR;
+
 	}
 
 	public ArrayList<String> getSelectedRoles() {

@@ -44,18 +44,18 @@
 					icon="ui-icon-pencil" />
 			</p:column>
 			<p:column headerText="Guide" style="text-align:center;width:80px">
-				<p:commandButton icon="ui-icon-arrowthick-1-s"
-					ajax="false" label="Download guide file"
+				<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+					label="Download guide file"
 					actionListener="#{downloadFile.prepare(interview.candidature.position.guide.filePath)}">
-						<p:fileDownload value="#{downloadFile.file}" />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-arrowthick-1-n"
-						label="Upload guide file"
-						oncomplete="PF('uploadDialog').show();return false;"
-						update=":tab:uploadGuideComplete">
-						<f:setPropertyActionListener value="#{interview}"
-							target="#{interviewerMB.interviewSelect}" />
-					</p:commandButton>
+					<p:fileDownload value="#{downloadFile.file}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-arrowthick-1-n"
+					label="Upload guide file"
+					oncomplete="PF('uploadDialog').show();return false;"
+					update=":tab:uploadGuideComplete">
+					<f:setPropertyActionListener value="#{interview}"
+						target="#{interviewerMB.interviewSelect}" />
+				</p:commandButton>
 			</p:column>
 		</p:dataTable>
 		<p:dialog id="feedbackInterview" header="Insert feedback"
@@ -124,6 +124,12 @@
 					<p:outputLabel value="School" />
 					<p:outputLabel
 						value="#{interviewerMB.interviewSelect.candidature.candidate.school}" />
+					<p:outputLabel value="Donwload CV" />
+					<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+						label="Download cv file"
+						actionListener="#{downloadFile.prepare(interviewerMB.interviewSelect.candidature.candidate.cvPath)}">
+						<p:fileDownload value="#{downloadFile.file}" />
+					</p:commandButton>
 				</p:panelGrid>
 			</p:outputPanel>
 			<p:separator />
@@ -163,22 +169,26 @@
 
 	</h:form>
 	<p:dialog id="uploadGuideComplete" header="Upload Guide Complete"
-		widgetVar="uploadDialog" modal="true" width="700" height="500"
-		resizable="false" closeOnEscape="true" position="center"
-		style="padding:10px;">
+		widgetVar="uploadDialog" modal="true" resizable="false"
+		closeOnEscape="true" position="center" style="padding:10px;">
 		<h:form enctype="multipart/form-data">
-			<h3>Upload Guide complete</h3>
-			<p:outputPanel style="text-align:center">
-				<h2>Position title:</h2>
-				"#{interviewerMB.interviewSelect.candidature.position.title}"
-				<h2>Candidate Name:</h2>
-				"#{interviewerMB.interviewSelect.candidature.candidate.firstName}
-				#{interviewerMB.interviewSelect.candidature.candidate.lastName}"
-			<p:outputLabel value="Select guide to upload" for="uploadGuide" />
+			<p:panelGrid columns="2" style="margin-top: 20px"
+				columnClasses="label,field" styleClass="ui-noborder" id="myProfile">
+
+				<p:outputLabel value="Position Title" />
+				<p:outputLabel
+					value="#{interviewerMB.interviewSelect.candidature.position.title}" />
+				<p:outputLabel value="Candidate Name" />
+				<p:outputLabel
+					value="#{interviewerMB.interviewSelect.candidature.candidate.firstName}
+				#{interviewerMB.interviewSelect.candidature.candidate.lastName}" />
+				<p:spacer />
+				<p:spacer />
+				<p:outputLabel value="Select guide to upload" for="uploadGuide" />
 				<h:inputFile id="uploadGuide" class="buttons"
 					value="#{uploadFile.file}" />
-			</p:outputPanel>
-			<p:outputPanel style="text-align:center">
+			</p:panelGrid>
+			<p:outputPanel style="text-align:center;margin-top:20px">
 				<p:commandButton value="Close"
 					onclick="PF('uploadDialog').hide();return false;" />
 				<p:commandButton value="Upload"
