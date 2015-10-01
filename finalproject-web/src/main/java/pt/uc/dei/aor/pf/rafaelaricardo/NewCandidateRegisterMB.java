@@ -59,8 +59,8 @@ public class NewCandidateRegisterMB implements Serializable {
 
 					if (applicationMB.addCandidate(firstName, lastName, email,
 							password, birthdate, address, city,
-							Long.parseLong(mobilePhone), country, course,
-							school, cvPath, coverLetter) == null) {
+							Long.parseLong(phone), Long.parseLong(mobilePhone),
+							country, course, school, cvPath, coverLetter) == null) {
 						String errorMsg = "This email already exists!";
 						log.error(errorMsg);
 						FacesContext.getCurrentInstance().addMessage(
@@ -81,7 +81,6 @@ public class NewCandidateRegisterMB implements Serializable {
 										infoMsg, null));
 
 						cleanFields();
-						// return "history.go(-1)";
 						return "/LoginCandidates?faces-redirect=true";
 					}
 

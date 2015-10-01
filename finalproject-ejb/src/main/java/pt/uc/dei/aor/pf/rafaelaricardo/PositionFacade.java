@@ -1,8 +1,8 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
@@ -54,8 +54,7 @@ public interface PositionFacade {
 
 	public abstract PositionEntity addPosition(UserEntity adminCreator,
 			UserEntity manager, GuideEntity guide, String title,
-			List<Location> location, int quantity, String company,
+			Set<Location> location, int quantity, String company,
 			TechnicalArea technicalArea, DescriptionPosition description,
-			ArrayList<Source> source, Date openningDate, Date closingDate,
-			int sla);
+			Set<Source> source, Date openningDate, Date closingDate, int sla);
 }

@@ -3,7 +3,9 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -22,7 +24,6 @@ import pt.uc.dei.aor.pf.rafaelaricardo.entities.GuideEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
-import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
@@ -61,9 +62,9 @@ public class AdminMB implements Serializable {
 	private String keyResponsabilities;
 	private String requiredQualifications;
 	private String company;
-	private ArrayList<Location> selectedLocation = new ArrayList<Location>();
+	private Set<Location> selectedLocation = new HashSet<Location>();
 	private ArrayList<String> selectedLocationWeb = new ArrayList<String>();
-	private ArrayList<Source> selectedSource = new ArrayList<Source>();
+	private Set<Source> selectedSource = new HashSet<Source>();
 	private ArrayList<String> selectedSourceWeb = new ArrayList<String>();
 	private int quantity;
 	private Date closingDate;
@@ -98,14 +99,14 @@ public class AdminMB implements Serializable {
 			System.out.println(">>>>>>" + technicalArea);
 			System.out.println(">>>>>>" + selectedLocation);
 			System.out.println(">>>>>>" + selectedSource);
-			
+
 			DescriptionPosition descriptionPosition = new DescriptionPosition();
 			descriptionPosition.setDescription(description);
 			descriptionPosition.setDesiredQualifications(desiredQualifications);
 			descriptionPosition.setKeyResponsabilities(keyResponsabilities);
 			descriptionPosition
-					.setRequiredQualifications(requiredQualifications);
-			
+			.setRequiredQualifications(requiredQualifications);
+
 			System.out.println(">>>>>>" + descriptionPosition);
 
 			if (positionFacade.addPosition(activeUser.getCurrentUser(),
@@ -258,19 +259,19 @@ public class AdminMB implements Serializable {
 		this.company = company;
 	}
 
-	public ArrayList<Location> getSelectedLocation() {
+	public Set<Location> getSelectedLocation() {
 		return selectedLocation;
 	}
 
-	public void setSelectedLocation(ArrayList<Location> selectedLocation) {
+	public void setSelectedLocation(Set<Location> selectedLocation) {
 		this.selectedLocation = selectedLocation;
 	}
 
-	public ArrayList<Source> getSelectedSource() {
+	public Set<Source> getSelectedSource() {
 		return selectedSource;
 	}
 
-	public void setSelectedSource(ArrayList<Source> selectedSource) {
+	public void setSelectedSource(Set<Source> selectedSource) {
 		this.selectedSource = selectedSource;
 	}
 

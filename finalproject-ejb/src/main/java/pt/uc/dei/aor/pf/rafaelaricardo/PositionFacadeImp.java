@@ -1,8 +1,8 @@
 package pt.uc.dei.aor.pf.rafaelaricardo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -125,16 +125,15 @@ public class PositionFacadeImp implements PositionFacade {
 	@Override
 	public PositionEntity addPosition(UserEntity adminCreator,
 			UserEntity manager, GuideEntity guide, String title,
-			List<Location> location,
-			int quantity, String company, TechnicalArea technicalArea,
-			DescriptionPosition description, ArrayList<Source> source,
-			Date openningDate, Date closingDate, int sla) {
-		
+			Set<Location> location, int quantity, String company,
+			TechnicalArea technicalArea, DescriptionPosition description,
+			Set<Source> source, Date openningDate, Date closingDate, int sla) {
+
 		log.info("Saving position in DB");
 
-		PositionEntity p = new PositionEntity(title, location, PositionStatus.OPEN,
-				quantity, company, technicalArea, description, source,
-				openningDate, closingDate, sla);
+		PositionEntity p = new PositionEntity(title, location,
+				PositionStatus.OPEN, quantity, company, technicalArea,
+				description, source, openningDate, closingDate, sla);
 		p.setAdminCreator(adminCreator);
 		p.setManager(manager);
 		p.setGuide(guide);
