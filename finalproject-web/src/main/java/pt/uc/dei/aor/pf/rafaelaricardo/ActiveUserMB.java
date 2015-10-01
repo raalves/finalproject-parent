@@ -60,22 +60,22 @@ public class ActiveUserMB implements Serializable {
 
 	public void showTabs() {
 		newUser = true;
-		if (userRoles.size() <= 1) {
-			extraAreas = false;
-		} else {
-			extraAreas = true;
-			for (RoleEntity re : userRoles) {
+		// if (userRoles.size() <= 1) {
+		// extraAreas = false;
+		// } else {
+		extraAreas = true;
+		for (RoleEntity re : userRoles) {
 
-				if (re.getRole().toString() == ("ADMIN")) {
-					adminTab = true;
-				} else if (re.getRole().toString() == ("MANAGER")) {
-					managerTab = true;
-				} else if (re.getRole().toString() == ("INTERVIEWER")) {
-					interviewerTab = true;
-				} else if (re.getRole().toString() == ("CANDIDATE")) {
-					candidateTab = true;
-				}
+			if (re.getRole().toString() == ("ADMIN")) {
+				adminTab = true;
+			} else if (re.getRole().toString() == ("MANAGER")) {
+				managerTab = true;
+			} else if (re.getRole().toString() == ("INTERVIEWER")) {
+				interviewerTab = true;
+			} else if (re.getRole().toString() == ("CANDIDATE")) {
+				candidateTab = true;
 			}
+			// }
 		}
 	}
 
@@ -129,10 +129,10 @@ public class ActiveUserMB implements Serializable {
 						userType);
 			log.info(infomsg);
 			FacesContext.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(FacesMessage.SEVERITY_INFO,
-									infomsg, null));
+			.addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							infomsg, null));
 
 		} else {
 			String errormsg = "Error on changing Profile";
