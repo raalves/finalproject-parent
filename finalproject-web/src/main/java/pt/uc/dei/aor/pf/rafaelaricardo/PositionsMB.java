@@ -17,8 +17,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -28,9 +30,11 @@ import org.slf4j.LoggerFactory;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.DescriptionPosition;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.PositionStatus;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Role;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
+import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 
 @ManagedBean
 @ViewScoped
@@ -194,6 +198,8 @@ public class PositionsMB implements Serializable {
 
 	public void freeSearch() {
 		log.info("Free searching positions");
+		System.out.println(">>>>>>>>>>>>>>>>>>"+searchFree);
+		System.out.println(isNumeric(searchFree));
 		allPositions = filterPositionFreeSearch();
 	}
 
@@ -204,33 +210,45 @@ public class PositionsMB implements Serializable {
 		Session session = manager.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(PositionEntity.class);
 
-		// if (StringUtils.isNotBlank(openningDate.toString())) {
-		// criteria.add(Restrictions.eq("openningDate", openningDate));
-		// }
-		// if (StringUtils.isNotBlank(closingDate.toString())) {
-		// criteria.add(Restrictions.eq("closingDate", closingDate));
-		// }
-		if (StringUtils.isNotBlank(id)) {
+		if (openningDate != null) {
+			criteria.add(Restrictions.eq("openningDate", openningDate));
+		}
+		if (closingDate != null) {
+			criteria.add(Restrictions.eq("closingDate", closingDate));
+		}
+		if (isNumeric(id)) {
 			criteria.add(Restrictions.eq("id", Long.parseLong(id)));
 		}
 		if (StringUtils.isNotBlank(title)) {
 			criteria.add(Restrictions.ilike("title", title, MatchMode.ANYWHERE));
 		}
 		if (StringUtils.isNotBlank(location)) {
-			criteria.add(Restrictions.ilike("location", location,
-					MatchMode.ANYWHERE));
+			// Criteria c3 = criteria.createCriteria("location");
+			// c3.add(Restrictions.eq("location",
+			// Location.valueOf(location.toUpperCase())));
+			for (Location l : Location.values()) {
+				if (l.name().contains(location.toUpperCase())) {
+					return positionFacade.findPositionByLocation(l);
+				}
+			}
 		}
 		if (StringUtils.isNotBlank(positionStatus)) {
-			criteria.add(Restrictions.ilike("positionStatus", positionStatus,
-					MatchMode.ANYWHERE));
+			for (PositionStatus p : PositionStatus.values()) {
+				if (p.name().contains(positionStatus.toUpperCase())) {
+					criteria.add(Restrictions.eq("positionStatus", p));
+				}
+			}
 		}
 		if (StringUtils.isNotBlank(company)) {
 			criteria.add(Restrictions.ilike("company", company,
 					MatchMode.ANYWHERE));
 		}
 		if (StringUtils.isNotBlank(technicalArea)) {
-			criteria.add(Restrictions.ilike("technicalArea", technicalArea,
-					MatchMode.ANYWHERE));
+			for (TechnicalArea t : TechnicalArea.values()) {
+				if (t.name().contains(technicalArea.toUpperCase())) {
+					criteria.add(Restrictions.eq("technicalArea", t));
+				}
+			}
 		}
 
 		return criteria.addOrder(Order.asc("openningDate")).list();
@@ -249,14 +267,33 @@ public class PositionsMB implements Serializable {
 					.disjunction()
 					.add(Restrictions.ilike("title", searchFree,
 							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("location", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("positionStatus", searchFree,
-							MatchMode.ANYWHERE))
 					.add(Restrictions.ilike("company", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("technicalArea", searchFree,
 							MatchMode.ANYWHERE)));
+ 
+			if (isNumeric(searchFree)) {
+				criteria2.add(Restrictions.disjunction().add(
+						Restrictions.eq("id", Long.parseLong(searchFree))));
+			}
+
+			for (Location l : Location.values()) {
+				if (l.name().contains(searchFree.toUpperCase())) {
+					criteria2.add(Restrictions.disjunction().add(
+							Restrictions.eq("location", l)));
+				}
+			}
+			for (PositionStatus p : PositionStatus.values()) {
+				if (p.name().contains(searchFree.toUpperCase())) {
+					criteria2.add(Restrictions.disjunction().add(
+							Restrictions.eq("positionStatus", p)));
+				}
+			}
+			for (TechnicalArea t : TechnicalArea.values()) {
+				if (t.name().contains(searchFree.toUpperCase())) {
+					criteria2.add(Restrictions.disjunction().add(
+							Restrictions.eq("technicalArea", t)));
+				}
+			}
+
 		}
 		return criteria2.addOrder(Order.asc("openningDate")).list();
 	}
@@ -272,6 +309,15 @@ public class PositionsMB implements Serializable {
 		positionStatus = null;
 		company = null;
 		technicalArea = null;
+	}
+
+	public static boolean isNumeric(String str) {
+		try {
+			long d = Long.parseLong(str);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
 	}
 
 	// Getters and Setters

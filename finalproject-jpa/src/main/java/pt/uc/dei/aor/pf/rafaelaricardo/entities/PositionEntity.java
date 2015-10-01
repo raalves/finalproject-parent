@@ -43,7 +43,7 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.TechnicalArea;
 	@NamedQuery(name = "PositionEntity.findPositionByAdminCreator", query = "SELECT p FROM PositionEntity p WHERE p.adminCreator = :adminCreator"),
 	@NamedQuery(name = "PositionEntity.findPositionByManager", query = "SELECT p FROM PositionEntity p WHERE p.manager = :manager"),
 	@NamedQuery(name = "PositionEntity.findPositionByGuide", query = "SELECT p FROM PositionEntity p WHERE p.guide = :guide"),
-		@NamedQuery(name = "PositionEntity.findPositionByLocation", query = "SELECT p FROM PositionEntity p WHERE p.location = :location"),
+		@NamedQuery(name = "PositionEntity.findPositionByLocation", query = "SELECT p FROM PositionEntity p INNER JOIN p.location local WHERE local = :location"),
 	@NamedQuery(name = "PositionEntity.findPositionByPositionStatus", query = "SELECT p FROM PositionEntity p WHERE p.positionStatus = :positionStatus"),
 	@NamedQuery(name = "PositionEntity.findPositionByQuantity", query = "SELECT p FROM PositionEntity p WHERE p.quantity = :quantity"),
 	@NamedQuery(name = "PositionEntity.findPositionByCompany", query = "SELECT p FROM PositionEntity p WHERE p.company = :company"),

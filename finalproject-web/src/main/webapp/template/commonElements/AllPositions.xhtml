@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form id="frm5">
+	<h:form id="frm5" onkeypress="if (event.keyCode==13) {return false;}">
 		<p:messages id="msgSearchAllPositions" severity="error,warn"
 			closable="true" style="text-align:left" />
 		<p:growl id="growlSearchAllPositions" sticky="true" severity="info" />

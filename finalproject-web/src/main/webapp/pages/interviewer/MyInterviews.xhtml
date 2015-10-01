@@ -41,7 +41,10 @@
 			<p:column headerText="Feedback" style="text-align:center;width:55px">
 				<p:commandButton update=":tab:frm3:feedbackInterview"
 					oncomplete="PF('feedbackDialog').show();return false;"
-					icon="ui-icon-pencil" />
+					icon="ui-icon-pencil">
+					<f:setPropertyActionListener value="#{interview}"
+						target="#{interviewerMB.interviewSelect}" />
+				</p:commandButton>
 			</p:column>
 			<p:column headerText="Guide" style="text-align:center;width:80px">
 				<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"

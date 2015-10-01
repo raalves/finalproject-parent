@@ -4,10 +4,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form id="frm2">
+	<h:form id="frm2" onkeypress="if (event.keyCode==13) {return false;}">
 		<p:messages id="msgSearchCandidates" severity="error,warn"
 			closable="true" style="text-align:left" />
-		<p:growl id="growlSearchCandidates" sticky="true" severity="info" for="growlSearchCandidates" />
+		<p:growl id="growlSearchCandidates" sticky="true" severity="info"
+			for="growlSearchCandidates" />
 		<p:outputLabel>
 			<h3>Search for candidates</h3>
 		</p:outputLabel>
