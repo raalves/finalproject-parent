@@ -40,6 +40,10 @@ public class SearchCandidaturesMB implements Serializable {
 	private CandidateFacade candidateFacade;
 	@PersistenceContext(unitName = "FinalProject")
 	protected EntityManager manager;
+	@Inject
+	private EnvioMail envioMail;
+	@Inject
+	private WriteEmails writeEmails;
 
 	private int id;
 	private String firstName;
@@ -61,7 +65,7 @@ public class SearchCandidaturesMB implements Serializable {
 	private ApplicationMB applicationMB;
 	@Inject
 	private ActiveUserMB activeUserMB;
-	
+
 	private List<CandidateEntity> resultList;
 	private CandidatureEntity candidature;
 
@@ -161,45 +165,73 @@ public class SearchCandidaturesMB implements Serializable {
 					.disjunction()
 					.add(Restrictions.ilike("firstName", searchFree,
 							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("lastName", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("email", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("address", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("city", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("country", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("course", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("school", searchFree,
-							MatchMode.ANYWHERE)));
+							.add(Restrictions.ilike("lastName", searchFree,
+									MatchMode.ANYWHERE))
+									.add(Restrictions.ilike("email", searchFree,
+											MatchMode.ANYWHERE))
+											.add(Restrictions.ilike("address", searchFree,
+													MatchMode.ANYWHERE))
+													.add(Restrictions.ilike("city", searchFree,
+															MatchMode.ANYWHERE))
+															.add(Restrictions.ilike("country", searchFree,
+																	MatchMode.ANYWHERE))
+																	.add(Restrictions.ilike("course", searchFree,
+																			MatchMode.ANYWHERE))
+																			.add(Restrictions.ilike("school", searchFree,
+																					MatchMode.ANYWHERE)));
 		}
 		return criteria2.addOrder(Order.asc("firstName")).list();
 	}
 
 	public void associateCandidateToSelectedPositions() {
 		for (PositionEntity p : selectedPositions) {
-			log.info("Associating candidate "+candidateSelect.getEmail() + " to Position: " + p.getTitle());
+			log.info("Associating candidate " + candidateSelect.getEmail()
+					+ " to Position: " + p.getTitle());
 			candidature = applicationMB.addCandidature(candidateSelect, p,
-					candidateSelect.getCvPath(),
-					"Candidature done by: "+ activeUserMB.getCurrentUser().getEmail(), new Date(), null);
-			if(candidature == null){
-				String errorMsg = "Already have a candidature for the position: " + p.getTitle();
+					candidateSelect.getCvPath(), "Candidature done by: "
+							+ activeUserMB.getCurrentUser().getEmail(),
+							new Date(), null);
+			if (candidature == null) {
+				String errorMsg = "Already have a candidature for the position: "
+						+ p.getTitle();
 				log.error(errorMsg);
 				FacesContext.getCurrentInstance().addMessage(
 						"msgAllPositionsList",
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 								null));
-			}else{
-				String infoMsg = "Success on association of candidature for the position: " + p.getTitle();
+			} else {
+				String infoMsg = "Success on association of candidature for the position: "
+						+ p.getTitle();
 				log.info(infoMsg);
 				FacesContext.getCurrentInstance().addMessage(
 						"msgAllPositionsList",
 						new FacesMessage(FacesMessage.SEVERITY_INFO, infoMsg,
 								null));
+				sendNotifications();
 			}
+		}
+	}
+
+	public void sendNotifications() {
+		try {
+			// Send notification email
+			String mail = writeEmails
+					.notificationNewCandidatureAssociation(candidature
+							.getPosition().getTitle());
+
+			if (mail != null) {
+				envioMail.sendMail(candidature.getPosition().getManager()
+						.getEmail(), "New Candidature", mail,
+						candidature.getResumePath(), null);
+			}
+		} catch (Exception e) {
+			String errorMsg = "An error ocurred wwhile sendin notifications: "
+					+ e.getMessage();
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
 		}
 	}
 

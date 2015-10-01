@@ -17,6 +17,7 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Location;
 import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
@@ -37,10 +38,15 @@ public class ApplyMB implements Serializable {
 	private ApplicationMB applicationMB;
 	@EJB
 	private CandidatureFacade candidatureFacade;
+	@Inject
+	private WriteEmails writeEmails;
+	@Inject
+	private EnvioMail envioMail;
 
 	private String cvPath;
 	private String motivationLetter;
 	private Date candidatureDate;
+	private CandidatureEntity candidature;
 
 	private PositionEntity positionSelect;
 
@@ -80,10 +86,12 @@ public class ApplyMB implements Serializable {
 			cvPath = uploadFile.generatePath(actUserMB.getCurrentCandidate()
 					.getEmail(), fileType);
 			if (motivationLetter != null) {
-				if (applicationMB.addCandidature(
+
+				candidature = applicationMB.addCandidature(
 						actUserMB.getCurrentCandidate(), positionSelect,
 						cvPath, motivationLetter, candidatureDate,
-						sourcesSelect) == null) {
+						sourcesSelect);
+				if (candidature == null) {
 
 					String errorMsg = "Error during submition of candidature/Allready have a candidature for this position";
 					log.error(errorMsg);
@@ -102,7 +110,9 @@ public class ApplyMB implements Serializable {
 							null,
 							new FacesMessage(FacesMessage.SEVERITY_INFO,
 									infoMsg, null));
+					sendNotifications();
 					return "/pages/candidate/CandidatePage.xhtml";
+
 				}
 
 			} else {
@@ -145,6 +155,29 @@ public class ApplyMB implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
 			return "/LoginCandidates";
+		}
+	}
+
+	public void sendNotifications() {
+		try {
+			// send notification email to manager of position
+			String mail = writeEmails
+					.notificationNewCandidatureCandidate(candidature
+							.getPosition().getTitle());
+
+			if (mail != null) {
+				envioMail.sendMail(candidature.getPosition().getManager()
+						.getEmail(), "New Candidature by Candidate", mail,
+						candidature.getResumePath(), null);
+			}
+		} catch (Exception e) {
+			String errorMsg = "An error ocurred wwhile sendin notifications: "
+					+ e.getMessage();
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
 		}
 	}
 

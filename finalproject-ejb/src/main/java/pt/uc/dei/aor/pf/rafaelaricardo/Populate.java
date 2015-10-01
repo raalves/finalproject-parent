@@ -73,19 +73,31 @@ public class Populate implements Serializable {
 		// Creating Positions
 		// Position1
 		DescriptionPosition dp = new DescriptionPosition();
-		dp.setDescription("Working for us is like nothing on earth. Every day, our teams across the globe challenge the limits of human achievement, engineering solutions for our planet and beyond.&lt;br/&gt; Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications. Now, we’re looking for talented Technical Managers for Embedded Systems to join our Systems and Software Engineering team in breaching the frontiers of space, aerospace and defence."
-				+ "Across international projects, you’ll be working on some of the most critical software applications developing today, as part of a global team with more than 15 years’ experience working with embedded software and systems. '&lt;br/&gt;'"
-				+ "Sound like you? Then it’s time to challenge your limits. It’s time to give your career the rocket boost it deserves. It’s time you joined CRITICAL Software!"
-				+ "");
-		dp.setKeyResponsabilities("<p>Undertaking software development for embedded systems</p><p>Performing Verification & Validation testing of embedded systems</p><p>Leading a team through your technical expertise (task allocation, status reporting, and people management)</p>");
-		dp.setDesiredQualifications("<p>Knowledge of embedded software development in microcontrollers</p><p>Knowledge of safety-critical standards (for example, ECSS, DO-178B/C, ISO 26262, IEC 61508)</p><p>Knowledge of system development using model-based development techniques and tools (for example, SCADE and MATLAB)</p>");
-		dp.setRequiredQualifications("<p>More than 7 years’ experience working in software development and embedded systems engineering</p><p>Deep knowledge of different Operating Systems, particularly the concepts of real-time and embedded systems, computer architectures and programming languages (C/C++, Ada95)</p><p>Full-lifecycle software development experience, from initial requirements elicitation to design, coding, testing, documentation, implementation, integration and training</p><p>Teamwork and technical project management experience</p><p>Strong leadership, problem-solving and communication skills</p><p>Proficiency in English</p><p>Good organisational skills</p><p>Availability to travel, mainly Europe (United Kingdom, Germany, France)</p>");
+		dp.setDescription("<p><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Working for us is like nothing on earth. Every day, our teams across the globe challenge the limits of human achievement, engineering solutions for our planet and beyond.<br>"
+				+ "<br>Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications. Now, we’re looking for talented <span style=\"color: rgb(178, 34, 34);\">Technical Managers for Embedded Systems</span> to join our Systems and Software Engineering team in breaching the frontiers of space, aerospace and defence.<br><br>Across international projects, you’ll be working on some of the most critical software applications developing today, as part of a global team with more than 15 years’ experience working with embedded software and systems.<br><br>Sound like you? Then it’s time to challenge your limits. It’s time to give your career the rocket boost it deserves. It’s time you joined CRITICAL Software!</span></p>");
+
+		dp.setKeyResponsabilities("<ul>	<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Undertaking software development for embedded systems</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Performing Verification &amp; Validation testing of embedded systems</span></li>"
+				+ "	<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Leading a team through your technical expertise (task allocation, status reporting, and people management)</span></li></ul>");
+
+		dp.setRequiredQualifications("<ul><li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">More than 7 years’ experience working in software development and embedded systems engineering</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Deep knowledge of different Operating Systems, particularly the concepts of real-time and embedded systems, computer architectures and programming languages (C/C++, Ada95)</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Full-lifecycle software development experience, from initial requirements elicitation to design, coding, testing, documentation, implementation, integration and training</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Teamwork and technical project management experience</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Strong leadership, problem-solving and communication skills</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Proficiency in English</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Good organisational skills</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Availability to travel, mainly Europe (United Kingdom, Germany, France)</span></li></ul>");
+
+		dp.setDesiredQualifications("<ul><li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Knowledge of embedded software development in microcontrollers</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Knowledge of safety-critical standards (for example, ECSS, DO-178B/C, ISO 26262, IEC 61508)</span></li>"
+				+ "<li><span style=\"line-height: 1.6em; font-family: Arial, Helvetica, sans-serif; font-size: 14px\">Knowledge of system development using model-based development techniques and tools (for example, SCADE and MATLAB)</span></li></ul>");
 
 		GuideEntity generalGuide = new GuideEntity();
-		generalGuide.setGuideTitle("guide position1");
+		generalGuide.setGuideTitle("Guide position1");
 		generalGuide.setGuideDate(ft.parse("2015-05-01"));
 		generalGuide
-				.setFilePath("C:/Program Files/wildfly-8.2.0.Final/wildfly-8.2.0.Final/ProjFinalUploadedFiles/GuideComplete/GeneralData.xlsx");
+				.setFilePath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\Guide\\Guide_guide position1_2015-09-30 15-47-43_guide.xlsx");
 		generalGuide.setAuthor(users[0]);
 
 		Set<Source> sourcesPos1 = new HashSet<Source>();
@@ -116,37 +128,87 @@ public class Populate implements Serializable {
 
 		// Position2
 		DescriptionPosition dp2 = new DescriptionPosition();
-		dp2.setDescription("Working for us is like nothing on earth! Every day, our teams challenge the limits of human achievement, engineering solutions for our planet and beyond. Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications."
-				+ "Now, we’re looking for a talented .Net Software Engineer to join our team."
-				+ "This is a great opportunity to join a high tech international company that genuinely cares about its employees and has recently become “Employer of the Year” in local business awards.  The business has customers in the aerospace, energy and defence sectors that demand high integrity and complex systems to meet their challenging requirements."
-				+ "It’s time to challenge your limits. It’s time to give your career the rocket boost it deserves. It’s time you joined CRITICAL Software!.");
-		dp2.setKeyResponsabilities("The successful candidate will be expected to undertake a variety of duties. These include, but are not limited to:"
-				+ "Performing software engineering tasks to a high standard, including software requirements, design, development and testing"
-				+ "Configuration management"
-				+ "Development and maintenance of data visualisation software in web technologies"
-				+ "Development and maintenance of data loading processes (ETL)"
-				+ "Business Intelligence development from ETL through to report development"
-				+ "Statistical and mathematical modelling of data"
-				+ "You will need to be very client focused and feel comfortable in understanding and acting on customer needs. You will also be expected to contribute to bid work.");
-		dp2.setDesiredQualifications("Microsoft Certified Developer"
-				+ "Exposure to agile development"
-				+ "Experience of dealing with customers and staff"
-				+ "Web development skills (e.g. AngularJs, JQuery, HTML 5, CSS, JavaScript, LESS, SASS & Knockout)"
-				+ "Experience with ORM (e.g. Entity Framework and NHibernate)"
-				+ "Database development and SQL"
-				+ "Experience within the aerospace, defence, energy or transport sectors"
-				+ "Other programming languages");
-		dp2.setRequiredQualifications("Educated to degree level in a computing or mathematically based subject achieving a 2:1 or higher"
-				+ "Experience and ability to demonstrate knowledge with developing web applications using the Microsoft Stack: Visual Studio 2012+, ASP.NET, C# and SQL Server 2008+"
-				+ "Strong object-oriented development skills"
-				+ "Design experience using UML and design patterns"
-				+ "Testing at module and system level (creating test scripts and procedures)"
-				+ "Configuration management");
+		dp2.setDescription("<p style=\"margin-bottom: 6.75pt;line-height: normal;\">"
+				+ "<span style=\"color: black;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Working for us is like nothing on earth! Every day, our teams challenge the limits of human achievement, engineering solutions for our planet and beyond. Our astronomically talented engineers build rock-solid software for leading industries’ most critical applications.<br><br>Now, we’re looking for a talented </span></span></span>"
+				+ "<span style=\"color: rgb(192, 0, 0); font-family: arial, sans-serif; font-size: 14px; line-height: normal;\">.Net&nbsp;Software Engineer</span>"
+				+ "<span style=\"color: black;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\"> "
+				+ "<span style=\"font-size: 10.5pt;\"> to join our team.</span></span></span>"
+				+ "<br><br><span style=\"color: black;\">"
+				+ "<span style=\"font-family: tahoma , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">This is a great opportunity to join a high tech international company that genuinely cares about its employees and has recently become “Employer of the Year” in local business awards.&nbsp; The business has customers in the aerospace, energy and defence sectors that demand high integrity and complex systems to meet their challenging requirements.</span></span></span>"
+				+ "<br><br><span style=\"color: black;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">It’s time to challenge your limits. It’s time to give your career the rocket boost it deserves. </span></span></span>"
+				+ "<span style=\"color: black;\"> <span style=\"font-family: arial , sans-serif;\"> <span style=\"font-size: 10.5pt;\">It’s time you joined </span></span></span>"
+				+ "<span style=\"color: rgb(178, 34, 34); font-family: arial, sans-serif; font-size: 14px; line-height: normal;\">CRITICAL Software</span>"
+				+ "<span style=\"color: black;\"><span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">!</span></span></span></p>"
+				+ "	<p style=\"margin-bottom: 6.75pt;line-height: normal;\">"
+				+ "<strong style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6em;\">"
+				+ "<span style=\"color: rgb(178, 34, 34);\">WHAT WE OFFER:</span></strong></p>"
+				+ "<ul><li><span style=\"color: black;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">A high-integrity systems and software engineering company that creates and deploys innovative software solutions</span></span></span></li><li><span style=\"color: black;\"><span style=\"font-family: arial , sans-serif;\"><span style=\"font-size: 10.5pt;\">Delivery of high-quality work across a diverse array of market sectors</span></span></span></li><li><span style=\"color: black;\"><span style=\"font-family: arial , sans-serif;\"><span style=\"font-size: 10.5pt;\">An in-depth knowledge and partnership approach, which together ensures excellent results in the development of solutions that simply must not fail </span></span></span></li><li><span style=\"color: black;\"><span style=\"font-family: tahoma , sans-serif;\"><span style=\"font-size: 10.5pt;\">The benefits package is extensive, starting with pension and life insurance and continuing with a menu that includes healthcare, dental care, payment of fees for membership of professional bodies, gym membership, travel insurance and mobile phone allowance</span></span></span></li><li><span style=\"color: black;\"><span style=\"font-family: helvetica , sans-serif;\"><span style=\"font-size: 10.5pt;\">Very flexible working scheme </span></span></span></li><li><span style=\"color: black;\"><span style=\"font-family: helvetica , sans-serif;\"><span style=\"font-size: 10.5pt;\">Staff training and social events throughout the year</span></span></span></li></ul>");
+		dp2.setKeyResponsabilities("<p><span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">The successful candidate will be expected to undertake a variety of duties. These include, but are not limited to:</span></span></p>"
+				+ "<ul><li style=\"margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;line-height: normal;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Performing software engineering tasks to a high standard, including software requirements, design, development and testing&nbsp; </span></span></li>"
+				+ "<li style=\"margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;line-height: normal;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Configuration management</span></span></li>"
+				+ "<li style=\"margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;line-height: normal;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Development and maintenance of data visualisation software in web technologies</span></span></li>"
+				+ "<li style=\"margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;line-height: normal;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\"><span style=\"font-size: 10.5pt;\">Development and maintenance of data loading processes (ETL)</span></span></li>"
+				+ "<li style=\"margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;line-height: normal;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Business Intelligence development from ETL through to report development&nbsp;&nbsp; </span></span></li>"
+				+ "<li style=\"margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;line-height: normal;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Statistical and mathematical modelling of data </span></span></li></ul>"
+				+ "<p style=\"text-align: justify;\"><br><span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">You will need to be very client focused and feel comfortable in understanding and acting on customer needs. You will also be expected to contribute to bid work.</span></span></p>");
+
+		dp2.setDesiredQualifications("<ul><li>"
+				+ "<span style=\"color: black;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Microsoft Certified Developer</span></span></span></li>"
+				+ "<li style=\"margin-top: 0.0cm;margin-right: 0.0cm;margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Exposure to agile development</span></span></li>"
+				+ "<li style=\"margin-top: 0.0cm;margin-right: 0.0cm;margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Experience of dealing with customers and staff</span></span></li>"
+				+ "<li style=\"margin-top: 0.0cm;margin-right: 0.0cm;margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Web development skills (e.g. AngularJs, JQuery, HTML 5, CSS, JavaScript, LESS, SASS &amp; Knockout)</span></span></li>"
+				+ "<li style=\"margin-top: 0.0cm;margin-right: 0.0cm;margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Experience with ORM (e.g. Entity Framework and NHibernate)</span></span></li><li style=\"margin-top: 0.0cm;margin-right: 0.0cm;margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Database development and SQL</span></span></li><li style=\"margin-top: 0.0cm;margin-right: 0.0cm;margin-bottom: 0.0cm;margin-bottom: 1.0E-4pt;\">"
+				+ "<span style=\"font-family: arial , sans-serif;\"><span style=\"font-size: 10.5pt;\">Experience within the aerospace, defence, energy or transport sectors</span></span></li><li><span style=\"font-family: arial , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Other programming languages</span></span></li></ul>");
+		dp2.setRequiredQualifications("<ul><li><span style=\"color: black;\"><span style=\"font-family: helvetica , sans-serif;\"><span style=\"font-size: 10.5pt;\">Educated to degree level in a computing or mathematically based subject achieving a 2:1 or higher </span></span></span></li>"
+				+ "<li><span style=\"color: black;\"><span style=\"font-family: helvetica , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Experience and ability to demonstrate knowledge with developing web applications using the Microsoft Stack: Visual Studio 2012+, ASP.NET, C# and SQL Server 2008+</span></span></span></li><li><span style=\"color: black;\">"
+				+ "<span style=\"font-family: helvetica , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Strong object-oriented development skills</span></span></span>"
+				+ "</li><li><span style=\"color: black;\"><span style=\"font-family: helvetica , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Design experience using UML and design patterns</span></span></span></li><li><span style=\"color: black;\"><span style=\"font-family: helvetica , sans-serif;\">"
+				+ "<span style=\"font-size: 10.5pt;\">Testing at module and system level (creating test scripts and procedures)</span></span></span></li>"
+				+ "<li><span style=\"color: black;\"><span style=\"font-family: helvetica , sans-serif;\"><span style=\"font-size: 10.5pt;\">Configuration management</span></span></span></li></ul>");
 
 		GuideEntity generalGuide2 = new GuideEntity();
-		generalGuide2.setGuideTitle("guide position2");
+		generalGuide2.setGuideTitle("Guide Position2");
 		generalGuide2.setGuideDate(ft.parse("2015-06-01"));
-		generalGuide2.setFilePath("qqcoisa2");
+		generalGuide2
+				.setFilePath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\Guide\\Guide_guide position2_2015-09-30 21-28-46_guide.xlsx");
 		generalGuide2.setAuthor(users[0]);
 
 		Set<Source> sourcesPos2 = new HashSet<Source>();
@@ -190,7 +252,8 @@ public class Populate implements Serializable {
 		candidate1.setCountry("Portugal");
 		candidate1.setCourse("Eng");
 		candidate1.setSchool("FCUL");
-		candidate1.setCvPath("qqcoisa");
+		candidate1
+				.setCvPath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\CV\\CV_rafaela@gmail.com_2015-10-01 12-23-41_CV_Rafaela_Lourenco.pdf");
 		candidate1.setRole(rCAnd);
 
 		Set<Source> sourceCand1 = new HashSet<Source>();
@@ -210,7 +273,8 @@ public class Populate implements Serializable {
 		candidate2.setCountry("Portugal");
 		candidate2.setCourse("Eng Bioquimica");
 		candidate2.setSchool("FCUL");
-		candidate2.setCvPath("qqcoisa");
+		candidate2
+				.setCvPath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\CV\\CV_ricardo@gmail.com_2015-10-01 12-21-36_CV Ricardo Alves.pdf");
 		candidate2.setRole(rCAnd);
 
 		// Candidatures

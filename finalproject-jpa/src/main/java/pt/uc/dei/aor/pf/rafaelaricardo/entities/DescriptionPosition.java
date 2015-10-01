@@ -13,19 +13,19 @@ public class DescriptionPosition implements Serializable {
 	private static final long serialVersionUID = 2872070494671373272L;
 
 	@NotBlank
-	@Column(nullable = false, length = 2000)
+	@Column(nullable = false, length = 5000)
 	private String description;
 
 	@NotBlank
-	@Column(nullable = false, length = 2000)
+	@Column(nullable = false, length = 5000)
 	private String keyResponsabilities;
 
 	@NotBlank
-	@Column(nullable = false, length = 2000)
+	@Column(nullable = false, length = 5000)
 	private String requiredQualifications;
 
 	@NotBlank
-	@Column(nullable = false, length = 2000)
+	@Column(nullable = false, length = 5000)
 	private String desiredQualifications;
 
 	public String getDescription() {

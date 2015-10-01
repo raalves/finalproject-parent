@@ -34,13 +34,13 @@ import pt.uc.dei.aor.pf.rafaelaricardo.enums.Source;
 @Entity
 @Table(name = "candidature")
 @NamedQueries({
-		@NamedQuery(name = "CandidatureEntity.findCandidatureById", query = "SELECT c FROM CandidatureEntity c WHERE c.id = :id"),
-		@NamedQuery(name = "CandidatureEntity.findCandidatureByPosition", query = "SELECT c FROM CandidatureEntity c WHERE c.position = :position"),
-		@NamedQuery(name = "CandidatureEntity.findCandidatureByCandidate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidate = :candidate"),
-	@NamedQuery(name = "CandidatureEntity.findCandidatureBySource", query = "SELECT c FROM CandidatureEntity c WHERE c.publicSource = :publicSource"),
-		@NamedQuery(name = "CandidatureEntity.findCandidatureByDate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureDate = :candidatureDate"),
-		@NamedQuery(name = "CandidatureEntity.findCandidatureByStatus", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureStatus = :candidatureStatus"),
-		@NamedQuery(name = "CandidatureEntity.findAllByIdOrder", query = "SELECT c FROM CandidatureEntity c ORDER BY c.id") })
+	@NamedQuery(name = "CandidatureEntity.findCandidatureById", query = "SELECT c FROM CandidatureEntity c WHERE c.id = :id"),
+	@NamedQuery(name = "CandidatureEntity.findCandidatureByPosition", query = "SELECT c FROM CandidatureEntity c WHERE c.position = :position"),
+	@NamedQuery(name = "CandidatureEntity.findCandidatureByCandidate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidate = :candidate"),
+		@NamedQuery(name = "CandidatureEntity.findCandidatureBySource", query = "SELECT c FROM CandidatureEntity c WHERE c.publicSource = :publicSource"),
+			@NamedQuery(name = "CandidatureEntity.findCandidatureByDate", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureDate = :candidatureDate"),
+			@NamedQuery(name = "CandidatureEntity.findCandidatureByStatus", query = "SELECT c FROM CandidatureEntity c WHERE c.candidatureStatus = :candidatureStatus"),
+			@NamedQuery(name = "CandidatureEntity.findAllByIdOrder", query = "SELECT c FROM CandidatureEntity c ORDER BY c.id") })
 public class CandidatureEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

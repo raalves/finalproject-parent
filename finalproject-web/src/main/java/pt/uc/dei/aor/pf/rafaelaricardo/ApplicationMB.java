@@ -3,6 +3,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidateEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.CandidatureEntity;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.PositionEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
@@ -74,6 +76,25 @@ public class ApplicationMB implements Serializable {
 			log.error(errorMsg);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(errorMsg));
+			return null;
+		}
+	}
+
+	public InterviewEntity addInterview(CandidatureEntity candidature,
+			Date interviewDate, List<UserEntity> interviewers) {
+
+		try {
+			InterviewEntity interv = interviewFacade.addInterview(candidature,
+					interviewDate, interviewers);
+			return interv;
+		} catch (EJBException e) {
+			String errorMsg = "An error ocurred when creating this interview: "
+					+ e.getMessage();
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					"msgNewInterview",
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg, e
+							.getMessage()));
 			return null;
 		}
 	}
