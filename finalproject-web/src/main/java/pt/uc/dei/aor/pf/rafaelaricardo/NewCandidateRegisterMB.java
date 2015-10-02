@@ -25,6 +25,8 @@ public class NewCandidateRegisterMB implements Serializable {
 
 	@Inject
 	private ApplicationMB applicationMB;
+	@Inject
+	private ActiveUserMB actUserMB;
 
 	private String firstName;
 	private String lastName;
@@ -81,7 +83,10 @@ public class NewCandidateRegisterMB implements Serializable {
 										infoMsg, null));
 
 						cleanFields();
-						return "/LoginCandidates?faces-redirect=true";
+						// if (actUserMB.getCurrentUser() != null) {
+						// return "/pages/public/NewCandidateRegister";
+						// }
+						return null;
 					}
 
 				} else {

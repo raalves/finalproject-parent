@@ -77,6 +77,7 @@ public class InterviewEntity implements Serializable {
 		super();
 		this.interviewDate = interviewDate;
 		this.interviewStatus = interviewStatus;
+
 	}
 
 	// *************************** METHODS ***************************

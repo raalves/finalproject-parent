@@ -165,20 +165,20 @@ public class SearchCandidaturesMB implements Serializable {
 					.disjunction()
 					.add(Restrictions.ilike("firstName", searchFree,
 							MatchMode.ANYWHERE))
-							.add(Restrictions.ilike("lastName", searchFree,
-									MatchMode.ANYWHERE))
-									.add(Restrictions.ilike("email", searchFree,
-											MatchMode.ANYWHERE))
-											.add(Restrictions.ilike("address", searchFree,
-													MatchMode.ANYWHERE))
-													.add(Restrictions.ilike("city", searchFree,
-															MatchMode.ANYWHERE))
-															.add(Restrictions.ilike("country", searchFree,
-																	MatchMode.ANYWHERE))
-																	.add(Restrictions.ilike("course", searchFree,
-																			MatchMode.ANYWHERE))
-																			.add(Restrictions.ilike("school", searchFree,
-																					MatchMode.ANYWHERE)));
+					.add(Restrictions.ilike("lastName", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("email", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("address", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("city", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("country", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("course", searchFree,
+							MatchMode.ANYWHERE))
+					.add(Restrictions.ilike("school", searchFree,
+							MatchMode.ANYWHERE)));
 		}
 		return criteria2.addOrder(Order.asc("firstName")).list();
 	}
@@ -190,7 +190,7 @@ public class SearchCandidaturesMB implements Serializable {
 			candidature = applicationMB.addCandidature(candidateSelect, p,
 					candidateSelect.getCvPath(), "Candidature done by: "
 							+ activeUserMB.getCurrentUser().getEmail(),
-							new Date(), null);
+					new Date(), null);
 			if (candidature == null) {
 				String errorMsg = "Already have a candidature for the position: "
 						+ p.getTitle();
@@ -225,7 +225,7 @@ public class SearchCandidaturesMB implements Serializable {
 						candidature.getResumePath(), null);
 			}
 		} catch (Exception e) {
-			String errorMsg = "An error ocurred wwhile sendin notifications: "
+			String errorMsg = "An error ocurred while sending notifications: "
 					+ e.getMessage();
 			log.error(errorMsg);
 			FacesContext.getCurrentInstance().addMessage(

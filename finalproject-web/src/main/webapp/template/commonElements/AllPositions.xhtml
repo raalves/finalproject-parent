@@ -103,7 +103,7 @@
 				<p:outputLabel value="#{position.technicalArea}" />
 			</p:column>
 
-			<p:column headerText="Details" style="text-align:center;width:100px">
+			<p:column headerText="Details" style="text-align:center">
 				<p:commandButton icon="ui-icon-search" title="See details"
 					oncomplete="PF('positionDialog').show();return false;"
 					update=":tab:frm5:detailsSelectedPosition">
@@ -111,10 +111,197 @@
 						target="#{positionsMB.positionSelect}" />
 				</p:commandButton>
 			</p:column>
-
-
+			<p:column headerText="Candidatures" style="text-align:center">
+				<p:commandButton icon="ui-icon-search" title="See candidatures"
+					oncomplete="PF('candidaturesDialog').show();return false;"
+					update=":tab:frm5:detailsCandidaturesPosition"
+					action="#{newInterviewMB.listCandidaturesByPosition()}">
+					<f:setPropertyActionListener value="#{position}"
+						target="#{newInterviewMB.selectPosition}" />
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
+		<p:dialog id="detailsCandidaturesPosition"
+			header="Position Candidatures" widgetVar="candidaturesDialog"
+			modal="true" width="900" height="500" resizable="false"
+			closeOnEscape="true" position="center" style="padding:10px;">
+			<p:outputPanel style="padding-left:15px">
+				<p:messages id="msgCandidaturesPosition" severity="error,warn,info"
+					closable="true" style="text-align:left"
+					for="msgCandidaturesPosition" autoUpdate="true" />
 
+				<h3>List of candidatures for position:
+					#{newInterviewMB.selectPosition.title}</h3>
+
+				<p:dataTable id="candidaturesPositionSelect" style="margin-top:5px"
+					emptyMessage="No records found" rows="15" paginator="true"
+					paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					value="#{newInterviewMB.listCandidatures}" var="candidature"
+					sortOrder="#{candidature.id}">
+
+					<p:column headerText="First Name" style="text-align:left"
+						sortBy="#{candidature.candidate.firstName}">
+						<p:outputLabel value="#{candidature.candidate.firstName}" />
+					</p:column>
+					<p:column headerText="Last Name" style="text-align:center"
+						sortBy="#{candidature.candidate.lastName}">
+						<p:outputLabel value="#{candidature.candidate.lastName}" />
+					</p:column>
+					<p:column headerText="Date" style="text-align:right">
+						<p:outputLabel value="#{candidature.candidatureDate}" />
+					</p:column>
+					<p:column headerText="Details" style="text-align:center;width:80px">
+						<p:commandButton icon="ui-icon-search"
+							oncomplete="PF('selectCandidatureDialog').show();return false;"
+							update=":tab:frm5:detailsSelectedCandidature">
+							<f:setPropertyActionListener value="#{candidature}"
+								target="#{newInterviewMB.selectCandidature}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Interviews"
+						style="text-align:center;width:80px">
+						<p:commandButton icon="ui-icon-search"
+							oncomplete="PF('detailsInterviewsCandidature').show();return false;"
+							update=":tab:frm5:detailsInterviewsCandidature"
+							action="#{newInterviewMB.listInterviewsByCandidature()}">
+							<f:setPropertyActionListener value="#{candidature}"
+								target="#{newInterviewMB.selectCandidature}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				<div style="text-align: center; margin-top: 15px">
+					<p:commandButton value="Close"
+						onclick="PF('candidaturesDialog').hide();return false;" />
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+		<p:dialog id="detailsInterviewsCandidature"
+			header="Candidature Interviews"
+			widgetVar="detailsInterviewsCandidature" modal="true" width="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<h5>Interviews for candidature for position
+				#{newInterviewMB.selectCandidature.position.title} And candidate
+				#{newInterviewMB.selectCandidature.candidate.firstName}
+				#{newInterviewMB.selectCandidature.candidate.lastName}</h5>
+			<p:button value="Create new interview" icon="ui-icon-pencil"
+				onclick="PF('createNewInterviewDialog').show();return false;"
+				style="float:right">
+			</p:button>
+			<p:separator />
+			<p:dataTable id="interviewsCandidatureSelect" style="margin-top:5px"
+				emptyMessage="No records found" rows="15" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				value="#{newInterviewMB.listInterviews}" var="interview"
+				sortOrder="#{interview.id}">
+
+				<p:column headerText="Id" style="text-align:right"
+					sortBy="#{interview.id}">
+					<p:outputLabel value="#{interview.id}" />
+				</p:column>
+				<p:column headerText="Date" style="text-align:right"
+					sortBy="#{interview.interviewDate}">
+					<p:outputLabel value="#{interview.interviewDate}" />
+				</p:column>
+				<p:column headerText="Status" style="text-align:right"
+					sortBy="#{interview.interviewStatus}">
+					<p:outputLabel value="#{interview.interviewStatus}" />
+				</p:column>
+
+				<p:column headerText="Details?" style="text-align:center;width:80px">
+					<p:commandButton icon="ui-icon-search">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<div style="text-align: center; margin-top: 15px">
+				<p:commandButton value="Close"
+					onclick="PF('detailsInterviewsCandidature').hide();return false;" />
+			</div>
+		</p:dialog>
+		<p:dialog id="createNewInterviewDialog" header="New Interview"
+			widgetVar="createNewInterviewDialog" modal="true" resizable="false"
+			closeOnEscape="true" position="center" style="padding:10px;">
+			<p:outputPanel id="newInterviewPanel">
+				<p:outputLabel for="selectInterviewers" value="Select interviewers" />
+				<p:selectManyMenu id="selectInterviewers"
+					value="#{newInterviewMB.selectInterviewersWeb}" var="i" filter="true"
+					filterMatchMode="startsWith" showCheckbox="true">
+					<f:selectItems value="#{newInterviewMB.allInterviewers}"
+						var="interviewer"
+						itemLabel="#{interviewer.firstName} #{interviewer.lastName} - #{interviewer.email}"
+						itemValue="#{interviewer}" />
+					<p:column>
+						<h:outputText value="#{i.firstName} #{i.lastName} - #{i.email}" />
+					</p:column>
+				</p:selectManyMenu>
+				<p:outputLabel value="Date for interview" for="dateInterview" />
+				<p:calendar id="dateInterview" size="10" pattern="yyyy-MM-dd"
+					mask="true" 
+					value="#{newInterviewMB.interviewDate}" />
+				<div style="text-align: center; margin-top: 15px">
+					<p:commandButton value="Close"
+						onclick="PF('createNewInterviewDialog').hide();return false;" />
+
+
+					<p:commandButton value="Create new Interview"
+						action="#{newInterviewMB.createNewInterview()}" ajax="false" />
+				</div>
+			</p:outputPanel>
+		</p:dialog>
+		<p:dialog id="detailsSelectedCandidature" header="Candidature Details"
+			widgetVar="selectCandidatureDialog" modal="true" width="500"
+			height="500" resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel style="padding-left:15px">
+
+				<h3>#{newInterviewMB.selectCandidature.candidate.firstName}
+					#{newInterviewMB.selectCandidature.candidate.lastName}</h3>
+				<p:panelGrid columns="2" columnClasses="label, value">
+					<p:outputLabel value="Email" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.email}" />
+					<p:outputLabel value="Birthdate" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.birthDate}" />
+					<p:outputLabel value="Address" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.address}" />
+					<p:outputLabel value="City" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.city}" />
+					<p:outputLabel value="Phone" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.phone}" />
+					<p:outputLabel value="Mobile Phone" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.mobilePhone}" />
+					<p:outputLabel value="Country" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.country}" />
+					<p:outputLabel value="Course" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.course}" />
+					<p:outputLabel value="School" />
+					<p:outputLabel
+						value="#{newInterviewMB.selectCandidature.candidate.school}" />
+					<p:outputLabel value="Donwload CV" />
+					<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+						label="Download cv file"
+						actionListener="#{downloadFile.prepare(newInterviewMB.selectCandidature.candidate.cvPath)}">
+						<p:fileDownload value="#{downloadFile.file}" />
+					</p:commandButton>
+
+				</p:panelGrid>
+				<p:separator />
+				<h:outputText
+					value="#{newInterviewMB.selectCandidature.motivationLetter}"
+					escape="true" />
+				<div style="text-align: center; margin-top: 15px">
+					<p:commandButton value="Close"
+						onclick="PF('selectCandidatureDialog').hide();return false;" />
+				</div>
+			</p:outputPanel>
+		</p:dialog>
 		<p:dialog id="detailsSelectedPosition" header="Position Details"
 			widgetVar="positionDialog" modal="true" width="900" height="500"
 			resizable="false" closeOnEscape="true" position="center"
@@ -132,18 +319,27 @@
 				</p:panelGrid>
 				<div>
 					<h5 style="margin-top: 20px">Details</h5>
-					#{positionsMB.positionSelect.descriptionPosition.description}
+					<h:outputText
+						value="
+					#{positionsMB.positionSelect.descriptionPosition.description}"
+						escape="false" />
 
 					<h5 style="margin-top: 20px">KEY RESPONSIBILITIES</h5>
-					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}
+					<h:outputText
+						value="#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}"
+						escape="false" />
 
 					<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
 						AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
+					<h:outputText
+						value="#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}"
+						escape="false" />
 
 					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
 						AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
+					<h:outputText
+						value="#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}"
+						escape="false" />
 				</div>
 				<div style="text-align: center">
 					<p:commandButton value="Close"
@@ -151,5 +347,10 @@
 				</div>
 			</p:outputPanel>
 		</p:dialog>
+
+
+
+
+
 	</h:form>
 </ui:composition>

@@ -65,10 +65,10 @@ public class Populate implements Serializable {
 		UserEntity[] users = {
 				new UserEntity("admin", "das couves", "admin@gmail.com",
 						encPass.encrypt("123"), rAdmin),
-				new UserEntity("manager", "das couves", "manager@gmail.com",
-						encPass.encrypt("123"), rManager),
-				new UserEntity("interviewer", "das couves", "interv@gmail.com",
-						encPass.encrypt("123"), rInterv) };
+						new UserEntity("manager", "das couves", "manager@gmail.com",
+								encPass.encrypt("123"), rManager),
+								new UserEntity("interviewer", "das couves", "interv@gmail.com",
+										encPass.encrypt("123"), rInterv) };
 
 		// Creating Positions
 		// Position1
@@ -97,7 +97,7 @@ public class Populate implements Serializable {
 		generalGuide.setGuideTitle("Guide position1");
 		generalGuide.setGuideDate(ft.parse("2015-05-01"));
 		generalGuide
-				.setFilePath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\Guide\\Guide_guide position1_2015-09-30 15-47-43_guide.xlsx");
+		.setFilePath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\Guide\\Guide_guide position1_2015-09-30 15-47-43_guide.xlsx");
 		generalGuide.setAuthor(users[0]);
 
 		Set<Source> sourcesPos1 = new HashSet<Source>();
@@ -208,7 +208,7 @@ public class Populate implements Serializable {
 		generalGuide2.setGuideTitle("Guide Position2");
 		generalGuide2.setGuideDate(ft.parse("2015-06-01"));
 		generalGuide2
-				.setFilePath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\Guide\\Guide_guide position2_2015-09-30 21-28-46_guide.xlsx");
+		.setFilePath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\Guide\\Guide_guide position2_2015-09-30 21-28-46_guide.xlsx");
 		generalGuide2.setAuthor(users[0]);
 
 		Set<Source> sourcesPos2 = new HashSet<Source>();
@@ -247,13 +247,13 @@ public class Populate implements Serializable {
 		candidate1.setMobilePhone((long) 912345678);
 		candidate1.setPhone((long) 274111111);
 		candidate1
-				.setAddress("Travessa da Central Eléctrica nº2, 6100-654 Sertã");
+		.setAddress("Travessa da Central Eléctrica nº2, 6100-654 Sertã");
 		candidate1.setCity("Sertã");
 		candidate1.setCountry("Portugal");
 		candidate1.setCourse("Eng");
 		candidate1.setSchool("FCUL");
 		candidate1
-				.setCvPath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\CV\\CV_rafaela@gmail.com_2015-10-01 12-23-41_CV_Rafaela_Lourenco.pdf");
+		.setCvPath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\CV\\CV_rafaela@gmail.com_2015-10-01 12-23-41_CV_Rafaela_Lourenco.pdf");
 		candidate1.setRole(rCAnd);
 
 		Set<Source> sourceCand1 = new HashSet<Source>();
@@ -274,7 +274,7 @@ public class Populate implements Serializable {
 		candidate2.setCourse("Eng Bioquimica");
 		candidate2.setSchool("FCUL");
 		candidate2
-				.setCvPath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\CV\\CV_ricardo@gmail.com_2015-10-01 12-21-36_CV Ricardo Alves.pdf");
+		.setCvPath("C:\\Program Files\\wildfly-8.2.0.Final\\wildfly-8.2.0.Final\\ProjFinalUploadedFiles\\CV\\CV_ricardo@gmail.com_2015-10-01 12-21-36_CV Ricardo Alves.pdf");
 		candidate2.setRole(rCAnd);
 
 		// Candidatures
