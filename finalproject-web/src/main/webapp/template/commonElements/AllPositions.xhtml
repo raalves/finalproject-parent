@@ -83,7 +83,7 @@
 			<p:column headerText="Closing Date" sortBy="#{position.closingDate}">
 				<p:outputLabel value="#{position.closingDate}" />
 			</p:column>
-			<p:column headerText="Id" sortBy="#{position.id}">
+			<p:column headerText="Id" sortBy="#{position.id}" style="text-align:center;width:30px">
 				<p:outputLabel value="#{position.id}" />
 			</p:column>
 			<p:column headerText="Title" sortBy="#{position.title}">
@@ -92,18 +92,18 @@
 			<p:column headerText="Location">
 				<p:outputLabel value="#{position.location}" />
 			</p:column>
-			<p:column headerText="Status" sortBy="#{position.positionStatus}">
+			<p:column headerText="Status" sortBy="#{position.positionStatus}" style="text-align:center;width:100px">
 				<p:outputLabel value="#{position.positionStatus}" />
 			</p:column>
 			<p:column headerText="Company" sortBy="#{position.company}">
 				<p:outputLabel value="#{position.company}" />
 			</p:column>
 			<p:column headerText="Technical Area"
-				sortBy="#{position.technicalArea}">
+				sortBy="#{position.technicalArea}" style="text-align:center">
 				<p:outputLabel value="#{position.technicalArea}" />
 			</p:column>
 
-			<p:column headerText="Details" style="text-align:center">
+			<p:column headerText="Details" style="text-align:center;width:43px">
 				<p:commandButton icon="ui-icon-search" title="See details"
 					oncomplete="PF('positionDialog').show();return false;"
 					update=":tab:frm5:detailsSelectedPosition">
@@ -128,7 +128,7 @@
 			<p:outputPanel style="padding-left:15px">
 				<p:messages id="msgCandidaturesPosition" severity="error,warn,info"
 					closable="true" style="text-align:left"
-					for="msgCandidaturesPosition" autoUpdate="true" />
+					for="msgCandidaturesPosition"  />
 
 				<h3>List of candidatures for position:
 					#{newInterviewMB.selectPosition.title}</h3>
@@ -180,15 +180,11 @@
 			widgetVar="detailsInterviewsCandidature" modal="true" width="600"
 			resizable="false" closeOnEscape="true" position="center"
 			style="padding:10px;">
-
-
-
 			<p:dataTable id="interviewsCandidatureSelect" style="margin-top:5px"
 				emptyMessage="No records found" rows="15" paginator="true"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom"
 				value="#{newInterviewMB.listInterviews}" var="interview"
 				sortOrder="#{interview.id}">
-
 				<p:column headerText="Id" style="text-align:right"
 					sortBy="#{interview.id}">
 					<p:outputLabel value="#{interview.id}" />
@@ -200,11 +196,6 @@
 				<p:column headerText="Status" style="text-align:right"
 					sortBy="#{interview.interviewStatus}">
 					<p:outputLabel value="#{interview.interviewStatus}" />
-				</p:column>
-
-				<p:column headerText="Details?" style="text-align:center;width:80px">
-					<p:commandButton icon="ui-icon-search">
-					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 			<div style="text-align: center; margin-top: 15px">
@@ -294,7 +285,7 @@
 						actionListener="#{downloadFile.prepare(newInterviewMB.selectCandidature.candidate.cvPath)}">
 						<p:fileDownload value="#{downloadFile.file}" />
 					</p:commandButton>
-
+					
 				</p:panelGrid>
 				<p:separator />
 				<h:outputText
@@ -351,10 +342,5 @@
 				</div>
 			</p:outputPanel>
 		</p:dialog>
-
-
-
-
-
 	</h:form>
 </ui:composition>

@@ -155,6 +155,16 @@
 					<p:outputLabel value="School" />
 					<p:outputLabel
 						value="#{searchCandidaturesMB.candidateSelect.school}" />
+					<p:outputLabel value="Donwload CV" />
+					<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+						label="Download cv file"
+						actionListener="#{downloadFile.prepare(searchCandidaturesMB.candidateSelect.cvPath)}">
+						<p:fileDownload value="#{downloadFile.file}" />
+					</p:commandButton>
+					<p:outputLabel value="See Cover Letter" />
+					<p:commandButton icon="ui-icon-search"
+						oncomplete="PF('seeCoverLetter').show();return false;"
+						update=":tab:frm2:seeCoverLetter" />
 				</p:panelGrid>
 				<div style="text-align: center; margin-top: 15px">
 					<p:commandButton value="Close"
@@ -163,7 +173,21 @@
 			</p:outputPanel>
 
 		</p:dialog>
-
+		<p:dialog id="seeCoverLetter" header="Cover Letter"
+			widgetVar="seeCoverLetter" modal="true" resizable="false"
+			closeOnEscape="true" position="center" style="padding:10px;">
+			<p:outputPanel id="coverLetter"
+				style="padding-left:15px;margin-top:10px">
+				<h:outputText
+					value="#{searchCandidaturesMB.candidateSelect.coverLetter}"
+					escape="false" />
+			</p:outputPanel>
+			<p:outputPanel style="text-align:center">
+				<p:commandButton value="Close"
+					onclick="PF('seeCoverLetter').hide();return false;"
+					style="margin-top:15px" />
+			</p:outputPanel>
+		</p:dialog>
 		<p:dialog id="assocToPosition" header="List of all positions"
 			widgetVar="positionDialog1" modal="true" width="900" height="500"
 			resizable="false" closeOnEscape="true" position="center"
@@ -254,18 +278,18 @@
 				</p:panelGrid>
 				<div>
 					<h5 style="margin-top: 20px">Details</h5>
-					#{positionsMB.positionSelect.descriptionPosition.description}
+					<h:outputText value="#{positionsMB.positionSelect.descriptionPosition.description}" escape="false"/>
 
 					<h5 style="margin-top: 20px">KEY RESPONSIBILITIES</h5>
-					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}
+					<h:outputText value="#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}" escape="false"/>
 
 					<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
 						AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
+				<h:outputText value="#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}" escape="false" />
 
 					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
 						AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
+					<h:outputText value="#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}" escape="false"/>
 				</div>
 				<div style="text-align: center">
 					<p:commandButton value="Close"

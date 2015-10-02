@@ -8,7 +8,7 @@
 
 		<h:form id="formNewCandidate" enctype="multipart/form-data">
 			<p:messages id="msgNewCandRegister" severity="error,warn"
-				closable="true" style="text-align:left" autoUpdate="true" />
+				closable="true" style="text-align:left" autoUpdate="true" for="msgNewCandRegister"/>
 			<p:growl id="growlNewCand" sticky="true" severity="info" />
 			<p:panel>
 				<p:outputLabel>
@@ -93,9 +93,8 @@
 						value="#{uploadFile.file}" required="true"
 						requiredMessage="Please upload your CV/Resume!" />
 					<p:outputLabel value="Cover Letter" for="coverLetter" />
-					<p:inputTextarea id="coverLetter"
-						value="#{newCandidateRegisterMB.coverLetter}" rows="10" cols="100"
-						counter="display" counterTemplate="{0} characters remaining"
+					<p:editor id="coverLetter"
+						value="#{newCandidateRegisterMB.coverLetter}" style="width: 510px;"
 						autoResize="false" maxlength="5000" />
 					<p:spacer />
 					<h:outputText id="display" />

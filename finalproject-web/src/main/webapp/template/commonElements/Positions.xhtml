@@ -18,10 +18,11 @@
 
 		<h1 id="titleCareers">Open Positions</h1>
 		<p:dataTable id="positions" value="#{positionsMB.openPositions}"
-			var="position" resizableColumns="true">
+			var="position" rows="15" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom">
 			<f:facet name="header" />
 
-			<p:column headerText="Title" style="text-align:left"
+			<p:column headerText="Title" style="text-align:left;width:auto;"
 				sortBy="#{position.title}">
 				<p:outputLabel value="#{position.title}" />
 			</p:column>
@@ -32,7 +33,7 @@
 			<p:column headerText="Location" style="text-align:right">
 				<p:outputLabel value="#{position.location}" />
 			</p:column>
-			<p:column headerText="Status" style="text-align:center"
+			<p:column headerText="Status" style="text-align:center;width:100px"
 				sortBy="#{position.positionStatus}">
 				<p:outputLabel value="#{position.positionStatus}" />
 			</p:column>
@@ -45,9 +46,6 @@
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
-
-
-
 		<p:dialog id="detailsSelectedPosition" header="Position Details"
 			widgetVar="positionDialog" modal="true" width="900" height="500"
 			resizable="false" closeOnEscape="true" position="center"

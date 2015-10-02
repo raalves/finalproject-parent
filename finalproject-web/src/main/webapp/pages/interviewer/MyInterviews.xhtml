@@ -133,6 +133,10 @@
 						actionListener="#{downloadFile.prepare(interviewerMB.interviewSelect.candidature.candidate.cvPath)}">
 						<p:fileDownload value="#{downloadFile.file}" />
 					</p:commandButton>
+					<p:outputLabel value="See Cover Letter" />
+					<p:commandButton icon="ui-icon-search"
+						oncomplete="PF('seeCoverLetter').show();return false;"
+						update=":tab:frm3:seeCoverLetter" />
 				</p:panelGrid>
 			</p:outputPanel>
 			<p:separator />
@@ -158,18 +162,35 @@
 				</p:panelGrid>
 				<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
 					AND EXPERIENCE</h5>
-					#{interviewerMB.interviewSelect.candidature.position.descriptionPosition.requiredQualifications}
-					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
-					AND EXPERIENCE</h5>
-					#{interviewerMB.interviewSelect.candidature.position.descriptionPosition.desiredQualifications}	
+				<h:outputText
+					value="#{interviewerMB.interviewSelect.candidature.position.descriptionPosition.requiredQualifications}"
+					escape="false" />
+				<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS AND
+					EXPERIENCE</h5>
+				<h:outputText
+					value="#{interviewerMB.interviewSelect.candidature.position.descriptionPosition.desiredQualifications}"
+					escape="false" />
 			</p:outputPanel>
 			<p:outputPanel style="text-align:center">
 				<p:commandButton value="Close"
 					onclick="PF('detailsDialog').hide();return false;" />
 			</p:outputPanel>
 		</p:dialog>
-
-
+		<p:dialog id="seeCoverLetter" header="Cover Letter"
+			widgetVar="seeCoverLetter" modal="true" resizable="false"
+			closeOnEscape="true" position="center" style="padding:10px;">
+			<p:outputPanel id="coverLetter"
+				style="padding-left:15px;margin-top:10px">
+				<h:outputText
+					value="#{interviewerMB.interviewSelect.candidature.motivationLetter}"
+					escape="false" />
+			</p:outputPanel>
+			<p:outputPanel style="text-align:center">
+				<p:commandButton value="Close"
+					onclick="PF('seeCoverLetter').hide();return false;"
+					style="margin-top:15px" />
+			</p:outputPanel>
+		</p:dialog>
 	</h:form>
 	<p:dialog id="uploadGuideComplete" header="Upload Guide Complete"
 		widgetVar="uploadDialog" modal="true" resizable="false"

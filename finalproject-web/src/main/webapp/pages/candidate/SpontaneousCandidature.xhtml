@@ -86,12 +86,12 @@
 						value="#{uploadFile.file}" required="true"
 						requiredMessage="Please upload your CV/Resume!" />
 					<p:outputLabel
-						value="Motivation Letter - tell us why you should be choosen for this position"
-						for="motivationLetter" />
-					<p:inputTextarea id="motivationLetter"
-						value="#{applyMB.motivationLetter}" rows="10" cols="100"
-						counter="display" counterTemplate="{0} characters remaining"
-						autoResize="false" maxlength="5000" />
+						value="Motivation Letter "
+						for="motivationLetter" />						
+					<p:editor id="motivationLetter"
+						value="#{applyMB.motivationLetter}" 
+						style="width: 510px;"
+						autoResize="false" maxlength="5000" />					
 					<p:spacer />
 					<h:outputText id="display" />
 

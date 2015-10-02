@@ -107,6 +107,13 @@ public class NewInterviewMB implements Serializable {
 		}
 	}
 
+	public String associateData(PositionEntity selectPosition) {
+		System.out.println("que vem do postionMB" + selectPosition);
+		this.selectPosition = selectPosition;
+		listCandidaturesByPosition();
+		return null;
+	}
+
 	public String createNewInterview() {
 
 		convertStringInToUser();
@@ -130,15 +137,19 @@ public class NewInterviewMB implements Serializable {
 			String infoMsg = "Success on creating interview";
 			log.info(infoMsg);
 			FacesContext.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(FacesMessage.SEVERITY_INFO,
-									infoMsg, null));
+			.addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO,
+							infoMsg, null));
 			sendNotifications();
 			interviewerMB.listMyInterviewers();
 			adminMB.listAllInterviews();
 		}
-		return "/pages/admin/AdminPage.xhtml?faces-redirect=true";
+		if (actUserMB.isCreateNewPosition()) {
+			return "/pages/admin/AdminPage.xhtml?faces-redirect=true";
+		} else {
+			return "/pages/manager/ManagerPage.xhtml?faces-redirect=true";
+		}
 	}
 
 	public void sendNotifications() {
@@ -169,8 +180,8 @@ public class NewInterviewMB implements Serializable {
 					envioMail.sendMail(u.getEmail(),
 							"New Interview: information mail",
 							mailInterviewers, selectCandidature.getCandidate()
-									.getCvPath(), selectCandidature
-									.getPosition().getGuide().getFilePath());
+							.getCvPath(), selectCandidature
+							.getPosition().getGuide().getFilePath());
 				}
 			}
 		} catch (Exception e) {

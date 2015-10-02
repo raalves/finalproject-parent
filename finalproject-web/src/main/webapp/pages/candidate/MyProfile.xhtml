@@ -64,10 +64,9 @@
 				value="#{uploadFile.file}" required="true" />
 
 			<p:outputLabel value="Cover Letter" for="coverLetter" />
-			<p:inputTextarea id="coverLetter"
-				value="#{activeUserMB.currentCandidate.coverLetter}" rows="10"
-				cols="100" counter="display"
-				counterTemplate="{0} characters remaining" autoResize="false"
+			<p:editor id="coverLetter"
+				value="#{activeUserMB.currentCandidate.coverLetter}" style="width: 510px;"
+				autoResize="false"
 				maxlength="5000" />
 			<p:spacer />
 			<h:outputText id="display" />

@@ -97,9 +97,8 @@
 					<p:outputLabel
 						value="Motivation Letter - tell us why you should be choosen for this position"
 						for="motivationLetter" />
-					<p:inputTextarea id="motivationLetter"
-						value="#{applyMB.motivationLetter}" rows="10" cols="100"
-						counter="display" counterTemplate="{0} characters remaining"
+					<p:editor id="motivationLetter"
+						value="#{applyMB.motivationLetter}" style="width: 510px;"
 						autoResize="false" maxlength="5000" />
 					<p:spacer />
 					<h:outputText id="display" />
