@@ -14,5 +14,14 @@
         <dependent-module archiveName="org.apache.servicemix.bundles.rome-1.0_3.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/apache/servicemix/bundles/org.apache.servicemix.bundles.rome/1.0_3/org.apache.servicemix.bundles.rome-1.0_3.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="mockito-core-1.10.19.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hamcrest-core-1.1.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="objenesis-2.1.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/objenesis/objenesis/2.1/objenesis-2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

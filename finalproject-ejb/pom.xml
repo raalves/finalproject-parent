@@ -8,14 +8,14 @@
 	</parent>
 	<artifactId>finalproject-ejb</artifactId>
 	<packaging>ejb</packaging>
-	
+
 	<name>finalproject-ejb</name>
 	<description>EJB service layer</description>
-	
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 	</build>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>pt.uc.dei.aor.pf.rafaelaricardo</groupId>
@@ -39,6 +39,20 @@
 			<groupId>org.apache.servicemix.bundles</groupId>
 			<artifactId>org.apache.servicemix.bundles.rome</artifactId>
 			<version>1.0_3</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
