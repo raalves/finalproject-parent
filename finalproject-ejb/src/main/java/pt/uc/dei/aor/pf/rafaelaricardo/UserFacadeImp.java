@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import pt.uc.dei.aor.pf.rafaelaricardo.dao.RoleDAO;
 import pt.uc.dei.aor.pf.rafaelaricardo.dao.UserDAO;
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 
@@ -73,7 +74,7 @@ public class UserFacadeImp implements UserFacade {
 			String lastName, String email, String password,
 			ArrayList<RoleEntity> roles) {
 		log.info("Saving user in DB");
-		System.out.println(creator);
+
 		if (userDAO.findUserByEmail(email) == null) {
 			UserEntity u = new UserEntity(firstName, lastName, email,
 					encryptPass.encrypt(password), roles);
@@ -84,4 +85,15 @@ public class UserFacadeImp implements UserFacade {
 		return null;
 	}
 
+	@Override
+	public void addInterviewToUser(List<UserEntity> interviewers,
+			InterviewEntity interview) {
+		log.info("Add Interviewers to Interviwer");
+		for (UserEntity u : interviewers) {
+			List<InterviewEntity> interv = u.getInterviews();
+			interv.add(interview);
+			u.setInterviews(interv);
+			userDAO.update(u);
+		}
+	}
 }

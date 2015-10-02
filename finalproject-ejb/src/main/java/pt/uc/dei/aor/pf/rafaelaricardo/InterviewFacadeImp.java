@@ -102,8 +102,8 @@ public class InterviewFacadeImp implements InterviewFacade {
 
 	@Override
 	public InterviewEntity addInterview(CandidatureEntity candidature,
-			Date interviewDate, List<UserEntity> interviewers) {
-		System.out.println(interviewers.get(0).getFirstName());
+			Date interviewDate) {
+
 		log.info("Saving interview in DB");
 		InterviewEntity i = new InterviewEntity(interviewDate,
 				InterviewStatus.SCHEDULED);

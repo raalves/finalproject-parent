@@ -35,6 +35,6 @@ public interface InterviewFacade {
 			GuideEntity guideComplete);
 
 	public abstract InterviewEntity addInterview(CandidatureEntity candidature,
-			Date interviewDate, List<UserEntity> interviewers);
+			Date interviewDate);
 
 }

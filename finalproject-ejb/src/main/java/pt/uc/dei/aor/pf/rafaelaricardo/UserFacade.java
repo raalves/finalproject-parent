@@ -3,6 +3,7 @@ package pt.uc.dei.aor.pf.rafaelaricardo;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.uc.dei.aor.pf.rafaelaricardo.entities.InterviewEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.RoleEntity;
 import pt.uc.dei.aor.pf.rafaelaricardo.entities.UserEntity;
 
@@ -25,5 +26,8 @@ public interface UserFacade {
 	public abstract List<UserEntity> findUserStartingBy(String firstName);
 
 	public abstract List<UserEntity> findAllByOrder();
+
+	public abstract void addInterviewToUser(List<UserEntity> interviewers,
+			InterviewEntity interview);
 
 }

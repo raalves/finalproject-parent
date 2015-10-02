@@ -85,8 +85,10 @@ public class ApplicationMB implements Serializable {
 
 		try {
 			InterviewEntity interv = interviewFacade.addInterview(candidature,
-					interviewDate, interviewers);
-
+					interviewDate);
+			if (interv != null) {
+				userFacade.addInterviewToUser(interviewers, interv);
+			}
 			return interv;
 		} catch (EJBException e) {
 			String errorMsg = "An error ocurred when creating this interview: "

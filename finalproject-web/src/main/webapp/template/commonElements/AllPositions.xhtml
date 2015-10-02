@@ -177,18 +177,12 @@
 		</p:dialog>
 		<p:dialog id="detailsInterviewsCandidature"
 			header="Candidature Interviews"
-			widgetVar="detailsInterviewsCandidature" modal="true" width="500"
+			widgetVar="detailsInterviewsCandidature" modal="true" width="600"
 			resizable="false" closeOnEscape="true" position="center"
 			style="padding:10px;">
-			<h5>Interviews for candidature for position
-				#{newInterviewMB.selectCandidature.position.title} And candidate
-				#{newInterviewMB.selectCandidature.candidate.firstName}
-				#{newInterviewMB.selectCandidature.candidate.lastName}</h5>
-			<p:button value="Create new interview" icon="ui-icon-pencil"
-				onclick="PF('createNewInterviewDialog').show();return false;"
-				style="float:right">
-			</p:button>
-			<p:separator />
+
+
+
 			<p:dataTable id="interviewsCandidatureSelect" style="margin-top:5px"
 				emptyMessage="No records found" rows="15" paginator="true"
 				paginatorAlwaysVisible="false" paginatorPosition="bottom"
@@ -216,33 +210,43 @@
 			<div style="text-align: center; margin-top: 15px">
 				<p:commandButton value="Close"
 					onclick="PF('detailsInterviewsCandidature').hide();return false;" />
+				<p:button value="Create new interview" icon="ui-icon-pencil"
+					onclick="PF('createNewInterviewDialog').show();return false;"
+					 rendered="#{activeUserMB.createNewPosition}">
+				</p:button>
 			</div>
 		</p:dialog>
 		<p:dialog id="createNewInterviewDialog" header="New Interview"
-			widgetVar="createNewInterviewDialog" modal="true" resizable="false"
-			closeOnEscape="true" position="center" style="padding:10px;">
-			<p:outputPanel id="newInterviewPanel">
-				<p:outputLabel for="selectInterviewers" value="Select interviewers" />
-				<p:selectManyMenu id="selectInterviewers"
-					value="#{newInterviewMB.selectInterviewersWeb}" var="i" filter="true"
-					filterMatchMode="startsWith" showCheckbox="true">
-					<f:selectItems value="#{newInterviewMB.allInterviewers}"
-						var="interviewer"
-						itemLabel="#{interviewer.firstName} #{interviewer.lastName} - #{interviewer.email}"
-						itemValue="#{interviewer}" />
-					<p:column>
-						<h:outputText value="#{i.firstName} #{i.lastName} - #{i.email}" />
-					</p:column>
-				</p:selectManyMenu>
-				<p:outputLabel value="Date for interview" for="dateInterview" />
-				<p:calendar id="dateInterview" size="10" pattern="yyyy-MM-dd"
-					mask="true" 
-					value="#{newInterviewMB.interviewDate}" />
+			widgetVar="createNewInterviewDialog" width="600" modal="true"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			<p:outputPanel id="panel">
+				<p:panelGrid columns="3" id="newInterviewPanel"
+					styleClass="ui-noborder" style=" margin-top: 10px"
+					columnClasses="label,field">
+					
+					<p:outputLabel value="Date for interview" for="dateInterview"
+						style="width:100" />
+					<p:calendar id="dateInterview" size="10" pattern="yyyy-MM-dd"
+						mask="true" value="#{newInterviewMB.interviewDate}" mode="inline" update=":tab:frm6:createNewInterviewDialog:panel:newInterviewPanel:newDate"/>
+						<p:outputLabel id="newDate" value="#{newInterviewMB.interviewDate}" />
+						<p:outputLabel for="selectInterviewers" value="Select interviewers" />
+					<p:selectManyMenu id="selectInterviewers"
+						value="#{newInterviewMB.selectInterviewersWeb}" var="i"
+						filter="true" filterMatchMode="startsWith" showCheckbox="true"
+						style="width:400px" label="width:400px" >
+						<f:selectItems value="#{newInterviewMB.allInterviewers}"
+							var="interviewer"
+							itemLabel="#{interviewer.firstName} #{interviewer.lastName} - #{interviewer.email}"
+							itemValue="#{interviewer}" />
+						<p:column>
+							<h:outputText value="#{i.firstName} #{i.lastName} - #{i.email}" />
+						</p:column>
+					</p:selectManyMenu>
+				</p:panelGrid>
 				<div style="text-align: center; margin-top: 15px">
 					<p:commandButton value="Close"
 						onclick="PF('createNewInterviewDialog').hide();return false;" />
-
-
 					<p:commandButton value="Create new Interview"
 						action="#{newInterviewMB.createNewInterview()}" ajax="false" />
 				</div>
