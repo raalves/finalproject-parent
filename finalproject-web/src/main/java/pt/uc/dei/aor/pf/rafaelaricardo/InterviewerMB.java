@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.xml.ws.soap.Addressing;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,7 @@ public class InterviewerMB implements Serializable {
 
 	@PostConstruct
 	public void listMyInterviewers() {
+		render = false;
 
 		this.actUser = actUserMB.getCurrentUser();
 		log.info("List all interviewes for interviewers" + actUser);
@@ -137,7 +139,7 @@ public class InterviewerMB implements Serializable {
 							null));
 		}
 	}
-
+	
 	public void renderButtonGuideComplet() {
 		if (interviewSelect.getGuideComplete().getFilePath() != null) {
 			render = true;
