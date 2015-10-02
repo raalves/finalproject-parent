@@ -83,9 +83,6 @@ public class NewCandidateRegisterMB implements Serializable {
 										infoMsg, null));
 
 						cleanFields();
-						// if (actUserMB.getCurrentUser() != null) {
-						// return "/pages/public/NewCandidateRegister";
-						// }
 						return null;
 					}
 

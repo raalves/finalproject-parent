@@ -50,6 +50,9 @@
 			widgetVar="positionDialog" modal="true" width="900" height="500"
 			resizable="false" closeOnEscape="true" position="center"
 			style="padding:10px;">
+			<p:messages id="msgDetailsPositions" severity="error,warn"
+				closable="true" style="text-align:left" autoUpdate="true" />
+			<p:growl id="growlDetailsPosiitions" sticky="true" severity="error,warn,info" autoUpdate="true" />
 			<p:outputPanel id="positionDialog" style="padding-left:15px">
 
 				<h3>#{positionsMB.positionSelect.title}</h3>
@@ -88,9 +91,8 @@
 						escape="false" />
 				</div>
 				<div style="text-align: center">
-					<a class="button"
-						href="mailto:?subject=Interesting for you&amp;body=Go to this website (www.criticalsoftware.com) and search for this postion: #{positionsMB.positionSelect.title}. Hope you like it">Send
-						to a friend</a>
+					<p:commandButton value="Send to a Friend"
+						oncomplete="PF('sendToaFriend').show();return false;" />
 					<p:commandButton value="Close"
 						onclick="PF('positionDialog').hide();return false;" />
 					<p:commandButton value="Apply"
@@ -98,9 +100,39 @@
 						oncomplete="PF('positionDialog').hide();return false;" />
 				</div>
 			</p:outputPanel>
-
 		</p:dialog>
+		<p:dialog id="sendToaFriend" header="Position Candidatures"
+			widgetVar="sendToaFriend" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;">
+			
+			<p:growl id="growlSendToFriend" sticky="true" severity="error,warn,info" autoUpdate="true"/>
+			<p:outputPanel style="padding-left:15px">
 
-
+				<h5>Fill the next fields to send the suggestion of position to
+					your friend</h5>
+				<p:panelGrid id="newCandForm" columns="2" styleClass="ui-noborder"
+					style="width: 100%; margin-top: 15px" columnClasses="label,field">
+					<p:outputLabel value="Your name" for="nameFrom" />
+					<p:inputText id="nameFrom" value="#{positionsMB.nameFrom}" />
+					<p:spacer />
+					<p:spacer />
+					<p:outputLabel value="Your friend's name" for="nameTo" />
+					<p:inputText id="nameTo" value="#{positionsMB.nameTo}" />
+					<p:spacer />
+					<p:spacer />
+					<p:outputLabel value="Your friend's e-mail" for="emailTo" />
+					<p:inputText id="emailTo"
+						value="#{positionsMB.emailTo}" />
+				</p:panelGrid>
+			</p:outputPanel>
+			<div style="text-align: center; margin-top: 15px">
+				<p:commandButton value="Close"
+					onclick="PF('sendToaFriend').hide();return false;" />
+				<p:commandButton value="Send"
+					oncomplete="PF('sendToaFriend').hide();return false;"
+					action="#{positionsMB.sendToaFriend()}" />
+			</div>
+		</p:dialog>
 	</h:form>
 </ui:composition>

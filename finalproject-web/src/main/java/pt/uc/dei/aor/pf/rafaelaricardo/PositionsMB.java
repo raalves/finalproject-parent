@@ -17,10 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -53,6 +51,10 @@ public class PositionsMB implements Serializable {
 	private ApplyMB applyMB;
 	@Inject
 	private ActiveUserMB activeUserMB;
+	@Inject
+	private WriteEmails writeEmails;
+	@Inject
+	private EnvioMail enviolMail;
 
 	private String id;
 	private String title;
@@ -72,18 +74,43 @@ public class PositionsMB implements Serializable {
 	private int sla;
 	private PositionEntity positionSelect;
 	private String searchFree;
+	private String emailTo;
+	private String nameTo;
+	private String nameFrom;
 
 	private List<PositionEntity> positions = new ArrayList<PositionEntity>();
 	private List<PositionEntity> openPositions = new ArrayList<PositionEntity>();
 	private List<PositionEntity> allPositions = new ArrayList<PositionEntity>();
 	private List<PositionEntity> associatePositions = new ArrayList<PositionEntity>();
 
-	// public PositionsMB() {
-	// // String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
-	//
-	// technicalArea = technicalArea.toString().charAt(0)
-	// + technicalArea.toString().substring(1).toLowerCase();
-	// }
+	public String sendToaFriend() {
+		log.info("Sending position to a friend");
+		String mailToFriend = writeEmails.mailToFriend(nameTo, nameFrom,
+				positionSelect.getTitle());
+		if (emailTo
+				.matches("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+
+			if (mailToFriend != null) {
+				enviolMail.sendMail(emailTo,
+						"Suggestion of position - Critical Software",
+						mailToFriend, null, null);
+
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO,
+								"Email Sent", null));
+
+			}
+		} else {
+			String errorMsg = "This email is not valid!";
+
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+		}
+		return null;
+	}
 
 	@PostConstruct
 	public void listPositions() {
@@ -116,7 +143,6 @@ public class PositionsMB implements Serializable {
 					var = true;
 				}
 			}
-
 			if (var) {
 				log.info("Admin positions");
 				try {
@@ -140,13 +166,11 @@ public class PositionsMB implements Serializable {
 									.getCurrentUser());
 
 					List<PositionEntity> managedPositions = positions;
-
 					for (PositionEntity p : managedPositions) {
 						if (p.getPositionStatus().equals(PositionStatus.OPEN)) {
 							associatePositions.add(p);
 						}
 					}
-
 				} catch (EJBException e) {
 					String errorMessage = "Error getting positions"
 							+ e.getMessage();
@@ -158,7 +182,6 @@ public class PositionsMB implements Serializable {
 				}
 			}
 		}
-
 	}
 
 	public void listOpenPositions() {
@@ -198,8 +221,6 @@ public class PositionsMB implements Serializable {
 
 	public void freeSearch() {
 		log.info("Free searching positions");
-		System.out.println(">>>>>>>>>>>>>>>>>>"+searchFree);
-		System.out.println(isNumeric(searchFree));
 		allPositions = filterPositionFreeSearch();
 	}
 
@@ -223,9 +244,6 @@ public class PositionsMB implements Serializable {
 			criteria.add(Restrictions.ilike("title", title, MatchMode.ANYWHERE));
 		}
 		if (StringUtils.isNotBlank(location)) {
-			// Criteria c3 = criteria.createCriteria("location");
-			// c3.add(Restrictions.eq("location",
-			// Location.valueOf(location.toUpperCase())));
 			for (Location l : Location.values()) {
 				if (l.name().contains(location.toUpperCase())) {
 					return positionFacade.findPositionByLocation(l);
@@ -267,9 +285,9 @@ public class PositionsMB implements Serializable {
 					.disjunction()
 					.add(Restrictions.ilike("title", searchFree,
 							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("company", searchFree,
-							MatchMode.ANYWHERE)));
- 
+							.add(Restrictions.ilike("company", searchFree,
+									MatchMode.ANYWHERE)));
+
 			if (isNumeric(searchFree)) {
 				criteria2.add(Restrictions.disjunction().add(
 						Restrictions.eq("id", Long.parseLong(searchFree))));
@@ -507,6 +525,30 @@ public class PositionsMB implements Serializable {
 
 	public void setAssociatePositions(List<PositionEntity> associatePositions) {
 		this.associatePositions = associatePositions;
+	}
+
+	public String getEmailTo() {
+		return emailTo;
+	}
+
+	public void setEmailTo(String emailTo) {
+		this.emailTo = emailTo;
+	}
+
+	public String getnameTo() {
+		return nameTo;
+	}
+
+	public void setnameTo(String nameTo) {
+		this.nameTo = nameTo;
+	}
+
+	public String getnameFrom() {
+		return nameFrom;
+	}
+
+	public void setnameFrom(String nameFrom) {
+		this.nameFrom = nameFrom;
 	}
 
 }
