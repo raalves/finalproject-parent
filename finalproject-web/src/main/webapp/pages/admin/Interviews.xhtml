@@ -3,7 +3,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form id="frm3">
+	<h:form id="frm3" enctype="multipart/form-data">
 		<p:messages id="msgMyIntervews" severity="error,warn" closable="true"
 			style="text-align:left" />
 		<p:growl id="growlMyIntervews" sticky="true" severity="info" />
@@ -47,7 +47,11 @@
 					icon="ui-icon-pencil" />
 			</p:column>
 			<p:column headerText="Guide" style="text-align:center;;width:40px">
-				<p:button icon="ui-icon-pencil" />
+				<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+					label="Download Guide" title="Download Position Guide"
+					actionListener="#{downloadFile.prepare(interv.candidature.position.guide.filePath)}">
+					<p:fileDownload value="#{downloadFile.file}" />
+				</p:commandButton>
 			</p:column>
 		</p:dataTable>
 
@@ -82,8 +86,10 @@
 			widgetVar="detailsDialog" modal="true" width="700" height="500"
 			resizable="false" closeOnEscape="true" position="center"
 			style="padding:10px;">
+
 			<p:outputPanel id="candidateDetails"
 				style="padding-left:15px;margin-top:10px">
+
 				<h3>Details of the candidate</h3>
 
 				<p:panelGrid columns="2" columnClasses="label, value">
@@ -118,6 +124,12 @@
 					<p:outputLabel value="School" />
 					<p:outputLabel
 						value="#{interviewerMB.interviewSelect.candidature.candidate.school}" />
+					<p:outputLabel value="CV" />
+					<p:commandButton icon="ui-icon-arrowthick-1-s" ajax="false"
+						label="Download CV file" title="Download CV"
+						actionListener="#{downloadFile.prepare(interviewerMB.interviewSelect.candidature.candidate.cvPath)}">
+						<p:fileDownload value="#{downloadFile.file}" />
+					</p:commandButton>
 				</p:panelGrid>
 			</p:outputPanel>
 			<p:separator />
@@ -151,7 +163,33 @@
 			<p:outputPanel style="text-align:center">
 				<p:commandButton value="Close"
 					onclick="PF('detailsDialog').hide();return false;" />
+				<p:commandButton value="Guide Complete"
+					oncomplete="PF('guideDialog').show();return false;"
+					update=":tab:frm3:guideComplete"
+					action="#{interviewerMB.renderButtonGuideComplet()}">
+				</p:commandButton>
 			</p:outputPanel>
 		</p:dialog>
+
+
+		<p:dialog id="guideComplete" header="Download Guide Complete"
+			widgetVar="guideDialog" modal="true" width="900" height="500"
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;text-align:center">
+			
+			<h3>If the Download button doesn't appear the Guide Complete doesn't exist yet!</h3>
+			
+			<p:outputPanel style="text-align:center">
+				<p:commandButton icon="ui-icon-arrowthick-1-s"
+					value="Download Guide Complete" ajax="false" label="Download Guide"
+					title="Download Guide Complete" rendered="#{interviewerMB.render}"
+					actionListener="#{downloadFile.prepare(interviewerMB.interviewSelect.guideComplete.filePath)}">
+					<p:fileDownload value="#{downloadFile.file}" />
+				</p:commandButton>
+				<p:commandButton value="Close"
+					onclick="PF('guideDialog').hide();return false;" />
+			</p:outputPanel>
+		</p:dialog>
+
 	</h:form>
 </ui:composition>

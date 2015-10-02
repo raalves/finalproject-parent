@@ -36,6 +36,8 @@ public class LoginMB implements Serializable {
 	private AreaNameMB areaName;
 	@Inject
 	private ApplyMB applyMB;
+	@Inject
+	private InterviewerMB intervMB;
 
 	public LoginMB() {
 	}

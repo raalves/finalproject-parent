@@ -73,7 +73,7 @@ public class WriteEmails implements Serializable {
 				+ "<div><font face=\"Arial, Verdana\">"
 				+ "<span style=\"font-size: 13.3333px;\">The management system</span></font></div>";
 
-		return null;
+		return mail;
 	}
 
 	public String notificationCandidate(String title, String fistName,
@@ -101,6 +101,33 @@ public class WriteEmails implements Serializable {
 				+ "<span style=\"font-size: 13.3333px;\">Regards,</span></font></div>"
 				+ "<div><font face=\"Arial, Verdana\">"
 				+ "<span style=\"font-size: 13.3333px;\">The management system</span></font></div>";
-		return null;
+		return mail;
+	}
+
+	public String notificationManager(String positionTitle, Date openningDate, String admin) {
+		log.info("generating email for interviewers");
+
+		mail = "<div><font face=\"Arial, Verdana\">"
+				+ "<span style=\"font-size: 13.3333px;\">Hello</span></font></div>"
+				+ "<div><font face=\"Arial, Verdana\">"
+				+ "<span style=\"font-size: 13.3333px;\"><br></span></font></div>"
+				+ "<div><font face=\"Arial, Verdana\">"
+				+ "<span style=\"font-size: 13.3333px;\">A new position was associated to you with the openning date: "
+				+ openningDate
+				+ ".</span></span></font></div>"
+				+ "<div><font face=\"Arial, Verdana\">"
+				+ "<span style=\"font-size: 13.3333px;\">The position is: \""
+				+ positionTitle
+				+ "\"</span></font></div>"
+				+ "<div><font face=\"Arial, Verdana\">"
+				+ "<span style=\"font-size: 13.3333px;\"><br></span></font></div>"
+				+ "<div><font face=\"Arial, Verdana\">"
+				+ "<span style=\"font-size: 13.3333px;\">Regards,</span></font></div>"
+				+ "<div><font face=\"Arial, Verdana\">"
+				+ "<span style=\"font-size: 13.3333px;\">ADMIN - \""
+				+ admin
+				+ "\"</span></font></div>";
+
+		return mail;
 	}
 }

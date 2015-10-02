@@ -134,9 +134,11 @@ public class PositionFacadeImp implements PositionFacade {
 		PositionEntity p = new PositionEntity(title, location,
 				PositionStatus.OPEN, quantity, company, technicalArea,
 				description, source, openningDate, closingDate, sla);
+
 		p.setAdminCreator(adminCreator);
-		p.setManager(manager);
 		p.setGuide(guide);
+		p.setManager(manager);
+
 		positionDAO.save(p);
 
 		return p;

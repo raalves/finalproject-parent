@@ -35,7 +35,7 @@ public class InterviewerMB implements Serializable {
 	private InterviewFacade interviewFacade;
 	@EJB
 	private UserFacade userFacade;
-	
+
 	@EJB
 	private GuideFacade guideFacade;
 	private DownloadFile dwnlFile;
@@ -47,6 +47,7 @@ public class InterviewerMB implements Serializable {
 	private InterviewStatus statusSelect;
 	private String downloadName;
 	private String path;
+	private boolean render;
 
 	@PostConstruct
 	public void listMyInterviewers() {
@@ -76,8 +77,8 @@ public class InterviewerMB implements Serializable {
 						.getLastName() + ".xlsx";
 		this.path = interviewSelect.getCandidature().getPosition().getGuide()
 				.getFilePath();
-		 System.out.println(downloadName+" "+path);
-		 	}
+		System.out.println(downloadName + " " + path);
+	}
 
 	public void uploadGuideComplete(UploadFile file) {
 		log.info("Uploading guide complete for interview of the candidate: "
@@ -134,6 +135,14 @@ public class InterviewerMB implements Serializable {
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
 							null));
+		}
+	}
+
+	public void renderButtonGuideComplet() {
+		if (interviewSelect.getGuideComplete().getFilePath() != null) {
+			render = true;
+		} else {
+			render = false;
 		}
 	}
 
@@ -204,6 +213,14 @@ public class InterviewerMB implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public boolean isRender() {
+		return render;
+	}
+
+	public void setRender(boolean render) {
+		this.render = render;
 	}
 
 }

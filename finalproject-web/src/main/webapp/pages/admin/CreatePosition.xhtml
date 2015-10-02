@@ -65,7 +65,7 @@
 
 					<p:outputLabel value="Location" for="location" />
 					<p:selectManyCheckbox id="location"
-						value="#{adminMB.selectedLocation}" layout="grid" columns="4"
+						value="#{adminMB.selectedLocationWeb}" layout="grid" columns="4"
 						required="true"
 						requiredMessage="Please select at least one checkbox!">
 						<f:selectItems value="#{adminMB.locations}" var="location"
@@ -112,7 +112,7 @@
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Public Source" for="source" />
-					<p:selectManyCheckbox id="source" value="#{adminMB.selectedSource}"
+					<p:selectManyCheckbox id="source" value="#{adminMB.selectedSourceWeb}"
 						layout="grid" columns="4" required="true"
 						requiredMessage="Please select at least one checkbox!">
 						<f:selectItems value="#{adminMB.sources}" var="source"

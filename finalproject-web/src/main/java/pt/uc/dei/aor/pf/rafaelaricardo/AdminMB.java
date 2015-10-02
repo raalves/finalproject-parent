@@ -53,6 +53,12 @@ public class AdminMB implements Serializable {
 	@Inject
 	private ActiveUserMB activeUser;
 
+	@Inject
+	private EnvioMail envioMail;
+
+	@Inject
+	private WriteEmails writeEmails;
+
 	private List<InterviewEntity> allInterviewsList;
 
 	private String title;
@@ -71,6 +77,7 @@ public class AdminMB implements Serializable {
 	private int sla;
 	private String manager;
 	private String guide;
+	private Date openningDate;
 
 	private TechnicalArea technicalArea;
 
@@ -94,44 +101,53 @@ public class AdminMB implements Serializable {
 		log.info("Creating new Position");
 		try {
 			transformStringInEnums();
-			System.out.println(">>>>>>" + manager);
-			System.out.println(">>>>>>" + guide);
-			System.out.println(">>>>>>" + technicalArea);
-			System.out.println(">>>>>>" + selectedLocation);
-			System.out.println(">>>>>>" + selectedSource);
 
 			DescriptionPosition descriptionPosition = new DescriptionPosition();
 			descriptionPosition.setDescription(description);
 			descriptionPosition.setDesiredQualifications(desiredQualifications);
 			descriptionPosition.setKeyResponsabilities(keyResponsabilities);
 			descriptionPosition
-			.setRequiredQualifications(requiredQualifications);
+					.setRequiredQualifications(requiredQualifications);
 
 			System.out.println(">>>>>>" + descriptionPosition);
+			openningDate = new Date();
 
 			if (positionFacade.addPosition(activeUser.getCurrentUser(),
 					userFacade.findUserByEmail(manager),
 					guideFacade.findGuideById(Long.parseLong(guide)), title,
 					selectedLocation, quantity, company, technicalArea,
-					descriptionPosition, selectedSource, new Date(),
+					descriptionPosition, selectedSource, openningDate,
 					closingDate, sla) != null) {
 				String infoMsg = "Position created successfully";
 				log.info(infoMsg);
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(infoMsg));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, infoMsg,
+								null));
+				String infoMsg2 = "Sending email to the responsible Manager for the new Position";
+				log.info(infoMsg2);
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, infoMsg2,
+								null));
+				sendNotifications();
 				cleanFields();
 			} else {
 				String errorMsg = "Error during creation of position";
 				log.error(errorMsg);
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(errorMsg));
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+								null));
 			}
 		} catch (EJBException e) {
 			String errorMsg = "Error during creation of position"
 					+ e.getMessage();
 			log.error(errorMsg);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(errorMsg));
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
 
 		}
 	}
@@ -191,6 +207,29 @@ public class AdminMB implements Serializable {
 		sla = 1;
 		manager = null;
 		guide = null;
+	}
+
+	public void sendNotifications() {
+		try {
+			// Send notification email
+			String mail = writeEmails.notificationManager(title, openningDate,
+					activeUser.getCurrentUser().getFirstName() + " "
+							+ activeUser.getCurrentUser().getLastName() + " - "
+							+ activeUser.getCurrentUser().getEmail());
+
+			if (mail != null) {
+				envioMail.sendMail(manager, "Associated to a new position",
+						mail, null, null);
+			}
+		} catch (Exception e) {
+			String errorMsg = "An error ocurred wwhile sending notifications: "
+					+ e.getMessage();
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+		}
 	}
 
 	// Getters and Setters
