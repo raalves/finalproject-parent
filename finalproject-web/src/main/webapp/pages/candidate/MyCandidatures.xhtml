@@ -99,23 +99,25 @@
 				</p:panelGrid>
 				<div>
 					<h5 style="margin-top: 20px">Details</h5>
-					#{positionsMB.positionSelect.descriptionPosition.description}
-
-					<!-- 					<h:outputLabel -->
-					<!-- 						value="#{positionsMB.positionSelect.descriptionPosition.description}" -->
-					<!-- 						escape="false" style="white-space: pre-wrap; " /> -->
-
-
+					<h:outputText
+						value="#{positionsMB.positionSelect.descriptionPosition.description}"
+						escape="false" />
 					<h5 style="margin-top: 20px">KEY RESPONSIBILITIES</h5>
-					#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}
+					<h:outputText
+						value="#{positionsMB.positionSelect.descriptionPosition.keyResponsabilities}"
+						escape="false" />
 
 					<h5 style="margin-top: 20px">REQUIRED QUALIFICATIONS, SKILLS
 						AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}
+					<h:outputText
+						value="#{positionsMB.positionSelect.descriptionPosition.requiredQualifications}"
+						escape="false" />
 
 					<h5 style="margin-top: 20px">DESIRED QUALIFICATIONS, SKILLS
 						AND EXPERIENCE</h5>
-					#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}
+					<h:outputText
+						value="#{positionsMB.positionSelect.descriptionPosition.desiredQualifications}"
+						escape="false" />
 				</div>
 				<div style="text-align: center">
 					<p:commandButton value="Close"
