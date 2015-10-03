@@ -35,8 +35,6 @@ public class ManagerMB implements Serializable {
 	private PositionFacade positionFacade;
 	@Inject
 	private ActiveUserMB activeUserMB;
-	@Inject
-	private PositionsMB positionsMB;
 
 	private List<InterviewEntity> allInterviewsList;
 	private List<PositionEntity> managerPositionsList;
@@ -89,9 +87,7 @@ public class ManagerMB implements Serializable {
 			for (InterviewEntity i : list1) {
 				interviews.add(i);
 			}
-
 		}
-
 		allInterviewsList = interviews;
 	}
 }

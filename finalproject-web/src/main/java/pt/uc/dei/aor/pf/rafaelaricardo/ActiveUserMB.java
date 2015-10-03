@@ -60,9 +60,6 @@ public class ActiveUserMB implements Serializable {
 
 	public void showTabs() {
 		newUser = true;
-		// if (userRoles.size() <= 1) {
-		// extraAreas = false;
-		// } else {
 		extraAreas = true;
 		for (RoleEntity re : userRoles) {
 
@@ -75,7 +72,6 @@ public class ActiveUserMB implements Serializable {
 			} else if (re.getRole().toString() == ("CANDIDATE")) {
 				candidateTab = true;
 			}
-			// }
 		}
 	}
 
@@ -88,7 +84,6 @@ public class ActiveUserMB implements Serializable {
 	}
 
 	public void hideTabs() {
-		System.out.println("hide tabs");
 		email = null;
 		newUser = false;
 		extraAreas = false;
@@ -115,7 +110,6 @@ public class ActiveUserMB implements Serializable {
 	public void submitChanges(UploadFile uploadFile) {
 		String fileType = "CV";
 		String userType = "candidate";
-		System.out.println(uploadFile);
 		if (uploadFile == null) {
 			currentCandidate.setCvPath(currentCandidate.getCvPath());
 		} else {
@@ -129,10 +123,10 @@ public class ActiveUserMB implements Serializable {
 						userType);
 			log.info(infomsg);
 			FacesContext.getCurrentInstance()
-			.addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							infomsg, null));
+					.addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO,
+									infomsg, null));
 
 		} else {
 			String errormsg = "Error on changing Profile";

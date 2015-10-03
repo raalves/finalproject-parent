@@ -72,9 +72,7 @@ public class GuideFacadeImp implements GuideFacade {
 			if (guideDAO.update(guide) != null) {
 				return true;
 			}
-
 		}
-
 		return false;
 	}
 

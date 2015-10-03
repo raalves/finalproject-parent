@@ -77,11 +77,34 @@ public class PositionsMB implements Serializable {
 	private String emailTo;
 	private String nameTo;
 	private String nameFrom;
+	private PositionStatus statusSelect;
 
 	private List<PositionEntity> positions = new ArrayList<PositionEntity>();
 	private List<PositionEntity> openPositions = new ArrayList<PositionEntity>();
 	private List<PositionEntity> allPositions = new ArrayList<PositionEntity>();
 	private List<PositionEntity> associatePositions = new ArrayList<PositionEntity>();
+
+	public String changeSatus() {
+		log.info("Change status of position: " + positionSelect.getTitle()
+				+ ". Change made by: "
+				+ activeUserMB.getCurrentUser().getEmail());
+
+		if (positionFacade.changeStatus(positionSelect, statusSelect)) {
+			String msg = "Position status changed";
+			log.info(msg);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null));
+		} else {
+			String errorMsg = "An error ocurred when changing status of position.";
+			log.error(errorMsg);
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMsg,
+							null));
+		}
+
+		return null;
+	}
 
 	public String sendToaFriend() {
 		log.info("Sending position to a friend");
@@ -339,13 +362,24 @@ public class PositionsMB implements Serializable {
 	}
 
 	// Getters and Setters
+	public PositionStatus[] getStatusPosition() {
+		return PositionStatus.values();
+	}
+
+	public PositionStatus getStatusSelect() {
+		return statusSelect;
+	}
+
+	public void setStatusSelect(PositionStatus statusSelect) {
+		this.statusSelect = statusSelect;
+	}
+
 	public PositionEntity getPositionSelect() {
 
 		return positionSelect;
 	}
 
 	public void setPositionSelect(PositionEntity positionSelect) {
-		System.out.println("set position select" + positionSelect);
 		applyMB.setPositionSelect(positionSelect);
 		this.positionSelect = positionSelect;
 	}

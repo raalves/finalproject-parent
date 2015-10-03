@@ -33,7 +33,6 @@ public class CandidateMB implements Serializable {
 	@Inject
 	private ActiveUserMB activeUser;
 
-
 	private List<InterviewEntity> candidateInterviewsList;
 
 	@PostConstruct
@@ -51,11 +50,8 @@ public class CandidateMB implements Serializable {
 			for (InterviewEntity i : list1) {
 				interviews.add(i);
 			}
-
 		}
-
 		candidateInterviewsList = interviews;
-
 	}
 
 	public List<InterviewEntity> getAllInterviewsList() {

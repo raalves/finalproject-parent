@@ -57,4 +57,7 @@ public interface PositionFacade {
 			Set<Location> location, int quantity, String company,
 			TechnicalArea technicalArea, DescriptionPosition description,
 			Set<Source> source, Date openningDate, Date closingDate, int sla);
+
+	public abstract boolean changeStatus(PositionEntity positionSelect,
+			PositionStatus statusSelect);
 }

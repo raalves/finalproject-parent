@@ -79,7 +79,6 @@ public class CandidatureFacadeImp implements CandidatureFacade {
 			Set<Source> sourcesSelect) {
 		if (hasAnotherCandidature(positionSelect, candLog)) {
 			log.error("Already have a candidature for this position");
-
 			return null;
 		} else {
 			log.info("Saving candidature in DB");

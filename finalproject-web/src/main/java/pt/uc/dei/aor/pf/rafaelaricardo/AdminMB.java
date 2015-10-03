@@ -108,8 +108,6 @@ public class AdminMB implements Serializable {
 			descriptionPosition.setKeyResponsabilities(keyResponsabilities);
 			descriptionPosition
 					.setRequiredQualifications(requiredQualifications);
-
-			System.out.println(">>>>>>" + descriptionPosition);
 			openningDate = new Date();
 
 			if (positionFacade.addPosition(activeUser.getCurrentUser(),
@@ -150,26 +148,6 @@ public class AdminMB implements Serializable {
 							null));
 
 		}
-	}
-
-	public Source[] getSources() {
-		return Source.values();
-	}
-
-	public Location[] getLocations() {
-		return Location.values();
-	}
-
-	public TechnicalArea[] getTechnicalAreas() {
-		return TechnicalArea.values();
-	}
-
-	public List<UserEntity> getAllManagers() {
-		return roleFacade.findRoleByName(Role.MANAGER).getUsers();
-	}
-
-	public List<GuideEntity> getAllGuides() {
-		return guideFacade.findAllByOrder();
 	}
 
 	public void transformStringInEnums() {
@@ -233,6 +211,25 @@ public class AdminMB implements Serializable {
 	}
 
 	// Getters and Setters
+	public Source[] getSources() {
+		return Source.values();
+	}
+
+	public Location[] getLocations() {
+		return Location.values();
+	}
+
+	public TechnicalArea[] getTechnicalAreas() {
+		return TechnicalArea.values();
+	}
+
+	public List<UserEntity> getAllManagers() {
+		return roleFacade.findRoleByName(Role.MANAGER).getUsers();
+	}
+
+	public List<GuideEntity> getAllGuides() {
+		return guideFacade.findAllByOrder();
+	}
 
 	public List<InterviewEntity> getAllInterviewsList() {
 		return allInterviewsList;

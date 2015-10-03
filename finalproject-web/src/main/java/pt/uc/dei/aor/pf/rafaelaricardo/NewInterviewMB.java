@@ -99,7 +99,6 @@ public class NewInterviewMB implements Serializable {
 				Role.INTERVIEWER).getUsers();
 		for (UserEntity u : allUserInterv) {
 			for (String s : selectInterviewersWeb) {
-				System.out.println(u.getEmail() + " " + s);
 				if (u.getEmail().equals(s)) {
 					selectInterviewers.add(u);
 				}
@@ -108,7 +107,6 @@ public class NewInterviewMB implements Serializable {
 	}
 
 	public String associateData(PositionEntity selectPosition) {
-		System.out.println("que vem do postionMB" + selectPosition);
 		this.selectPosition = selectPosition;
 		listCandidaturesByPosition();
 		return null;
@@ -137,10 +135,10 @@ public class NewInterviewMB implements Serializable {
 			String infoMsg = "Success on creating interview";
 			log.info(infoMsg);
 			FacesContext.getCurrentInstance()
-			.addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							infoMsg, null));
+					.addMessage(
+							null,
+							new FacesMessage(FacesMessage.SEVERITY_INFO,
+									infoMsg, null));
 			sendNotifications();
 			interviewerMB.listMyInterviewers();
 			adminMB.listAllInterviews();
@@ -165,23 +163,19 @@ public class NewInterviewMB implements Serializable {
 					selectCandidature.getCandidate().getLastName(),
 					interview.getInterviewDate());
 			if (mailCandidate != null) {
-				System.out.println("send email to candidate");
 				envioMail.sendMail(selectCandidature.getCandidate().getEmail(),
 						"New Interview: information mail", mailCandidate, null,
 						null);
 			}
 
 			if (mailInterviewers != null) {
-				System.out.println("send email for interviewers");
 				for (UserEntity u : selectInterviewers) {
-					System.out.println("send email for interviewers: "
-							+ u.getEmail());
 
 					envioMail.sendMail(u.getEmail(),
 							"New Interview: information mail",
 							mailInterviewers, selectCandidature.getCandidate()
-							.getCvPath(), selectCandidature
-							.getPosition().getGuide().getFilePath());
+									.getCvPath(), selectCandidature
+									.getPosition().getGuide().getFilePath());
 				}
 			}
 		} catch (Exception e) {
@@ -252,14 +246,6 @@ public class NewInterviewMB implements Serializable {
 		this.listInterviews = listInterviews;
 	}
 
-	public List<UserEntity> getAllInterviewers() {
-		return roleFacade.findRoleByName(Role.INTERVIEWER).getUsers();
-	}
-
-	public void setAllInterviewers(List<UserEntity> allInterviewers) {
-		this.allInterviewers = allInterviewers;
-	}
-
 	public List<String> getSelectInterviewersWeb() {
 		return selectInterviewersWeb;
 	}
@@ -268,4 +254,11 @@ public class NewInterviewMB implements Serializable {
 		this.selectInterviewersWeb = selectInterviewersWeb;
 	}
 
+	public List<UserEntity> getAllInterviewers() {
+		return roleFacade.findRoleByName(Role.INTERVIEWER).getUsers();
+	}
+
+	public void setAllInterviewers(List<UserEntity> allInterviewers) {
+		this.allInterviewers = allInterviewers;
+	}
 }

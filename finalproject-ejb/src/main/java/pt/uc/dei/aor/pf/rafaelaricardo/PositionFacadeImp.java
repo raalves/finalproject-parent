@@ -143,4 +143,17 @@ public class PositionFacadeImp implements PositionFacade {
 
 		return p;
 	}
+
+	@Override
+	public boolean changeStatus(PositionEntity positionSelect,
+			PositionStatus statusSelect) {
+		log.info("Update position status in DB");
+		if (positionSelect != null && statusSelect != null) {
+			positionSelect.setPositionStatus(statusSelect);
+			if (positionDAO.update(positionSelect) != null) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

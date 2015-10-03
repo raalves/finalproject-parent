@@ -57,12 +57,6 @@ public class ApplicationMB implements Serializable {
 	public ApplicationMB() {
 	}
 
-	// User stuff
-
-	public void goToProfile() {
-
-	}
-
 	public UserEntity addUser(UserEntity creator, String firstName,
 			String lastName, String email, String password,
 			ArrayList<RoleEntity> roles) {
@@ -148,7 +142,6 @@ public class ApplicationMB implements Serializable {
 	}
 
 	public UserEntity findUserByEmail(String email) {
-		System.out.println("find user by email");
 		try {
 			return userFacade.findUserByEmail(email);
 		} catch (EJBException e) {
@@ -163,7 +156,6 @@ public class ApplicationMB implements Serializable {
 	}
 
 	public CandidateEntity findCandidateByEmail(String email) {
-		System.out.println("find candidate by email");
 		try {
 			return candidateFacade.findCandidateByEmail(email);
 		} catch (EJBException e) {

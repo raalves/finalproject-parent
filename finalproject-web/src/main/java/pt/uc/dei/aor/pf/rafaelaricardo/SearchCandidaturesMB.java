@@ -69,10 +69,6 @@ public class SearchCandidaturesMB implements Serializable {
 	private List<CandidateEntity> resultList;
 	private CandidatureEntity candidature;
 
-	// public SearchCandidatures() {
-	// candidateFacade.findAllByOrder();
-	// }
-
 	@PostConstruct
 	public void listAllCandidates() {
 		log.info("Search for all Candidates");
@@ -165,20 +161,20 @@ public class SearchCandidaturesMB implements Serializable {
 					.disjunction()
 					.add(Restrictions.ilike("firstName", searchFree,
 							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("lastName", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("email", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("address", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("city", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("country", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("course", searchFree,
-							MatchMode.ANYWHERE))
-					.add(Restrictions.ilike("school", searchFree,
-							MatchMode.ANYWHERE)));
+							.add(Restrictions.ilike("lastName", searchFree,
+									MatchMode.ANYWHERE))
+									.add(Restrictions.ilike("email", searchFree,
+											MatchMode.ANYWHERE))
+											.add(Restrictions.ilike("address", searchFree,
+													MatchMode.ANYWHERE))
+													.add(Restrictions.ilike("city", searchFree,
+															MatchMode.ANYWHERE))
+															.add(Restrictions.ilike("country", searchFree,
+																	MatchMode.ANYWHERE))
+																	.add(Restrictions.ilike("course", searchFree,
+																			MatchMode.ANYWHERE))
+																			.add(Restrictions.ilike("school", searchFree,
+																					MatchMode.ANYWHERE)));
 		}
 		return criteria2.addOrder(Order.asc("firstName")).list();
 	}
@@ -190,7 +186,7 @@ public class SearchCandidaturesMB implements Serializable {
 			candidature = applicationMB.addCandidature(candidateSelect, p,
 					candidateSelect.getCvPath(), "Candidature done by: "
 							+ activeUserMB.getCurrentUser().getEmail(),
-					new Date(), null);
+							new Date(), null);
 			if (candidature == null) {
 				String errorMsg = "Already have a candidature for the position: "
 						+ p.getTitle();
@@ -214,7 +210,6 @@ public class SearchCandidaturesMB implements Serializable {
 
 	public void sendNotifications() {
 		try {
-			// Send notification email
 			String mail = writeEmails
 					.notificationNewCandidatureAssociation(candidature
 							.getPosition().getTitle());
@@ -376,14 +371,6 @@ public class SearchCandidaturesMB implements Serializable {
 		course = null;
 		school = null;
 	}
-
-	// public Boolean getSpontaneous() {
-	// return spontaneous;
-	// }
-	//
-	// public void setSpontaneous(Boolean spontaneous) {
-	// this.spontaneous = spontaneous;
-	// }
 
 	public List<PositionEntity> getSelectedPositions() {
 		return selectedPositions;

@@ -29,5 +29,4 @@ public interface UserFacade {
 
 	public abstract void addInterviewToUser(List<UserEntity> interviewers,
 			InterviewEntity interview);
-
 }

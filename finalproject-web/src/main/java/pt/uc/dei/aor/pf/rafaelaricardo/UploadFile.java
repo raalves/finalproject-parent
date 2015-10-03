@@ -26,22 +26,21 @@ public class UploadFile implements Serializable {
 	private String path;
 	private String localPath;
 	private String fileType;
-	private String email;
+	private String diferentName;
 	private String typeUser;
 
-	public String upload(String email, String fileType, String typeUser) {
-		this.email = email;
+	public String upload(String diferentName, String fileType, String typeUser) {
+		this.diferentName = diferentName;
 		this.fileType = fileType;
 		this.typeUser = typeUser;
-		this.localPath = generatePath(email, fileType);
+		this.localPath = generatePath(diferentName, fileType);
 		log.info("Uploading file: " + fileType);
 
 		try {
 			if (validExtension(localPath)) {
 				file.write(localPath);
-				path = generateServerPath(this.email, this.fileType,
+				path = generateServerPath(this.diferentName, this.fileType,
 						this.typeUser);
-				System.out.println(localPath + "  Localpath");
 				return localPath;
 			} else {
 				String errorMsg = "The format of file is not valid!";
@@ -74,18 +73,17 @@ public class UploadFile implements Serializable {
 		}
 	}
 
-	public String generatePath(String email, String fileType) {
-		System.out.println(fileType + " typefile");
+	public String generatePath(String diferent, String fileType) {
 		localPath = System.getProperty("jboss.home.dir")
 				+ "\\ProjFinalUploadedFiles\\" + fileType + "\\" + fileType
-				+ "_" + email + "_" + getCurrentTimeStamp() + "_"
+				+ "_" + diferentName + "_" + getCurrentTimeStamp() + "_"
 				+ getFilename(file);
 		return localPath;
 	}
 
-	private String generateServerPath(String email, String fileType,
+	private String generateServerPath(String diferentName, String fileType,
 			String tipeUser) {
-		return "\\" + tipeUser + "\\" + fileType + "_" + email + "_"
+		return "\\" + tipeUser + "\\" + fileType + "_" + diferentName + "_"
 				+ getCurrentTimeStamp() + "_" + getFilename(file);
 	}
 
@@ -148,12 +146,12 @@ public class UploadFile implements Serializable {
 		this.fileType = fileType;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getDiferentName() {
+		return diferentName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDiferentName(String diferentName) {
+		this.diferentName = diferentName;
 	}
 
 	public String getTipeUser() {

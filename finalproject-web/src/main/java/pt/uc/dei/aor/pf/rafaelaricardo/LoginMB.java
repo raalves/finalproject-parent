@@ -22,9 +22,6 @@ public class LoginMB implements Serializable {
 
 	private static final long serialVersionUID = 938085188888717920L;
 	private static final Logger log = LoggerFactory.getLogger(LoginMB.class);
-	// private FacesContext context = FacesContext.getCurrentInstance();
-	// private HttpServletRequest request = (HttpServletRequest) context
-	// .getExternalContext().getRequest();
 
 	private String email;
 	private String password;
@@ -32,18 +29,11 @@ public class LoginMB implements Serializable {
 	private ApplicationMB applicationMB;
 	@Inject
 	private ActiveUserMB actUser;
-	@Inject
-	private AreaNameMB areaName;
-	@Inject
-	private ApplyMB applyMB;
-	@Inject
-	private InterviewerMB intervMB;
 
 	public LoginMB() {
 	}
 
 	public String loginEmployees() {
-		System.out.println("login");
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();
@@ -60,16 +50,13 @@ public class LoginMB implements Serializable {
 	}
 
 	public String doLoginEmployees() {
-		System.out.println("login");
 
-		System.out.println("do login");
 		log.info("Doing Login");
 		log.info("Doing Login for: " + email);
 		UserEntity u = applicationMB.findUserByEmail(email);
 		if (u != null) {
 			actUser.setCurrentUser(u);
 			actUser.setFullName(u.getFirstName() + " " + u.getLastName());
-			System.out.println(actUser.getFullName());
 			String path = actUser.searchUserRoles().get(0).getRole().toString();
 			String pagePath = path.charAt(0) + path.substring(1).toLowerCase();
 			actUser.showTabs();
@@ -77,7 +64,6 @@ public class LoginMB implements Serializable {
 			return "/pages/" + path.toLowerCase() + "/" + pagePath
 					+ "Page?faces-redirect=true";
 		}
-		// log.error(e.getMessage());
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -87,12 +73,10 @@ public class LoginMB implements Serializable {
 	}
 
 	public String loginCandidates() {
-		System.out.println("login");
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();
 		try {
-			System.out.println(email + " " + password);
 			request.login(email, password);
 		} catch (ServletException e) {
 			log.error(e.getMessage());
@@ -105,7 +89,6 @@ public class LoginMB implements Serializable {
 	}
 
 	public String doLoginCandidates() {
-		System.out.println("do login");
 		log.info("Doing Login");
 		log.info("Doing Login for: " + email);
 		CandidateEntity c = applicationMB.findCandidateByEmail(email);
@@ -113,7 +96,6 @@ public class LoginMB implements Serializable {
 		if (c != null) {
 			actUser.setCurrentCandidate(c);
 			actUser.setFullName(c.getFirstName() + " " + c.getLastName());
-			areaName.setAreaName("Candidate");
 			actUser.showCandTabs();
 
 			return "/pages/candidate/CandidatePage?faces-redirect=true";
@@ -128,7 +110,6 @@ public class LoginMB implements Serializable {
 	}
 
 	public String doLogout() {
-		System.out.println("dologout");
 		actUser.hideTabs();
 		email = null;
 
@@ -137,7 +118,6 @@ public class LoginMB implements Serializable {
 
 	public String logout() {
 		log.info("Doing logout for user :" + actUser.getEmail());
-		System.out.println("logout context");
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context
 				.getExternalContext().getRequest();

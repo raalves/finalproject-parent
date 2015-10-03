@@ -109,17 +109,11 @@ public class NewUserRegisterMB implements Serializable {
 		for (RoleEntity re : allRoles) {
 			for (String r : selectedRoles) {
 				if (re.getRole().toString().equals(r)) {
-					System.out.println(re + " " + r);
 					idSelectedRoles.add(re);
 
 				}
 			}
 		}
-
-		for (RoleEntity re : idSelectedRoles) {
-			System.out.println("idSelectRoles" + re);
-		}
-
 	}
 
 	// Getters and Setters
@@ -139,7 +133,6 @@ public class NewUserRegisterMB implements Serializable {
 	}
 
 	public void setSelectedRoles(ArrayList<String> selectedRoles) {
-		System.out.println("selectedroles " + selectedRoles);
 		this.selectedRoles = selectedRoles;
 	}
 

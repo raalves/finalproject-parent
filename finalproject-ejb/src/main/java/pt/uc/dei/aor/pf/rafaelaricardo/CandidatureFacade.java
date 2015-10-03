@@ -35,5 +35,4 @@ public interface CandidatureFacade {
 			PositionEntity positionSelect, String cvPath,
 			String motivationLetter, Date candidatureDate,
 			Set<Source> sourcesSelect);
-
 }

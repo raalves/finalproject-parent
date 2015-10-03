@@ -46,7 +46,6 @@ public class DownloadFile implements Serializable {
 
 		this.path = path;
 		generateMimeType(this.path);
-		// this.downloadName = downloadName;
 
 		try {
 			log.info("Downloading file: " + downloadName);
@@ -61,6 +60,7 @@ public class DownloadFile implements Serializable {
 		}
 	}
 
+	// Getters and Setters
 	public StreamedContent getFile() {
 		return file;
 	}

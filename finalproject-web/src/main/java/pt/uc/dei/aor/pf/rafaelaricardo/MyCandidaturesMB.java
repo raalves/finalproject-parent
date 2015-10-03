@@ -77,34 +77,4 @@ public class MyCandidaturesMB implements Serializable {
 	public void setCandidatureSelect(CandidatureEntity candidatureSelect) {
 		this.candidatureSelect = candidatureSelect;
 	}
-
-	// private List<Integer> candidaturesCandidate;
-	// private Integer candidatureSelect;
-	// private Integer numb;
-
-	// public Integer getNumb() {
-	// return numb;
-	// }
-	//
-	// public Integer getCandidatureSelect() {
-	// return candidatureSelect;
-	// }
-	//
-	// public void setCandidatureSelect(Integer candidatureSelect) {
-	// this.candidatureSelect = candidatureSelect;
-	// }
-	//
-	// public MyCandidaturesMB() {
-	//
-	// candidaturesCandidate = new ArrayList<>();
-	// for (int i = 0; i < 50; i++) {
-	// candidaturesCandidate.add(i);
-	//
-	// }
-	// }
-	//
-	// public List<Integer> getCandidaturesCandidate() {
-	// return candidaturesCandidate;
-	// }
-
 }

@@ -29,10 +29,21 @@
 			<p:column headerText="Location" style="text-align:right">
 				<p:outputLabel value="#{position.location}" />
 			</p:column>
-			<p:column headerText="Details" style="text-align:center;width:100px">
+			<p:column headerText="Status" style="text-align:right">
+				<p:outputLabel value="#{position.positionStatus}" />
+			</p:column>
+			<p:column headerText="Edit Status" style="text-align:center;width:100px">
+				<p:commandButton icon="ui-icon-pencil"
+					oncomplete="PF('positionStatusDialog').show();return false;"
+					update=":tab:frm3:positionStatus">
+					<f:setPropertyActionListener value="#{position}"
+						target="#{positionsMB.positionSelect}" />
+				</p:commandButton>
+			</p:column>
+			<p:column headerText="Details" style="text-align:center;width:100px" >
 				<p:commandButton icon="ui-icon-search"
 					oncomplete="PF('positionDialog').show();return false;"
-					update=":tab:frm3:detailsSelectedPosition">
+					update=":tab:frm3:detailsSelectedPosition" >
 					<f:setPropertyActionListener value="#{position}"
 						target="#{positionsMB.positionSelect}" />
 				</p:commandButton>
@@ -48,6 +59,30 @@
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
+		<p:dialog id="positionStatus" header="Insert feedback"
+			widgetVar="positionStatusDialog" modal="true" 
+			resizable="false" closeOnEscape="true" position="center"
+			style="padding:10px;text-align:center">
+			<p:outputPanel style="margin-top:30px;margin-bottom:30px">
+				<h4>Status of the interview</h4>
+				<p:selectOneRadio id="statusPos" value="#{positionsMB.statusSelect}"
+					layout="grid" columns="3"
+					style="margin-bottom:20px;margin-left:20px">
+					<f:selectItems value="#{positionsMB.statusPosition}"
+						var="status" itemLabel="#{status}" itemValue="#{status}" />
+				</p:selectOneRadio>
+				
+			</p:outputPanel>
+			<p:outputPanel style="text-align:center">
+				<p:commandButton value="Close"
+					onclick="PF('positionStatusDialog').hide();return false;" />
+				<p:commandButton value="Clear" update="statusPos" process="@this">
+					<p:resetInput target="statusPos" />
+				</p:commandButton>
+				<p:commandButton value="Submit feedback" ajax="false"
+					action="#{positionsMB.changeSatus()}" />
+			</p:outputPanel>
+		</p:dialog>
 
 		<p:dialog id="detailsSelectedPosition" header="Position Details"
 			widgetVar="positionDialog" modal="true" width="900" height="500"

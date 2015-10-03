@@ -26,25 +26,22 @@ import org.slf4j.LoggerFactory;
 @Named
 @RequestScoped
 public class EnvioMail implements Serializable {
+	// dados do email que manda os emails da aplicacao
 	// capfrlra@gmail.com
 	// projfinal123
 
 	private static final long serialVersionUID = 3963092205902032139L;
 	private static final Logger log = LoggerFactory.getLogger(EnvioMail.class);
 
-	// public static void main(String[] args) {
 	public void sendMail(String emailTo, String subject, String mail,
 			String cvpath, String guidepath) {
 
-		emailTo = "lourencorafaela@gmail.com";
+		emailTo = "lourencorafaela@gmail.com"; // apagar caso se queira mandar
+												// para outros emails
 		log.info("Sending email to:" + emailTo + " - Subject: " + subject);
-		// Recipient's email ID needs to be mentioned.
-
-		// String to = "lourencorafaela@gmail.com";// change accordingly
 
 		// Sender's email ID needs to be mentioned
 		String from = "capfrlra@gmail.com";// change accordingly
-		// String from = "Application Candidature Managemen";
 		final String username = "capfrlra@gmail.com";// change accordingly
 		final String password = "projfinal123";// change accordingly
 
@@ -60,11 +57,11 @@ public class EnvioMail implements Serializable {
 		// Get the Session object.
 		Session session = Session.getInstance(props,
 				new javax.mail.Authenticator() {
-					@Override
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				});
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
 
 		try {
 			// Create a default MimeMessage object.
@@ -84,7 +81,6 @@ public class EnvioMail implements Serializable {
 			BodyPart messageBodyPart = new MimeBodyPart();
 
 			// Now set the actual message
-			// messageBodyPart.setText(mail);
 			messageBodyPart.setContent(mail, "text/html");
 
 			// Create a multipar message

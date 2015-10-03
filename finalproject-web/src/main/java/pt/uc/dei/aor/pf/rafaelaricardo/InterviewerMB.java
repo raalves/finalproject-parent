@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.xml.ws.soap.Addressing;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +58,6 @@ public class InterviewerMB implements Serializable {
 
 		try {
 			resultList = interviewFacade.findInterviewByUser(actUser);
-			System.out.println(resultList);
 		} catch (EJBException e) {
 			String errorMsg = "Error gettin interviews: " + e.getMessage();
 			log.error(errorMsg);
@@ -74,12 +72,11 @@ public class InterviewerMB implements Serializable {
 		this.interviewSelect = interviewSelect;
 		this.downloadName = "Guide Complete_"
 				+ this.interviewSelect.getCandidature().getCandidate()
-						.getFirstName()
+				.getFirstName()
 				+ this.interviewSelect.getCandidature().getCandidate()
-						.getLastName() + ".xlsx";
+				.getLastName() + ".xlsx";
 		this.path = interviewSelect.getCandidature().getPosition().getGuide()
 				.getFilePath();
-		System.out.println(downloadName + " " + path);
 	}
 
 	public void uploadGuideComplete(UploadFile file) {
@@ -139,7 +136,7 @@ public class InterviewerMB implements Serializable {
 							null));
 		}
 	}
-	
+
 	public void renderButtonGuideComplet() {
 		if (interviewSelect.getGuideComplete().getFilePath() != null) {
 			render = true;
